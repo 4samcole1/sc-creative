@@ -1,14 +1,18 @@
 import { createSupabaseServerClient } from '@/lib/supabase-server'
 
 export default async function Testimonials() {
-  const supabase = await createSupabaseServerClient()
-  const { data: testimonials } = await supabase
-    .from('testimonials')
-    .select('id, author, company, quote')
-    .eq('visible', true)
-    .order('sort_order')
-
-  const items = testimonials ?? []
+  let items: { id: string; author: string; company: string | null; quote: string }[] = []
+  try {
+    const supabase = await createSupabaseServerClient()
+    const { data } = await supabase
+      .from('testimonials')
+      .select('id, author, company, quote')
+      .eq('visible', true)
+      .order('sort_order')
+    items = data ?? []
+  } catch {
+    // Supabase not configured — use fallback
+  }
 
   const fallback = [
     { id: '1', author: 'Client Name', company: 'Industry · Walker County', quote: 'Working with Sam completely transformed our online presence. We went from invisible on Google to getting consistent leads every week — and our brand finally looks as professional as our work.' },

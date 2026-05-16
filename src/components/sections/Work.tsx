@@ -2,15 +2,19 @@ import Link from 'next/link'
 import { createSupabaseServerClient } from '@/lib/supabase-server'
 
 export default async function Work() {
-  const supabase = await createSupabaseServerClient()
-  const { data: projects } = await supabase
-    .from('projects')
-    .select('id, title, slug, client, services, cover_image')
-    .eq('status', 'published')
-    .order('sort_order')
-    .limit(3)
-
-  const items = projects ?? []
+  let items: { id: string; title: string; slug: string; client: string | null; services: string[]; cover_image: string | null }[] = []
+  try {
+    const supabase = await createSupabaseServerClient()
+    const { data } = await supabase
+      .from('projects')
+      .select('id, title, slug, client, services, cover_image')
+      .eq('status', 'published')
+      .order('sort_order')
+      .limit(3)
+    items = data ?? []
+  } catch {
+    // Supabase not configured — show placeholder cards
+  }
 
   return (
     <section id="work" className="bg-[#0d1f35] py-[90px]">
