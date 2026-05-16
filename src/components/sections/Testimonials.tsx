@@ -15,24 +15,27 @@ export default async function Testimonials() {
   }
 
   const fallback = [
-    { id: '1', author: 'Client Name', company: 'Industry · Walker County', quote: 'Working with Sam completely transformed our online presence. We went from invisible on Google to getting consistent leads every week — and our brand finally looks as professional as our work.' },
-    { id: '2', author: 'Client Name', company: 'Industry · Walker County', quote: 'Our leads doubled within 3 months of the new site going live. The whole process was easy, fast, and the results have been beyond what we expected.' },
+    { id: '1', author: 'Client Name', company: 'Home Services · Walker County', quote: 'Working with Sam completely transformed our online presence. We went from invisible on Google to getting consistent leads every week — and our brand finally looks as professional as our work.' },
+    { id: '2', author: 'Client Name', company: 'Construction · Walker County', quote: 'Our leads doubled within 3 months of the new site going live. The whole process was easy, fast, and the results have been beyond what we expected.' },
   ]
 
   const display = items.length > 0 ? items : fallback
 
   return (
-    <section id="testimonials" className="bg-[#f5f3ef] py-[90px]">
+    <section id="testimonials" className="bg-[#f8f7f5] py-[100px]">
       <div className="max-w-[1240px] mx-auto px-[60px]">
-        <div className="text-[11px] font-bold tracking-[.12em] uppercase text-[#00b5a5] mb-3">What Clients Say</div>
-        <h2 className="text-[clamp(24px,3vw,38px)] font-extrabold text-[#1a3557] leading-[1.2] mb-10">
-          Walker County Businesses Trust SC Creative
+        <div className="text-[11px] font-bold tracking-[.14em] uppercase text-[#00b5a5] mb-5">What Clients Say</div>
+        <h2 className="text-[clamp(32px,3.5vw,52px)] font-extrabold text-[#1a3557] leading-[1.12] mb-16">
+          Walker County businesses<br />trust SC Creative.
         </h2>
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-2 gap-14">
           {display.map((t) => (
-            <div key={t.id} className="bg-white rounded-xl p-7 border-l-4 border-[#00b5a5] shadow-[0_2px_12px_rgba(0,0,0,.06)]">
-              <p className="text-[15px] text-[#444] leading-[1.7] mb-4 italic">&ldquo;{t.quote}&rdquo;</p>
-              <div className="text-[12px] font-bold text-[#00b5a5]">— {t.author}{t.company ? `, ${t.company}` : ''}</div>
+            <div key={t.id} className="border-t-2 border-[#00b5a5] pt-8">
+              <p className="text-[17px] text-[#333] leading-[1.8] italic mb-7">&ldquo;{t.quote}&rdquo;</p>
+              <div className="text-[12px] font-bold text-[#1a3557]">
+                {t.author}
+                {t.company ? <span className="text-[#aaa] font-normal"> · {t.company}</span> : ''}
+              </div>
             </div>
           ))}
         </div>

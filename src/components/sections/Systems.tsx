@@ -106,12 +106,12 @@ export default function Systems() {
             <div className="text-[13px] text-[#5a6e84] leading-relaxed p-4 bg-[rgba(0,181,165,.06)] rounded-lg border-l-[3px] border-[#00b5a5] mb-7">
               Your brand, website, AI, and SEO run as one integrated system — while you focus entirely on doing the work you&apos;re great at.
             </div>
-            <Link
-              href="/quote"
+            <a
+              href="#package-builder"
               className="inline-block bg-[#00b5a5] text-white text-[13px] font-bold px-6 py-3 rounded-md hover:bg-[#009d8f] transition-colors tracking-[.04em]"
             >
-              Get My Custom Quote →
-            </Link>
+              Build My Package →
+            </a>
           </div>
         </div>
       </div>
