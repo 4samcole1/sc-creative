@@ -7,18 +7,18 @@ export default function Hero() {
       <div className="max-w-[1240px] mx-auto px-[60px] grid grid-cols-[0.9fr_1.1fr] gap-12 items-center">
         <div>
           <div className="text-[11px] font-bold tracking-[.12em] uppercase text-[#00b5a5] mb-3.5">
-            Walker County&apos;s Growth Partner
+            Walker County&apos;s Digital Growth Studio
           </div>
           <h1 className="text-[clamp(28px,3vw,44px)] font-extrabold text-white leading-[1.2] mb-4">
             We Build the Digital<br />Systems That Grow<br />Local Businesses
           </h1>
           <p className="text-[15px] text-white/60 leading-[1.65] mb-8 max-w-[400px]">
-            Brand, website, AI systems, and local SEO — built as one integrated system for established Walker County businesses ready to dominate their market.
+            Website, brand, AI follow-up, and local SEO — built as one integrated system so your business gets found, looks legit, and converts leads while you focus on the work.
           </p>
           <div className="flex gap-3 flex-wrap">
-            <Link href="/quote" className="bg-[#00b5a5] text-white text-sm font-bold px-7 py-3 rounded-[5px] hover:opacity-90 transition-opacity">
-              Get My Custom Quote →
-            </Link>
+            <a href="#package-builder" className="bg-[#00b5a5] text-white text-sm font-bold px-7 py-3 rounded-[5px] hover:opacity-90 transition-opacity">
+              Build Your Package →
+            </a>
             <Link href="/work" className="border border-white/30 text-white/80 text-sm font-medium px-6 py-3 rounded-[5px] hover:border-white/60 hover:text-white transition-all">
               See Our Work
             </Link>

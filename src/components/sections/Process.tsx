@@ -1,9 +1,9 @@
 const steps = [
-  { num: '01', name: 'Brand Blueprint', desc: 'Strategy & messaging foundation' },
-  { num: '02', name: 'Visual Branding', desc: 'Logo, identity & usage system' },
-  { num: '03', name: 'Website', desc: 'Performance-built, converting site' },
-  { num: '04', name: 'AI Systems', desc: 'Automation & smart tools' },
-  { num: '05', name: 'Growth', desc: 'SEO · GBP · Ads · Backlinking' },
+  { num: '01', name: 'Brand Blueprint', desc: 'We map your market, competitors & goals before touching a single pixel' },
+  { num: '02', name: 'Visual Branding', desc: 'Logo, colors & identity that positions you as the premium option locally' },
+  { num: '03', name: 'Website', desc: 'Built fast, built right — SEO-ready, mobile-first, and written to convert' },
+  { num: '04', name: 'AI Systems', desc: 'Lead capture, instant follow-up & chat so no lead ever goes cold' },
+  { num: '05', name: 'Growth', desc: 'Local SEO, GBP management & ads to keep the leads coming every month' },
 ]
 
 export default function Process() {

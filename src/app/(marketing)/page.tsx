@@ -7,7 +7,7 @@ import Industries from '@/components/sections/Industries'
 import Work from '@/components/sections/Work'
 import Testimonials from '@/components/sections/Testimonials'
 import About from '@/components/sections/About'
-import QuoteForm from '@/components/sections/QuoteForm'
+import PackageBuilder from '@/components/sections/PackageBuilder'
 import CTA from '@/components/sections/CTA'
 
 export default function HomePage() {
@@ -22,7 +22,7 @@ export default function HomePage() {
       <Work />
       <Testimonials />
       <About />
-      <QuoteForm />
+      <PackageBuilder />
       <CTA />
     </>
   )

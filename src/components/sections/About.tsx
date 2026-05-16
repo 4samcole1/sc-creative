@@ -1,7 +1,7 @@
 const facts = [
-  { icon: '📍', text: 'Based in Cordova, AL — Walker County native' },
-  { icon: '🏆', text: '13+ years of digital marketing & brand strategy' },
-  { icon: '🤝', text: '100+ projects delivered across Walker County' },
+  { icon: '📍', text: 'Based in Cordova, AL — serving Walker County and beyond' },
+  { icon: '🏆', text: '13 years in digital marketing · 33-year family legacy in the industry' },
+  { icon: '🌍', text: 'Hundreds of businesses served locally, regionally, nationally & internationally' },
 ]
 
 export default function About() {
@@ -15,13 +15,13 @@ export default function About() {
           <div>
             <div className="text-[11px] font-bold tracking-[.12em] uppercase text-[#00b5a5] mb-3">Meet Sam Cole</div>
             <h2 className="text-[clamp(24px,2.5vw,36px)] font-extrabold text-[#1a3557] leading-[1.2] mb-5">
-              Not a Big Agency.<br />A Focused System Built for Walker County.
+              World-Class Digital Marketing.<br />Right Here in Walker County.
             </h2>
             <p className="text-[15px] text-[#555] leading-[1.7] mb-4">
-              I&apos;ve been helping established local businesses grow for 13+ years. Based right here in Cordova, AL — I know this market, I know these businesses, and I know what it takes to stand out.
+              SC Creative was built with one mission: bring the same caliber of digital marketing that Fortune 500 brands get to the businesses that need it most. Our family has been delivering results for industry-leading clients for 33 years. Now we do it right here.
             </p>
             <p className="text-[15px] text-[#555] leading-[1.7] mb-8">
-              When you work with SC Creative, you&apos;re working directly with me — not a junior designer or an account manager. Every strategy, every design decision, every system is built with your specific goals in mind.
+              When you work with SC Creative, you work directly with me — not a junior designer or an account manager. Every strategy, system, and design decision is built around your specific market, your competitors, and the growth you&apos;re trying to achieve.
             </p>
             <div className="flex flex-col gap-3">
               {facts.map((f) => (

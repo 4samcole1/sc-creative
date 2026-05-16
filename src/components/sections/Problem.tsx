@@ -1,15 +1,15 @@
 const problems = [
-  { icon: '🌐', title: 'Scattered Marketing', desc: "Disconnected tools that don't talk to each other or tell a consistent story." },
-  { icon: '👻', title: 'Invisible Online', desc: "Competitors showing up first on Google while you're nowhere to be found." },
-  { icon: '📉', title: 'Outdated Brand', desc: 'A logo and website that no longer reflect how good you actually are.' },
-  { icon: '⏰', title: 'No Time to Fix It', desc: "You're running the business — there's no bandwidth to solve the marketing too." },
+  { icon: '🌐', title: 'Your Website Is Costing You Jobs', desc: "An outdated or missing website tells potential customers to call your competitor instead." },
+  { icon: '👻', title: 'Invisible on Google', desc: "When locals search for what you do, competitors are taking those calls — not you." },
+  { icon: '📉', title: "Your Brand Doesn't Match Your Work", desc: "You do great work, but your logo, site, and marketing make you look like a side hustle." },
+  { icon: '⏰', title: 'Leads Slip Through the Cracks', desc: "Without a follow-up system, leads that don't get a fast response go somewhere else." },
 ]
 
 const solutions = [
-  { icon: '🎯', title: 'One Integrated System', desc: 'Every piece built together — brand, site, AI, and growth working as one.' },
-  { icon: '📍', title: 'Local-First SEO', desc: 'We know Walker County and build search strategies that win locally.' },
-  { icon: '✨', title: 'Premium Brand Identity', desc: 'A complete brand system that positions you as the clear market leader.' },
-  { icon: '🤖', title: 'AI That Works for You', desc: 'Systems that follow up, qualify, and convert leads while you sleep.' },
+  { icon: '🎯', title: 'A Site That Actually Converts', desc: 'Fast, professional, and written to generate calls — built in days, not months.' },
+  { icon: '📍', title: '#1 in Walker County Searches', desc: 'Local SEO and GBP strategy built specifically for your market and your competitors.' },
+  { icon: '✨', title: 'A Brand That Commands Premium', desc: 'Logo, colors, and identity that position you as the go-to in your area.' },
+  { icon: '🤖', title: 'AI That Follows Up for You', desc: 'Instant response, 24/7 — so no lead ever goes cold, even at midnight.' },
 ]
 
 export default function Problem() {
@@ -19,7 +19,7 @@ export default function Problem() {
         <div className="text-center mb-12">
           <div className="text-[11px] font-bold tracking-[.12em] uppercase text-[#00b5a5] mb-3">The Problem We Solve</div>
           <h2 className="text-[clamp(24px,3vw,38px)] font-extrabold text-[#1a3557] leading-[1.2]">
-            Most Local Businesses Leave Growth on the Table
+            Why Good Businesses Stay Stuck
           </h2>
         </div>
         <div className="grid grid-cols-2 gap-12 items-start">
