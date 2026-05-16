@@ -91,13 +91,52 @@ export interface ServiceAreaPage {
 export interface Database {
   public: {
     Tables: {
-      posts: { Row: Post; Insert: Omit<Post, 'id' | 'created_at'>; Update: Partial<Omit<Post, 'id' | 'created_at'>> }
-      projects: { Row: Project; Insert: Omit<Project, 'id' | 'created_at'>; Update: Partial<Omit<Project, 'id' | 'created_at'>> }
-      case_studies: { Row: CaseStudy; Insert: Omit<CaseStudy, 'id' | 'created_at'>; Update: Partial<Omit<CaseStudy, 'id' | 'created_at'>> }
-      testimonials: { Row: Testimonial; Insert: Omit<Testimonial, 'id' | 'created_at'>; Update: Partial<Omit<Testimonial, 'id' | 'created_at'>> }
-      leads: { Row: Lead; Insert: Omit<Lead, 'id' | 'created_at'>; Update: Partial<Omit<Lead, 'id' | 'created_at'>> }
-      industry_pages: { Row: IndustryPage; Insert: Omit<IndustryPage, 'id' | 'created_at'>; Update: Partial<Omit<IndustryPage, 'id' | 'created_at'>> }
-      service_area_pages: { Row: ServiceAreaPage; Insert: Omit<ServiceAreaPage, 'id' | 'created_at'>; Update: Partial<Omit<ServiceAreaPage, 'id' | 'created_at'>> }
+      posts: {
+        Row: Post
+        Insert: Omit<Post, 'id' | 'created_at'>
+        Update: Partial<Omit<Post, 'id' | 'created_at'>>
+        Relationships: never[]
+      }
+      projects: {
+        Row: Project
+        Insert: Omit<Project, 'id' | 'created_at'>
+        Update: Partial<Omit<Project, 'id' | 'created_at'>>
+        Relationships: never[]
+      }
+      case_studies: {
+        Row: CaseStudy
+        Insert: Omit<CaseStudy, 'id' | 'created_at'>
+        Update: Partial<Omit<CaseStudy, 'id' | 'created_at'>>
+        Relationships: never[]
+      }
+      testimonials: {
+        Row: Testimonial
+        Insert: Omit<Testimonial, 'id' | 'created_at'>
+        Update: Partial<Omit<Testimonial, 'id' | 'created_at'>>
+        Relationships: never[]
+      }
+      leads: {
+        Row: Lead
+        Insert: Omit<Lead, 'id' | 'created_at'>
+        Update: Partial<Omit<Lead, 'id' | 'created_at'>>
+        Relationships: never[]
+      }
+      industry_pages: {
+        Row: IndustryPage
+        Insert: Omit<IndustryPage, 'id' | 'created_at'>
+        Update: Partial<Omit<IndustryPage, 'id' | 'created_at'>>
+        Relationships: never[]
+      }
+      service_area_pages: {
+        Row: ServiceAreaPage
+        Insert: Omit<ServiceAreaPage, 'id' | 'created_at'>
+        Update: Partial<Omit<ServiceAreaPage, 'id' | 'created_at'>>
+        Relationships: never[]
+      }
     }
+    Views: Record<string, never>
+    Functions: Record<string, never>
+    Enums: Record<string, never>
+    CompositeTypes: Record<string, never>
   }
 }
