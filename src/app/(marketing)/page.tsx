@@ -1,27 +1,29 @@
+// src/app/(marketing)/page.tsx
 import Hero from '@/components/sections/Hero'
-import Systems from '@/components/sections/Systems'
-import StatsBar from '@/components/sections/StatsBar'
-import Problem from '@/components/sections/Problem'
-import Services from '@/components/sections/Services'
-import Process from '@/components/sections/Process'
+import TrustBar from '@/components/sections/StatsBar'
+import Ecosystem from '@/components/sections/Systems'
+import PartnerCTA from '@/components/sections/PartnerCTA'
 import Work from '@/components/sections/Work'
-import Testimonials from '@/components/sections/Testimonials'
-import PackageBuilder from '@/components/sections/PackageBuilder'
-import About from '@/components/sections/About'
+import Community from '@/components/sections/Community'
+import Newsletter from '@/components/sections/Newsletter'
+
+// Deferred — to be added back in next design phase
+// import Problem from '@/components/sections/Problem'
+// import Process from '@/components/sections/Process'
+// import PackageBuilder from '@/components/sections/PackageBuilder'
+// import About from '@/components/sections/About'
+// import Testimonials from '@/components/sections/Testimonials'
 
 export default function HomePage() {
   return (
     <>
       <Hero />
-      <Systems />
-      <StatsBar />
-      <Problem />
-      <Services />
-      <Process />
+      <TrustBar />
+      <Ecosystem />
+      <PartnerCTA />
       <Work />
-      <Testimonials />
-      <PackageBuilder />
-      <About />
+      <Community />
+      <Newsletter />
     </>
   )
 }
