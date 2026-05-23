@@ -1,8 +1,35 @@
+// src/components/sections/Work.tsx
 import Link from 'next/link'
 import { createSupabaseServerClient } from '@/lib/supabase-server'
 
+const fallbackProjects = [
+  {
+    category: 'WEBSITE DESIGN',
+    title: 'Industrial Manufacturing Website',
+    description: 'Custom WordPress website with advanced product filtering and lead generation systems.',
+  },
+  {
+    category: 'E-COMMERCE',
+    title: 'Custom E-Commerce Platform',
+    description: 'Advanced Shopify build for a high-volume retailer with custom integrations.',
+  },
+  {
+    category: 'WEB APPLICATION',
+    title: 'Client Portal & Dashboard',
+    description: 'Custom portal with reporting, document management, and task automation.',
+  },
+]
+
 export default async function Work() {
-  let items: { id: string; title: string; slug: string; client: string | null; services: string[]; cover_image: string | null }[] = []
+  let items: {
+    id: string
+    title: string
+    slug: string
+    client: string | null
+    services: string[]
+    cover_image: string | null
+  }[] = []
+
   try {
     const supabase = await createSupabaseServerClient()
     const { data } = await supabase
@@ -13,52 +40,76 @@ export default async function Work() {
       .limit(3)
     items = data ?? []
   } catch {
-    // Supabase not configured — show placeholder cards
+    // Supabase not configured — show fallback cards
   }
 
   return (
-    <section id="work" className="bg-[#0d1f35] py-[90px]">
-      <div className="max-w-[1240px] mx-auto px-[60px]">
-        <div className="text-[11px] font-bold tracking-[.12em] uppercase text-[#00b5a5] mb-3">Featured Work</div>
-        <h2 className="text-[clamp(24px,3vw,38px)] font-extrabold text-white leading-[1.2] mb-10">
-          Real Results for Real Businesses
-        </h2>
+    <section id="work" className="bg-white py-24">
+      <div className="max-w-[1500px] mx-auto px-8">
+        <div className="flex items-end justify-between mb-14">
+          <div>
+            <div className="text-[11px] font-bold tracking-[0.2em] uppercase text-[#009898] mb-3">
+              Recent Work
+            </div>
+            <h2 className="text-[clamp(28px,3vw,48px)] font-black text-gray-900 leading-[1.15]">
+              Solutions built for real businesses.
+            </h2>
+          </div>
+          <Link
+            href="/work"
+            className="text-[14px] font-bold text-[#009898] hover:text-[#0EB1AB] transition-colors shrink-0 mb-2"
+          >
+            View All Projects →
+          </Link>
+        </div>
+
         <div className="grid grid-cols-3 gap-6">
           {items.length > 0
             ? items.map((p) => (
                 <Link
                   key={p.id}
                   href={`/work/${p.slug}`}
-                  className="bg-white/5 border border-white/[0.08] rounded-xl overflow-hidden hover:border-[rgba(0,181,165,.4)] transition-colors"
+                  className="group bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
                 >
-                  <div className="h-[140px] bg-gradient-to-br from-[#1a3a5c] to-[#0d2a40] flex items-center justify-center">
-                    {p.cover_image
-                      ? <img src={p.cover_image} alt={p.client ?? p.title} className="w-full h-full object-cover" />
-                      : <div className="w-[80%] h-[60%] bg-white/5 rounded" />
-                    }
+                  <div className="h-[220px] bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden">
+                    {p.cover_image ? (
+                      <img
+                        src={p.cover_image}
+                        alt={p.client ?? p.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gradient-to-br from-[#020617] to-[#071426]" />
+                    )}
                   </div>
-                  <div className="p-4">
-                    <div className="text-sm font-bold text-white mb-1">{p.client ?? p.title}</div>
-                    <div className="text-[11px] text-white/40">{p.services.join(' · ')}</div>
+                  <div className="p-6">
+                    <div className="text-[10px] font-bold tracking-[0.15em] uppercase text-[#009898] mb-2">
+                      {p.services[0] ?? 'PROJECT'}
+                    </div>
+                    <h3 className="font-black text-gray-900 text-lg mb-2">{p.client ?? p.title}</h3>
+                    <p className="text-gray-500 text-[13px] leading-relaxed mb-4">
+                      {p.services.join(' · ')}
+                    </p>
+                    <span className="text-[13px] font-bold text-[#009898]">View Project →</span>
                   </div>
                 </Link>
               ))
-            : [
-                { client: 'Ascon Paving', tags: 'Website · Branding · SEO' },
-                { client: 'Smith Lake Family Care', tags: 'Website · Local SEO · GBP' },
-                { client: 'Walker County HVAC', tags: 'Brand Blueprint · Website · AI' },
-              ].map((p) => (
-                <div key={p.client} className="bg-white/5 border border-white/[0.08] rounded-xl overflow-hidden">
-                  <div className="h-[140px] bg-gradient-to-br from-[#1a3a5c] to-[#0d2a40]" />
-                  <div className="p-4">
-                    <div className="text-sm font-bold text-white mb-1">{p.client}</div>
-                    <div className="text-[11px] text-white/40">{p.tags}</div>
+            : fallbackProjects.map((p) => (
+                <div
+                  key={p.title}
+                  className="group bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+                >
+                  <div className="h-[220px] bg-gradient-to-br from-[#020617] to-[#071426] overflow-hidden" />
+                  <div className="p-6">
+                    <div className="text-[10px] font-bold tracking-[0.15em] uppercase text-[#009898] mb-2">
+                      {p.category}
+                    </div>
+                    <h3 className="font-black text-gray-900 text-lg mb-2">{p.title}</h3>
+                    <p className="text-gray-500 text-[13px] leading-relaxed mb-4">{p.description}</p>
+                    <span className="text-[13px] font-bold text-[#009898]">View Project →</span>
                   </div>
                 </div>
               ))}
-        </div>
-        <div className="text-center mt-10">
-          <Link href="/work" className="text-sm font-bold text-[#00b5a5] hover:underline">View Full Portfolio →</Link>
         </div>
       </div>
     </section>
