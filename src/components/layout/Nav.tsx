@@ -1,82 +1,60 @@
 // src/components/layout/Nav.tsx
 'use client'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
-const services = [
-  { label: 'Brand Blueprint', href: '/services/brand-blueprint' },
-  { label: 'Visual Branding', href: '/services/visual-branding' },
-  { label: 'Website Design', href: '/services/website-design' },
-  { label: 'AI Systems', href: '/services/ai-systems' },
+const navLinks = [
+  { label: 'Work', href: '/work' },
+  { label: 'Blueprint', href: '/services/brand-blueprint' },
+  { label: 'Branding', href: '/services/visual-branding' },
+  { label: 'Website', href: '/services/website-design' },
+  { label: 'AI Solutions', href: '/services/ai-systems' },
   { label: 'Growth', href: '/services/growth' },
+  { label: 'About', href: '/about' },
 ]
 
-const industries = [
-  { label: 'Home & Trade Services', href: '/industries/home-trade' },
-  { label: 'Medical & Dental', href: '/industries/medical-dental' },
-  { label: 'Legal & Professional', href: '/industries/legal-professional' },
-  { label: 'Construction & Contractors', href: '/industries/construction' },
-  { label: 'Financial & Accounting', href: '/industries/financial' },
-  { label: 'Automotive', href: '/industries/automotive' },
-  { label: 'Senior Care & Wellness', href: '/industries/senior-care' },
-  { label: 'Real Estate', href: '/industries/real-estate' },
-]
+export default function Nav() {
+  const [scrolled, setScrolled] = useState(false)
 
-const serviceAreas = [
-  { label: 'Walker County', href: '/service-area' },
-  { label: 'Jasper', href: '/service-area/jasper' },
-  { label: 'Cordova', href: '/service-area/cordova' },
-  { label: 'Sumiton', href: '/service-area/sumiton' },
-  { label: 'Dora', href: '/service-area/dora' },
-  { label: 'Parrish', href: '/service-area/parrish' },
-  { label: 'Carbon Hill', href: '/service-area/carbon-hill' },
-  { label: 'Oakman', href: '/service-area/oakman' },
-]
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 80)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
-function Dropdown({ label, items }: { label: string; items: { label: string; href: string }[] }) {
-  const [open, setOpen] = useState(false)
   return (
-    <div className="relative" onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
-      <button className="text-white/75 hover:text-white text-sm font-medium flex items-center gap-1 py-1">
-        {label} <span className="text-xs">▾</span>
-      </button>
-      {open && (
-        <div className="absolute top-full left-0 bg-[#0d1f35] border border-white/10 rounded-lg py-2 min-w-[220px] shadow-xl z-50">
-          {items.map((item) => (
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? 'bg-[#071426]/95 backdrop-blur-md border-b border-white/[0.08]'
+          : 'bg-white/[0.03] backdrop-blur-sm border-b border-white/[0.05]'
+      }`}
+      style={{ height: '88px' }}
+    >
+      <div className="max-w-[1500px] mx-auto px-8 flex items-center h-full">
+        <Link
+          href="/"
+          className="font-extrabold text-white text-sm tracking-widest uppercase shrink-0 mr-10"
+          aria-label="SC Creative"
+        >
+          SC Creative
+        </Link>
+        <div className="flex items-center gap-7 flex-1 justify-center">
+          {navLinks.map((l) => (
             <Link
-              key={item.href}
-              href={item.href}
-              className="block px-4 py-2 text-sm text-white/75 hover:text-white hover:bg-white/5 transition-colors"
+              key={l.href}
+              href={l.href}
+              className="text-white/70 hover:text-white text-sm font-medium transition-colors"
             >
-              {item.label}
+              {l.label}
             </Link>
           ))}
         </div>
-      )}
-    </div>
-  )
-}
-
-export default function Nav() {
-  return (
-    <nav className="bg-[#0d1f35] sticky top-0 z-50 border-b border-white/[0.06]">
-      <div className="max-w-[1240px] mx-auto px-[60px] flex items-center h-[68px] gap-8">
-        <Link href="/" className="font-extrabold text-white text-sm tracking-widest uppercase" aria-label="SC Creative">
-          SC Creative
-        </Link>
-        <div className="flex items-center gap-6 flex-1">
-          <Link href="/work" className="text-white/75 hover:text-white text-sm font-medium">Work</Link>
-          <Dropdown label="Services" items={services} />
-          <Dropdown label="Industries" items={industries} />
-          <Dropdown label="Service Area" items={serviceAreas} />
-          <Link href="/about" className="text-white/75 hover:text-white text-sm font-medium">About</Link>
-          <Link href="/insights" className="text-white/75 hover:text-white text-sm font-medium">Insights</Link>
-        </div>
         <Link
-          href="/quote"
-          className="ml-auto bg-[#00b5a5] text-white text-[13px] font-bold px-[22px] py-[9px] rounded-[5px] hover:opacity-90 transition-opacity"
+          href="/contact"
+          className="shrink-0 bg-[#009898] text-white text-sm font-bold px-6 py-2.5 rounded-xl hover:bg-[#0EB1AB] hover:shadow-[0_0_20px_rgba(14,177,171,0.4)] transition-all duration-200"
         >
-          Get My Quote →
+          Get In Touch
         </Link>
       </div>
     </nav>
