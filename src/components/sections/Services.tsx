@@ -184,9 +184,10 @@ export default function Services() {
       const el = sectionRef.current
       if (!el) return
       const top = el.getBoundingClientRect().top
-      const scrollable = el.offsetHeight - window.innerHeight
       const scrolled = -top
-      const prog = Math.max(0, Math.min(1, scrolled / scrollable))
+      // Animation completes over first 120vh of scroll, then section holds
+      const animPx = window.innerHeight * 1.2
+      const prog = Math.max(0, Math.min(1, scrolled / animPx))
       setProgress(prog)
       setTranslateY(prog * MAX_TRANSLATE)
     }
@@ -198,7 +199,7 @@ export default function Services() {
   const showArrow = progress < 0.92
 
   return (
-    <div ref={sectionRef} style={{ height: '220vh', position: 'relative', background: '#0b1520' }}>
+    <div ref={sectionRef} style={{ height: '270vh', position: 'relative', background: '#0b1520' }}>
       <style>{`
         @keyframes bounce-down {
           0%, 100% { transform: translateY(0); opacity: 0.6; }
@@ -378,8 +379,8 @@ export default function Services() {
                 height: WINDOW_H,
                 overflow: 'hidden',
                 position: 'relative',
-                WebkitMaskImage: `linear-gradient(to bottom, transparent 0%, black ${Math.min(8, progress * 200)}%, black 80%, transparent 100%)`,
-                maskImage: `linear-gradient(to bottom, transparent 0%, black ${Math.min(8, progress * 200)}%, black 80%, transparent 100%)`,
+                WebkitMaskImage: `linear-gradient(to bottom, transparent 0%, black ${Math.min(8, progress * 200)}%, black ${Math.min(100, 80 + Math.max(0, (progress - 0.8) * 100))}%, transparent 100%)`,
+                maskImage: `linear-gradient(to bottom, transparent 0%, black ${Math.min(8, progress * 200)}%, black ${Math.min(100, 80 + Math.max(0, (progress - 0.8) * 100))}%, transparent 100%)`,
               }}
             >
               <div

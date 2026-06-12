@@ -2,6 +2,7 @@
 import Link from 'next/link'
 import { MapPin, Settings, TrendingUp } from 'lucide-react'
 import HeroNetwork from './HeroNetwork'
+import Btn from '@/components/ui/Btn'
 
 const cards = [
   {
@@ -38,44 +39,21 @@ export default function Hero() {
           from { opacity: 0; transform: translateY(16px); }
           to   { opacity: 1; transform: translateY(0); }
         }
-        @keyframes drawer-enter {
-          from { opacity: 0; transform: translateX(40px); }
+        @keyframes card-enter {
+          from { opacity: 0; transform: translateX(24px); }
           to   { opacity: 1; transform: translateX(0); }
         }
         .hero-left-content {
           animation: left-enter 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
         }
-        .hero-drawer {
-          width: 280px;
-          animation: drawer-enter 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
-          transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-                      background 0.3s ease,
-                      box-shadow 0.3s ease;
-          cursor: pointer;
+        .hero-feat-card {
+          animation: card-enter 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+          transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
         }
-        .hero-drawer:hover {
-          width: 380px;
-          background: rgba(18, 30, 44, 0.85) !important;
-          box-shadow: -12px 0 40px rgba(0,0,0,0.35);
-        }
-        .drawer-desc {
-          max-height: 0;
-          overflow: hidden;
-          opacity: 0;
-          transition: max-height 0.35s ease, opacity 0.25s ease;
-        }
-        .hero-drawer:hover .drawer-desc {
-          max-height: 100px;
-          opacity: 1;
-        }
-        .drawer-cta {
-          opacity: 0;
-          transform: translateY(4px);
-          transition: opacity 0.25s ease 0.1s, transform 0.25s ease 0.1s;
-        }
-        .hero-drawer:hover .drawer-cta {
-          opacity: 1;
-          transform: translateY(0);
+        .hero-feat-card:hover {
+          background: rgba(20,34,50,0.9) !important;
+          transform: translateX(5px);
+          box-shadow: 0 8px 32px rgba(0,0,0,0.28);
         }
       `}</style>
 
@@ -85,27 +63,27 @@ export default function Hero() {
       {/* Animated node network */}
       <HeroNetwork />
 
-      {/* Radial teal glow — right side light source */}
+      {/* Radial teal glow — upper right */}
       <div
         className="absolute inset-0"
         style={{
           background:
-            'radial-gradient(ellipse 60% 70% at 80% 50%, rgba(28,199,195,0.07) 0%, transparent 70%)',
+            'radial-gradient(ellipse 55% 65% at 85% 40%, rgba(28,199,195,0.07) 0%, transparent 70%)',
         }}
       />
 
-      {/* Left-side vignette to keep text crisp */}
+      {/* Subtle left vignette so text stays crisp */}
       <div
         className="absolute inset-0"
         style={{
           background:
-            'linear-gradient(90deg, rgba(11,21,32,0.6) 0%, rgba(11,21,32,0.2) 50%, transparent 100%)',
+            'linear-gradient(90deg, rgba(11,21,32,0.55) 0%, rgba(11,21,32,0.15) 55%, transparent 100%)',
         }}
       />
 
-      {/* Left content — within 1200px container, ~60% wide */}
+      {/* Content grid */}
       <div
-        className="absolute inset-0 flex items-center"
+        className="relative z-10 h-full flex items-center"
         style={{ paddingTop: '88px' }}
       >
         <div
@@ -114,9 +92,14 @@ export default function Hero() {
             maxWidth: '1200px',
             margin: '0 auto',
             padding: '0 40px',
+            display: 'grid',
+            gridTemplateColumns: '65% 35%',
+            gap: '48px',
+            alignItems: 'center',
           }}
         >
-          <div className="hero-left-content" style={{ maxWidth: '730px' }}>
+          {/* ── Left column ── */}
+          <div className="hero-left-content">
             <p
               style={{
                 fontSize: '11px',
@@ -143,51 +126,19 @@ export default function Hero() {
               <span style={{ color: '#1cc7c3' }}>Growth.</span>
             </h1>
 
-            <p style={{ fontSize: '15px', color: '#9aaab6', lineHeight: 1.72, marginBottom: '10px', maxWidth: '660px' }}>
+            <p style={{ fontSize: '15px', color: '#9aaab6', lineHeight: 1.72, marginBottom: '10px', maxWidth: '620px' }}>
               SC Creative helps businesses across Jasper, Walker County, and beyond grow through
               strategic clarity, modern branding, high-performance websites, and intelligent systems.
             </p>
 
-            <p style={{ fontSize: '15px', color: '#9aaab6', lineHeight: 1.72, marginBottom: '36px', maxWidth: '660px' }}>
+            <p style={{ fontSize: '15px', color: '#9aaab6', lineHeight: 1.72, marginBottom: '36px', maxWidth: '620px' }}>
               Whether you&apos;re launching, modernizing, or scaling — we build the infrastructure
               behind long-term success.
             </p>
 
             <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '36px' }}>
-              <Link
-                href="/contact"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  fontSize: '13px',
-                  fontWeight: 700,
-                  padding: '12px 26px',
-                  borderRadius: '10px',
-                  background: '#1cc7c3',
-                  color: '#07262b',
-                  textDecoration: 'none',
-                  boxShadow: '0 8px 24px rgba(28,199,195,0.28)',
-                }}
-              >
-                Start Your Project +
-              </Link>
-              <Link
-                href="/process"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  fontSize: '13px',
-                  fontWeight: 600,
-                  padding: '12px 26px',
-                  borderRadius: '10px',
-                  color: '#dbe3ea',
-                  textDecoration: 'none',
-                  border: '1.5px solid rgba(255,255,255,0.16)',
-                }}
-              >
-                Explore Our Process
-              </Link>
+              <Btn href="/contact" variant="primary">Start Your Project +</Btn>
+              <Btn href="/process" variant="ghost">Explore Our Process</Btn>
             </div>
 
             <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', color: '#7a8898', fontSize: '13px', lineHeight: 1.55 }}>
@@ -198,91 +149,62 @@ export default function Hero() {
               </span>
             </div>
           </div>
-        </div>
-      </div>
 
-      {/* Right cards — flush to viewport right edge, drawer-expand on hover */}
-      <div
-        style={{
-          position: 'absolute',
-          right: 0,
-          top: '50%',
-          transform: 'translateY(calc(-50% + 44px))',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '10px',
-          zIndex: 20,
-          alignItems: 'flex-end',
-        }}
-      >
-        {cards.map(({ Icon, title, tagline, desc, href, delay }) => (
-          <Link
-            key={title}
-            href={href}
-            className="hero-drawer"
-            style={{
-              animationDelay: delay,
-              display: 'block',
-              padding: '18px 24px',
-              borderRadius: '14px 0 0 14px',
-              background: 'rgba(12,22,34,0.72)',
-              backdropFilter: 'blur(12px)',
-              WebkitBackdropFilter: 'blur(12px)',
-              border: '1px solid rgba(255,255,255,0.07)',
-              borderRight: 'none',
-              borderLeft: '3px solid #1cc7c3',
-              textDecoration: 'none',
-              overflow: 'hidden',
-            }}
-          >
-            {/* Icon + title row */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
-              <div
+          {/* ── Right column — 3 stacked feature cards ── */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            {cards.map(({ Icon, title, tagline, desc, href, delay }) => (
+              <Link
+                key={title}
+                href={href}
+                className="hero-feat-card"
                 style={{
-                  width: '38px',
-                  height: '38px',
-                  borderRadius: '9px',
-                  background: 'rgba(28,199,195,0.12)',
+                  animationDelay: delay,
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'center',
-                  flexShrink: 0,
+                  gap: '16px',
+                  padding: '20px 22px',
+                  borderRadius: '14px',
+                  background: 'rgba(14,24,36,0.65)',
+                  border: '1px solid rgba(255,255,255,0.07)',
+                  borderLeft: '3px solid #1cc7c3',
+                  backdropFilter: 'blur(12px)',
+                  WebkitBackdropFilter: 'blur(12px)',
+                  textDecoration: 'none',
                 }}
               >
-                <Icon size={18} style={{ color: '#1cc7c3' }} />
-              </div>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <p style={{ fontSize: '13.5px', fontWeight: 700, color: '#f0f4f8', lineHeight: 1.2 }}>
-                  {title}
-                </p>
-                <p style={{ fontSize: '11.5px', color: '#6b7a88', marginTop: '2px', lineHeight: 1.3 }}>
-                  {tagline}
-                </p>
-              </div>
-            </div>
+                <div
+                  style={{
+                    width: '42px',
+                    height: '42px',
+                    borderRadius: '10px',
+                    background: 'rgba(28,199,195,0.1)',
+                    border: '1px solid rgba(28,199,195,0.15)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexShrink: 0,
+                  }}
+                >
+                  <Icon size={19} style={{ color: '#1cc7c3' }} />
+                </div>
 
-            {/* Expanded content */}
-            <div className="drawer-desc" style={{ paddingLeft: '52px' }}>
-              <p style={{ fontSize: '12.5px', color: '#8a9aaa', lineHeight: 1.55, marginTop: '10px', marginBottom: '12px' }}>
-                {desc}
-              </p>
-              <span
-                className="drawer-cta"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                  fontSize: '11.5px',
-                  fontWeight: 700,
-                  color: '#1cc7c3',
-                  letterSpacing: '0.04em',
-                }}
-              >
-                Explore →
-              </span>
-            </div>
-          </Link>
-        ))}
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <p style={{ fontSize: '14px', fontWeight: 700, color: '#f0f4f8', lineHeight: 1.2, marginBottom: '3px' }}>
+                    {title}
+                  </p>
+                  <p style={{ fontSize: '12px', color: '#5e7080', lineHeight: 1.4, marginBottom: '4px' }}>
+                    {tagline}
+                  </p>
+                  <p style={{ fontSize: '12px', color: '#7a8fa0', lineHeight: 1.5 }}>
+                    {desc}
+                  </p>
+                </div>
+
+                <span style={{ fontSize: '14px', color: '#2a4558', flexShrink: 0 }}>→</span>
+              </Link>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   )
