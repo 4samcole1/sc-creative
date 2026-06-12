@@ -58,8 +58,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
   return (
     <html lang="en" className={`${ALL_FONT_VARS} h-full antialiased`}>
-      {/* eslint-disable-next-line react/no-danger */}
-      <style dangerouslySetInnerHTML={{ __html: cssVars }} />
+      {/* React 19: href+precedence hoists this into <head> and deduplicates it */}
+      <style href="brand-vars" precedence="default">{cssVars}</style>
       <body
         className="min-h-full flex flex-col antialiased"
         style={{
