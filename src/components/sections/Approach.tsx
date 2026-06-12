@@ -154,7 +154,7 @@ export default function Approach() {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: '40% 60%',
+            gridTemplateColumns: '40fr 60fr',
             gap: '80px',
             alignItems: 'start',
           }}
