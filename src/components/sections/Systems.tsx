@@ -447,6 +447,7 @@ function GrowthOS() {
                 key={id}
                 onClick={() => setActive(id)}
                 className={`sidebar-btn${on ? ' sidebar-btn-active' : ''}`}
+                onMouseEnter={() => setActive(id)}
                 style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '9px 0', background: on ? 'rgba(28,199,195,0.1)' : 'transparent', border: 'none', borderLeft: on ? '2px solid #1cc7c3' : '2px solid transparent', cursor: 'pointer', transition: 'all 0.15s ease' }}
               >
                 <Icon size={14} style={{ color: on ? '#1cc7c3' : '#3a4a5a', transition: 'color 0.15s ease' }} />
