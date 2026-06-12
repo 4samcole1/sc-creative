@@ -30,12 +30,15 @@ const ecosystemItems: Item[] = [
 function ItemRow({
   item,
   type,
+  isActive,
+  onToggle,
 }: {
   item: Item
   type: 'traditional' | 'ecosystem'
+  isActive: boolean
+  onToggle: () => void
 }) {
   const [hovered, setHovered] = useState(false)
-  const [active, setActive] = useState(false)
 
   const isTrad = type === 'traditional'
   const iconColor = isTrad ? '#cc4444' : '#13a9a6'
@@ -55,11 +58,11 @@ function ItemRow({
           padding: '3px 4px',
           margin: '-3px -4px',
           transition: 'background 0.15s ease',
-          background: active ? (isTrad ? 'rgba(200,50,50,0.04)' : 'rgba(28,199,195,0.06)') : 'transparent',
+          background: isActive ? (isTrad ? 'rgba(200,50,50,0.04)' : 'rgba(28,199,195,0.06)') : 'transparent',
         }}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
-        onClick={() => setActive((a) => !a)}
+        onClick={onToggle}
       >
         <span
           style={{
@@ -92,7 +95,7 @@ function ItemRow({
         </span>
       </div>
 
-      {active && (
+      {isActive && (
         <div
           style={{
             marginTop: '8px',
@@ -124,6 +127,9 @@ function ItemRow({
 }
 
 export default function Approach() {
+  const [activeTrad, setActiveTrad] = useState<string | null>(null)
+  const [activeSc, setActiveSc] = useState<string | null>(null)
+
   return (
     <section style={{ background: '#f5f7fb', padding: '120px 0' }}>
       <style>{`
@@ -235,7 +241,13 @@ export default function Approach() {
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '11px' }}>
                   {traditionalItems.map((item) => (
-                    <ItemRow key={item.id} item={item} type="traditional" />
+                    <ItemRow
+                      key={item.id}
+                      item={item}
+                      type="traditional"
+                      isActive={activeTrad === item.id}
+                      onToggle={() => setActiveTrad(activeTrad === item.id ? null : item.id)}
+                    />
                   ))}
                 </div>
               </div>
@@ -315,7 +327,13 @@ export default function Approach() {
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '11px' }}>
                   {ecosystemItems.map((item) => (
-                    <ItemRow key={item.id} item={item} type="ecosystem" />
+                    <ItemRow
+                      key={item.id}
+                      item={item}
+                      type="ecosystem"
+                      isActive={activeSc === item.id}
+                      onToggle={() => setActiveSc(activeSc === item.id ? null : item.id)}
+                    />
                   ))}
                 </div>
               </div>
