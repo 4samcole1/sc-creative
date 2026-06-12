@@ -1,9 +1,13 @@
 // src/app/layout.tsx
 import type { Metadata } from 'next'
-import { Geist } from 'next/font/google'
+import { Poppins } from 'next/font/google'
 import './globals.css'
 
-const geist = Geist({ subsets: ['latin'], variable: '--font-geist-sans' })
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['300', '400', '600', '700', '800'],
+  variable: '--font-poppins',
+})
 
 export const metadata: Metadata = {
   title: { default: 'SC Creative — Walker County\'s Growth Partner', template: '%s | SC Creative' },
@@ -13,8 +17,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${geist.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col bg-white text-[#1a3557]">{children}</body>
+    <html lang="en" className={`${poppins.variable} h-full antialiased`}>
+      <body className="min-h-full flex flex-col bg-[#0b1520] text-[#e8eef4]">{children}</body>
     </html>
   )
 }
