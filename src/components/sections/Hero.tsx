@@ -1,6 +1,7 @@
 // src/components/sections/Hero.tsx
 import Link from 'next/link'
 import { MapPin, Settings, TrendingUp } from 'lucide-react'
+import HeroNetwork from './HeroNetwork'
 
 const cards = [
   {
@@ -78,23 +79,27 @@ export default function Hero() {
         }
       `}</style>
 
-      {/* Background photo */}
-      <div
-        className="absolute inset-0"
-        style={{
-          backgroundImage: "url('/images/jasper-downtown.png')",
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          filter: 'brightness(0.8) saturate(0.85)',
-        }}
-      />
+      {/* Base dark background */}
+      <div className="absolute inset-0" style={{ background: '#0b1520' }} />
 
-      {/* Gradient overlay */}
+      {/* Animated node network */}
+      <HeroNetwork />
+
+      {/* Radial teal glow — right side light source */}
       <div
         className="absolute inset-0"
         style={{
           background:
-            'linear-gradient(90deg, rgba(8,15,22,0.97) 0%, rgba(8,15,22,0.9) 42%, rgba(8,15,22,0.35) 68%, rgba(8,15,22,0.1) 100%)',
+            'radial-gradient(ellipse 60% 70% at 80% 50%, rgba(28,199,195,0.07) 0%, transparent 70%)',
+        }}
+      />
+
+      {/* Left-side vignette to keep text crisp */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            'linear-gradient(90deg, rgba(11,21,32,0.6) 0%, rgba(11,21,32,0.2) 50%, transparent 100%)',
         }}
       />
 
