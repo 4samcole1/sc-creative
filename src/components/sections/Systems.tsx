@@ -376,7 +376,7 @@ function GrowthOS() {
         const idx = ids.indexOf(prev)
         return ids[(idx + 1) % ids.length]
       })
-    }, 4000)
+    }, 1800)
     return () => clearInterval(timer)
   }, [paused])
 
