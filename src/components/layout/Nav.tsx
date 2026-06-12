@@ -23,8 +23,8 @@ export default function Nav() {
         left: 0,
         right: 0,
         margin: '0 auto',
-        width: '100%',
-        maxWidth: '1200px',
+        width: 'calc(100% - 80px)',
+        maxWidth: '1120px',
         height: '72px',
         zIndex: 50,
         background: '#ffffff',
@@ -32,7 +32,7 @@ export default function Nav() {
         boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
         display: 'flex',
         alignItems: 'center',
-        padding: '0 32px',
+        padding: '0 28px',
       }}
     >
       <Link
