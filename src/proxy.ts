@@ -9,6 +9,11 @@ export async function proxy(request: NextRequest) {
 
   if (!isAdminRoute) return NextResponse.next()
 
+  // Env not configured yet — allow login page, block everything else
+  if (!process.env.SESSION_SECRET) {
+    return isLoginPage ? NextResponse.next() : NextResponse.redirect(new URL('/admin/login', request.url))
+  }
+
   const response = NextResponse.next()
   const session = await getIronSession<SessionData>(request, response, sessionOptions)
 
