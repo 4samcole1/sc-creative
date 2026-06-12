@@ -50,7 +50,9 @@ export default function Nav() {
         />
       </Link>
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: '28px', flex: 1, justifyContent: 'center' }}>
+      {/* Absolutely centered so links sit at the true midpoint of the nav
+          regardless of logo vs button widths */}
+      <div style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', display: 'flex', alignItems: 'center', gap: '28px' }}>
         {navLinks.map((l) => (
           <Link
             key={l.href}
@@ -61,6 +63,7 @@ export default function Nav() {
               color: '#4a5568',
               textDecoration: 'none',
               transition: 'color 0.2s ease',
+              whiteSpace: 'nowrap',
             }}
             onMouseEnter={e => (e.currentTarget.style.color = '#0b1520')}
             onMouseLeave={e => (e.currentTarget.style.color = '#4a5568')}
@@ -70,9 +73,11 @@ export default function Nav() {
         ))}
       </div>
 
-      <Btn href="/contact" variant="primary" style={{ flexShrink: 0, padding: '10px 22px' }}>
-        Get In Touch
-      </Btn>
+      <div style={{ marginLeft: 'auto' }}>
+        <Btn href="/contact" variant="primary" style={{ padding: '10px 22px' }}>
+          Get In Touch
+        </Btn>
+      </div>
     </nav>
   )
 }
