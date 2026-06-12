@@ -3,19 +3,24 @@ import type { Lead } from '@/lib/types'
 import { Users, FolderOpen, FileText, Star } from 'lucide-react'
 
 async function getStats() {
-  const db = createAdminClient()
-  const [leadsRes, projectsRes, postsRes, testimonialsRes] = await Promise.all([
-    db.from('leads').select('*').order('created_at', { ascending: false }).limit(8),
-    db.from('projects').select('id', { count: 'exact', head: true }),
-    db.from('posts').select('id', { count: 'exact', head: true }),
-    db.from('testimonials').select('id', { count: 'exact', head: true }),
-  ])
-  return {
-    leads: (leadsRes.data ?? []) as Lead[],
-    leadsTotal: leadsRes.data?.length ?? 0,
-    projectsTotal: projectsRes.count ?? 0,
-    postsTotal: postsRes.count ?? 0,
-    testimonialsTotal: testimonialsRes.count ?? 0,
+  try {
+    const db = createAdminClient()
+    const [leadsRes, projectsRes, postsRes, testimonialsRes] = await Promise.all([
+      db.from('leads').select('*').order('created_at', { ascending: false }).limit(8),
+      db.from('projects').select('id', { count: 'exact', head: true }),
+      db.from('posts').select('id', { count: 'exact', head: true }),
+      db.from('testimonials').select('id', { count: 'exact', head: true }),
+    ])
+    return {
+      ok: true,
+      leads: (leadsRes.data ?? []) as Lead[],
+      leadsTotal: leadsRes.data?.length ?? 0,
+      projectsTotal: projectsRes.count ?? 0,
+      postsTotal: postsRes.count ?? 0,
+      testimonialsTotal: testimonialsRes.count ?? 0,
+    }
+  } catch {
+    return { ok: false, leads: [] as Lead[], leadsTotal: 0, projectsTotal: 0, postsTotal: 0, testimonialsTotal: 0 }
   }
 }
 
@@ -63,6 +68,12 @@ export default async function AdminDashboard() {
         <h1 style={{ fontSize: '24px', fontWeight: 800, color: '#f0f4f8', marginBottom: '4px' }}>Dashboard</h1>
         <p style={{ fontSize: '13px', color: '#4a6a7a' }}>Welcome back, Sam.</p>
       </div>
+
+      {!stats.ok && (
+        <div style={{ background: 'rgba(240,160,32,0.08)', border: '1px solid rgba(240,160,32,0.25)', borderRadius: '10px', padding: '14px 18px', marginBottom: '28px', fontSize: '13px', color: '#f0a020' }}>
+          ⚠ Could not reach the database. Make sure <strong>NEXT_PUBLIC_SUPABASE_URL</strong>, <strong>NEXT_PUBLIC_SUPABASE_ANON_KEY</strong>, and <strong>SUPABASE_SERVICE_ROLE_KEY</strong> are set in your Vercel environment variables and you have redeployed.
+        </div>
+      )}
 
       {/* Stat cards */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', marginBottom: '40px' }}>
