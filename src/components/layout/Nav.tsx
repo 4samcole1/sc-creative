@@ -20,69 +20,62 @@ export default function Nav() {
       style={{
         position: 'fixed',
         top: '16px',
-        left: '24px',
-        right: '24px',
+        left: 0,
+        right: 0,
+        margin: '0 auto',
+        width: '100%',
+        maxWidth: '1200px',
         height: '72px',
         zIndex: 50,
         background: '#ffffff',
         borderRadius: '16px',
         boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
+        display: 'flex',
+        alignItems: 'center',
+        padding: '0 32px',
       }}
     >
-      {/* Inner container — content constrained to 1200px, centered inside the pill */}
-      <div
-        style={{
-          maxWidth: '1200px',
-          margin: '0 auto',
-          height: '100%',
-          padding: '0 40px',
-          display: 'flex',
-          alignItems: 'center',
-          position: 'relative',
-        }}
+      <Link
+        href="/"
+        style={{ flexShrink: 0, marginRight: '40px', lineHeight: 0 }}
+        aria-label="SC Creative"
       >
-        <Link
-          href="/"
-          style={{ flexShrink: 0, marginRight: '40px', lineHeight: 0 }}
-          aria-label="SC Creative"
-        >
-          <Image
-            src="/images/logo-dark.png"
-            alt="SC Creative"
-            width={160}
-            height={23}
-            priority
-            style={{ height: '23px', width: 'auto' }}
-          />
-        </Link>
+        <Image
+          src="/images/logo-dark.png"
+          alt="SC Creative"
+          width={160}
+          height={23}
+          priority
+          style={{ height: '23px', width: 'auto' }}
+        />
+      </Link>
 
-        {/* Absolutely centered within the 1200px inner container */}
-        <div style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', display: 'flex', alignItems: 'center', gap: '28px' }}>
-          {navLinks.map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              style={{
-                fontSize: '13px',
-                fontWeight: 500,
-                color: '#4a5568',
-                textDecoration: 'none',
-                transition: 'color 0.2s ease',
-                whiteSpace: 'nowrap',
-              }}
-              onMouseEnter={e => (e.currentTarget.style.color = '#0b1520')}
-              onMouseLeave={e => (e.currentTarget.style.color = '#4a5568')}
-            >
-              {l.label}
-            </Link>
-          ))}
-        </div>
+      {/* Absolutely centered so links sit at the true midpoint of the pill */}
+      <div style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', display: 'flex', alignItems: 'center', gap: '28px' }}>
+        {navLinks.map((l) => (
+          <Link
+            key={l.href}
+            href={l.href}
+            style={{
+              fontSize: '13px',
+              fontWeight: 500,
+              color: '#4a5568',
+              textDecoration: 'none',
+              transition: 'color 0.2s ease',
+              whiteSpace: 'nowrap',
+            }}
+            onMouseEnter={e => (e.currentTarget.style.color = '#0b1520')}
+            onMouseLeave={e => (e.currentTarget.style.color = '#4a5568')}
+          >
+            {l.label}
+          </Link>
+        ))}
+      </div>
 
-        <div style={{ marginLeft: 'auto' }}>
-          <Btn href="/contact" variant="primary" style={{ padding: '10px 22px' }}>
-            Get In Touch
-          </Btn>
-        </div>
+      <div style={{ marginLeft: 'auto' }}>
+        <Btn href="/contact" variant="primary" style={{ padding: '10px 22px' }}>
+          Get In Touch
+        </Btn>
       </div>
     </nav>
   )
