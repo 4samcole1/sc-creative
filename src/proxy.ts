@@ -4,14 +4,14 @@ import { sessionOptions, type SessionData } from '@/lib/session'
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
-  const isLoginPage = pathname === '/admin/login'
+  const isLoginPage = pathname === '/login'
   const isAdminRoute = pathname.startsWith('/admin')
 
-  if (!isAdminRoute) return NextResponse.next()
+  if (!isLoginPage && !isAdminRoute) return NextResponse.next()
 
   // Env not configured yet — allow login page, block everything else
   if (!process.env.SESSION_SECRET) {
-    return isLoginPage ? NextResponse.next() : NextResponse.redirect(new URL('/admin/login', request.url))
+    return isLoginPage ? NextResponse.next() : NextResponse.redirect(new URL('/login', request.url))
   }
 
   const response = NextResponse.next()
@@ -24,13 +24,14 @@ export async function proxy(request: NextRequest) {
     return response
   }
 
+  // /admin/* routes
   if (!session.isLoggedIn) {
-    return NextResponse.redirect(new URL('/admin/login', request.url))
+    return NextResponse.redirect(new URL('/login', request.url))
   }
 
   return response
 }
 
 export const config = {
-  matcher: ['/admin/:path*'],
+  matcher: ['/login', '/admin/:path*'],
 }

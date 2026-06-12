@@ -8,7 +8,7 @@ import {
   FileText, Star, Settings, LogOut,
 } from 'lucide-react'
 import { sessionOptions, type SessionData } from '@/lib/session'
-import { logoutAction } from '@/app/admin/login/actions'
+import { logoutAction } from '@/app/login/actions'
 
 const nav = [
   { label: 'Dashboard', href: '/admin', Icon: LayoutDashboard },
