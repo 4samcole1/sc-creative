@@ -7,139 +7,277 @@ const cards = [
     Icon: MapPin,
     title: 'Local Focus',
     tagline: 'Walker County & Beyond',
+    desc: 'Rooted in Jasper, built for your market.',
+    href: '/about',
+    delay: '0.5s',
   },
   {
     Icon: Settings,
     title: 'Modern Solutions',
-    tagline: 'Strategic Design & Intelligent Systems',
+    tagline: 'Design & Intelligent Systems',
+    desc: 'Strategy, branding, websites, and AI — integrated.',
+    href: '/services',
+    delay: '0.65s',
   },
   {
     Icon: TrendingUp,
     title: 'Growth Driven',
     tagline: 'Built to Scale. Built to Last.',
+    desc: 'Every system we build compounds over time.',
+    href: '/services/growth',
+    delay: '0.8s',
   },
 ]
 
 export default function Hero() {
   return (
     <section className="relative w-full h-screen overflow-hidden">
+      <style>{`
+        @keyframes left-enter {
+          from { opacity: 0; transform: translateY(16px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes drawer-enter {
+          from { opacity: 0; transform: translateX(40px); }
+          to   { opacity: 1; transform: translateX(0); }
+        }
+        .hero-left-content {
+          animation: left-enter 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+        }
+        .hero-drawer {
+          width: 280px;
+          animation: drawer-enter 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+          transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+                      background 0.3s ease,
+                      box-shadow 0.3s ease;
+          cursor: pointer;
+        }
+        .hero-drawer:hover {
+          width: 380px;
+          background: rgba(18, 30, 44, 0.85) !important;
+          box-shadow: -12px 0 40px rgba(0,0,0,0.35);
+        }
+        .drawer-desc {
+          max-height: 0;
+          overflow: hidden;
+          opacity: 0;
+          transition: max-height 0.35s ease, opacity 0.25s ease;
+        }
+        .hero-drawer:hover .drawer-desc {
+          max-height: 100px;
+          opacity: 1;
+        }
+        .drawer-cta {
+          opacity: 0;
+          transform: translateY(4px);
+          transition: opacity 0.25s ease 0.1s, transform 0.25s ease 0.1s;
+        }
+        .hero-drawer:hover .drawer-cta {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      `}</style>
+
       {/* Background photo */}
       <div
         className="absolute inset-0"
         style={{
-          backgroundImage: "url('/images/jasper-hero.png')",
+          backgroundImage: "url('/images/jasper-downtown.png')",
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          filter: 'brightness(0.85) saturate(0.9)',
+          filter: 'brightness(0.8) saturate(0.85)',
         }}
       />
 
-      {/* Left-to-right gradient overlay */}
+      {/* Gradient overlay */}
       <div
         className="absolute inset-0"
         style={{
           background:
-            'linear-gradient(90deg, rgba(8,15,22,0.96) 0%, rgba(8,15,22,0.9) 38%, rgba(8,15,22,0.45) 60%, rgba(8,15,22,0.25) 100%)',
+            'linear-gradient(90deg, rgba(8,15,22,0.97) 0%, rgba(8,15,22,0.9) 42%, rgba(8,15,22,0.35) 68%, rgba(8,15,22,0.1) 100%)',
         }}
       />
 
-      {/* Content grid */}
+      {/* Left content — within 1200px container, ~60% wide */}
       <div
-        className="relative z-10 h-full mx-auto px-5"
-        style={{
-          maxWidth: '1200px',
-          display: 'grid',
-          gridTemplateColumns: '1.1fr 1fr',
-          columnGap: '30px',
-        }}
+        className="absolute inset-0 flex items-center"
+        style={{ paddingTop: '88px' }}
       >
-        {/* Left column */}
-        <div className="flex flex-col justify-center pt-16 pb-8">
-          <p
-            className="mb-4 font-semibold uppercase text-[#1cc7c3]"
-            style={{ fontSize: '14px', letterSpacing: '1.5px' }}
-          >
-            Modern Growth Solutions
-          </p>
-
-          <h1
-            className="font-extrabold text-[#f5f7fb] mb-6"
-            style={{
-              fontSize: 'clamp(38px, 4.5vw, 54px)',
-              lineHeight: 1.1,
-              textShadow: '0 2px 10px rgba(0,0,0,0.25)',
-            }}
-          >
-            Build a smarter foundation for{' '}
-            <span className="text-[#1cc7c3]">growth.</span>
-          </h1>
-
-          <p className="text-[#cfd6dd] mb-4" style={{ fontSize: '15px', lineHeight: 1.6, maxWidth: '480px' }}>
-            SC Creative helps businesses across Jasper, Walker County, and beyond grow through
-            strategic clarity, modern branding, high-performance websites, intelligent systems,
-            and scalable growth solutions.
-          </p>
-
-          <p className="text-[#cfd6dd] mb-8" style={{ fontSize: '15px', lineHeight: 1.6, maxWidth: '480px' }}>
-            Whether you&apos;re launching something new, modernizing an established company, or
-            preparing for your next stage of growth, we help build the infrastructure behind
-            long-term success.
-          </p>
-
-          <div className="flex gap-4 mb-8 flex-wrap">
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 font-semibold rounded-md px-5 py-3 text-[#07262b] bg-[#1cc7c3]"
-              style={{ fontSize: '14px', boxShadow: '0 8px 18px rgba(28,199,195,0.35)' }}
+        <div
+          style={{
+            width: '100%',
+            maxWidth: '1200px',
+            margin: '0 auto',
+            padding: '0 40px',
+          }}
+        >
+          <div className="hero-left-content" style={{ maxWidth: '730px' }}>
+            <p
+              style={{
+                fontSize: '11px',
+                fontWeight: 700,
+                letterSpacing: '0.16em',
+                textTransform: 'uppercase',
+                color: '#1cc7c3',
+                marginBottom: '20px',
+              }}
             >
-              Start Your Project <span>+</span>
-            </Link>
-            <Link
-              href="/process"
-              className="inline-flex items-center font-semibold rounded-md px-5 py-3 text-[#dbe3ea]"
-              style={{ fontSize: '14px', border: '2px solid #5c6a78' }}
-            >
-              Explore Our Process
-            </Link>
-          </div>
+              Modern Growth Solutions
+            </p>
 
-          <div className="flex items-start gap-3 text-[#b9c2cb]" style={{ fontSize: '13px', lineHeight: 1.5 }}>
-            <MapPin className="text-[#1cc7c3] shrink-0 mt-0.5" size={20} />
-            <div>
-              <div>Proudly based in Jasper, Alabama</div>
-              <div>Serving Walker County, Greater Birmingham, Northwest Alabama, and businesses nationwide.</div>
+            <h1
+              style={{
+                fontSize: 'clamp(36px, 4vw, 54px)',
+                fontWeight: 800,
+                lineHeight: 1.08,
+                color: '#f5f7fb',
+                marginBottom: '24px',
+              }}
+            >
+              Build a Smarter Foundation for{' '}
+              <span style={{ color: '#1cc7c3' }}>Growth.</span>
+            </h1>
+
+            <p style={{ fontSize: '15px', color: '#9aaab6', lineHeight: 1.72, marginBottom: '10px', maxWidth: '660px' }}>
+              SC Creative helps businesses across Jasper, Walker County, and beyond grow through
+              strategic clarity, modern branding, high-performance websites, and intelligent systems.
+            </p>
+
+            <p style={{ fontSize: '15px', color: '#9aaab6', lineHeight: 1.72, marginBottom: '36px', maxWidth: '660px' }}>
+              Whether you&apos;re launching, modernizing, or scaling — we build the infrastructure
+              behind long-term success.
+            </p>
+
+            <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '36px' }}>
+              <Link
+                href="/contact"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  fontSize: '13px',
+                  fontWeight: 700,
+                  padding: '12px 26px',
+                  borderRadius: '10px',
+                  background: '#1cc7c3',
+                  color: '#07262b',
+                  textDecoration: 'none',
+                  boxShadow: '0 8px 24px rgba(28,199,195,0.28)',
+                }}
+              >
+                Start Your Project +
+              </Link>
+              <Link
+                href="/process"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  fontSize: '13px',
+                  fontWeight: 600,
+                  padding: '12px 26px',
+                  borderRadius: '10px',
+                  color: '#dbe3ea',
+                  textDecoration: 'none',
+                  border: '1.5px solid rgba(255,255,255,0.16)',
+                }}
+              >
+                Explore Our Process
+              </Link>
+            </div>
+
+            <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', color: '#7a8898', fontSize: '13px', lineHeight: 1.55 }}>
+              <MapPin size={15} style={{ color: '#1cc7c3', flexShrink: 0, marginTop: '2px' }} />
+              <span>
+                Proudly based in Jasper, Alabama — serving Walker County, Greater Birmingham,
+                Northwest Alabama, and businesses nationwide.
+              </span>
             </div>
           </div>
         </div>
+      </div>
 
-        {/* Right column — cards pinned to bottom */}
-        <div className="flex items-end justify-end pb-10">
-          <div className="flex gap-4 w-full justify-end">
-            {cards.map(({ Icon, title, tagline }) => (
+      {/* Right cards — flush to viewport right edge, drawer-expand on hover */}
+      <div
+        style={{
+          position: 'absolute',
+          right: 0,
+          top: '50%',
+          transform: 'translateY(calc(-50% + 44px))',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '10px',
+          zIndex: 20,
+          alignItems: 'flex-end',
+        }}
+      >
+        {cards.map(({ Icon, title, tagline, desc, href, delay }) => (
+          <Link
+            key={title}
+            href={href}
+            className="hero-drawer"
+            style={{
+              animationDelay: delay,
+              display: 'block',
+              padding: '18px 24px',
+              borderRadius: '14px 0 0 14px',
+              background: 'rgba(12,22,34,0.72)',
+              backdropFilter: 'blur(12px)',
+              WebkitBackdropFilter: 'blur(12px)',
+              border: '1px solid rgba(255,255,255,0.07)',
+              borderRight: 'none',
+              borderLeft: '3px solid #1cc7c3',
+              textDecoration: 'none',
+              overflow: 'hidden',
+            }}
+          >
+            {/* Icon + title row */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
               <div
-                key={title}
-                className="flex flex-col rounded-2xl p-5"
                 style={{
-                  width: '195px',
-                  minHeight: '180px',
-                  background: 'rgba(20,31,42,0.68)',
-                  border: '1px solid rgba(31,45,58,0.62)',
-                  backdropFilter: 'blur(8px)',
-                  WebkitBackdropFilter: 'blur(8px)',
-                  boxShadow: '0 10px 20px rgba(0,0,0,0.28)',
+                  width: '38px',
+                  height: '38px',
+                  borderRadius: '9px',
+                  background: 'rgba(28,199,195,0.12)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0,
                 }}
               >
-                <Icon className="text-[#1cc7c3] mb-3" size={28} />
-                <h4 className="font-semibold text-[#f5f7fb] mb-2" style={{ fontSize: '16px' }}>
+                <Icon size={18} style={{ color: '#1cc7c3' }} />
+              </div>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <p style={{ fontSize: '13.5px', fontWeight: 700, color: '#f0f4f8', lineHeight: 1.2 }}>
                   {title}
-                </h4>
-                <p className="text-[#b7c1cb]" style={{ fontSize: '13px', lineHeight: 1.5 }}>
+                </p>
+                <p style={{ fontSize: '11.5px', color: '#6b7a88', marginTop: '2px', lineHeight: 1.3 }}>
                   {tagline}
                 </p>
               </div>
-            ))}
-          </div>
-        </div>
+            </div>
+
+            {/* Expanded content */}
+            <div className="drawer-desc" style={{ paddingLeft: '52px' }}>
+              <p style={{ fontSize: '12.5px', color: '#8a9aaa', lineHeight: 1.55, marginTop: '10px', marginBottom: '12px' }}>
+                {desc}
+              </p>
+              <span
+                className="drawer-cta"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  fontSize: '11.5px',
+                  fontWeight: 700,
+                  color: '#1cc7c3',
+                  letterSpacing: '0.04em',
+                }}
+              >
+                Explore →
+              </span>
+            </div>
+          </Link>
+        ))}
       </div>
     </section>
   )

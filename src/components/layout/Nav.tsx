@@ -1,7 +1,6 @@
 // src/components/layout/Nav.tsx
 'use client'
 import Link from 'next/link'
-import { useState, useEffect } from 'react'
 
 const navLinks = [
   { label: 'Work', href: '/work' },
@@ -14,49 +13,81 @@ const navLinks = [
 ]
 
 export default function Nav() {
-  const [scrolled, setScrolled] = useState(false)
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 80)
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
-
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? 'bg-[#071426]/95 backdrop-blur-md border-b border-white/[0.08]'
-          : 'bg-white/[0.03] backdrop-blur-sm border-b border-white/[0.05]'
-      }`}
-      style={{ height: '88px' }}
+      style={{
+        position: 'fixed',
+        top: '16px',
+        left: 0,
+        right: 0,
+        margin: '0 auto',
+        width: '100%',
+        maxWidth: '1200px',
+        height: '72px',
+        zIndex: 50,
+        background: '#ffffff',
+        borderRadius: '16px',
+        boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
+        display: 'flex',
+        alignItems: 'center',
+        padding: '0 32px',
+      }}
     >
-      <div className="max-w-[1500px] mx-auto px-8 flex items-center h-full">
-        <Link
-          href="/"
-          className="font-extrabold text-white text-sm tracking-widest uppercase shrink-0 mr-10"
-          aria-label="SC Creative"
-        >
-          SC Creative
-        </Link>
-        <div className="flex items-center gap-7 flex-1 justify-center">
-          {navLinks.map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              className="text-white/70 hover:text-white text-sm font-medium transition-colors"
-            >
-              {l.label}
-            </Link>
-          ))}
-        </div>
-        <Link
-          href="/contact"
-          className="shrink-0 bg-[#009898] text-white text-sm font-bold px-6 py-2.5 rounded-xl hover:bg-[#0EB1AB] hover:shadow-[0_0_20px_rgba(14,177,171,0.4)] transition-all duration-200"
-        >
-          Get In Touch
-        </Link>
+      <Link
+        href="/"
+        style={{
+          fontWeight: 800,
+          fontSize: '13px',
+          letterSpacing: '0.18em',
+          textTransform: 'uppercase',
+          color: '#0b1520',
+          flexShrink: 0,
+          marginRight: '40px',
+          textDecoration: 'none',
+        }}
+        aria-label="SC Creative"
+      >
+        SC Creative
+      </Link>
+
+      <div style={{ display: 'flex', alignItems: 'center', gap: '28px', flex: 1, justifyContent: 'center' }}>
+        {navLinks.map((l) => (
+          <Link
+            key={l.href}
+            href={l.href}
+            style={{
+              fontSize: '13px',
+              fontWeight: 500,
+              color: '#4a5568',
+              textDecoration: 'none',
+              transition: 'color 0.2s ease',
+            }}
+            onMouseEnter={e => (e.currentTarget.style.color = '#0b1520')}
+            onMouseLeave={e => (e.currentTarget.style.color = '#4a5568')}
+          >
+            {l.label}
+          </Link>
+        ))}
       </div>
+
+      <Link
+        href="/contact"
+        style={{
+          flexShrink: 0,
+          background: '#1cc7c3',
+          color: '#07262b',
+          fontSize: '13px',
+          fontWeight: 700,
+          padding: '10px 22px',
+          borderRadius: '10px',
+          textDecoration: 'none',
+          transition: 'background 0.2s ease',
+        }}
+        onMouseEnter={e => (e.currentTarget.style.background = '#2adbd7')}
+        onMouseLeave={e => (e.currentTarget.style.background = '#1cc7c3')}
+      >
+        Get In Touch
+      </Link>
     </nav>
   )
 }
