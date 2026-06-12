@@ -1,5 +1,7 @@
 // src/components/layout/Footer.tsx
 import Link from 'next/link'
+import Image from 'next/image'
+import Btn from '@/components/ui/Btn'
 
 const quickLinks = [
   { label: 'Work', href: '/work' },
@@ -34,7 +36,15 @@ export default function Footer() {
         <div className="grid grid-cols-4 gap-12 mb-16">
           {/* Column 1 — Brand */}
           <div>
-            <div className="font-extrabold text-sm tracking-widest uppercase mb-4">SC Creative</div>
+            <Link href="/" style={{ display: 'inline-block', lineHeight: 0, marginBottom: '16px' }}>
+              <Image
+                src="/images/logo-white.png"
+                alt="SC Creative"
+                width={160}
+                height={23}
+                style={{ height: '23px', width: 'auto' }}
+              />
+            </Link>
             <p className="text-white/40 text-sm leading-relaxed mb-6">
               Modern growth solutions for businesses across Walker County, Alabama and surrounding areas.
             </p>
@@ -114,12 +124,7 @@ export default function Footer() {
                 </a>
               </li>
             </ul>
-            <Link
-              href="/contact"
-              className="inline-block bg-[#009898] text-white font-bold px-6 py-2.5 rounded-xl hover:bg-[#0EB1AB] transition-colors text-sm"
-            >
-              Get In Touch →
-            </Link>
+            <Btn href="/contact" variant="primary">Get In Touch →</Btn>
           </div>
         </div>
 

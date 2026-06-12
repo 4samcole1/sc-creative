@@ -1,6 +1,8 @@
 // src/components/layout/Nav.tsx
 'use client'
 import Link from 'next/link'
+import Image from 'next/image'
+import Btn from '@/components/ui/Btn'
 
 const navLinks = [
   { label: 'Work', href: '/work' },
@@ -35,19 +37,17 @@ export default function Nav() {
     >
       <Link
         href="/"
-        style={{
-          fontWeight: 800,
-          fontSize: '13px',
-          letterSpacing: '0.18em',
-          textTransform: 'uppercase',
-          color: '#0b1520',
-          flexShrink: 0,
-          marginRight: '40px',
-          textDecoration: 'none',
-        }}
+        style={{ flexShrink: 0, marginRight: '40px', lineHeight: 0 }}
         aria-label="SC Creative"
       >
-        SC Creative
+        <Image
+          src="/images/logo-dark.png"
+          alt="SC Creative"
+          width={160}
+          height={23}
+          priority
+          style={{ height: '23px', width: 'auto' }}
+        />
       </Link>
 
       <div style={{ display: 'flex', alignItems: 'center', gap: '28px', flex: 1, justifyContent: 'center' }}>
@@ -70,24 +70,9 @@ export default function Nav() {
         ))}
       </div>
 
-      <Link
-        href="/contact"
-        style={{
-          flexShrink: 0,
-          background: '#1cc7c3',
-          color: '#07262b',
-          fontSize: '13px',
-          fontWeight: 700,
-          padding: '10px 22px',
-          borderRadius: '10px',
-          textDecoration: 'none',
-          transition: 'background 0.2s ease',
-        }}
-        onMouseEnter={e => (e.currentTarget.style.background = '#2adbd7')}
-        onMouseLeave={e => (e.currentTarget.style.background = '#1cc7c3')}
-      >
+      <Btn href="/contact" variant="primary" style={{ flexShrink: 0, padding: '10px 22px' }}>
         Get In Touch
-      </Link>
+      </Btn>
     </nav>
   )
 }
