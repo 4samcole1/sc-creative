@@ -2,22 +2,32 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
+import { usePathname } from 'next/navigation'
 import {
-  LayoutDashboard, Users, FolderOpen,
-  FileText, Star, Settings, LogOut,
+  LayoutDashboard, FileText, Layout, MapPin, Menu,
+  Users, Star, Settings, LogOut,
 } from 'lucide-react'
 import { logoutAction } from '@/app/login/actions'
 
 const nav = [
-  { label: 'Dashboard',    href: '/admin',               Icon: LayoutDashboard },
-  { label: 'Leads',        href: '/admin/leads',         Icon: Users },
-  { label: 'Projects',     href: '/admin/projects',      Icon: FolderOpen },
-  { label: 'Blog',         href: '/admin/posts',         Icon: FileText },
-  { label: 'Testimonials', href: '/admin/testimonials',  Icon: Star },
-  { label: 'Settings',     href: '/admin/settings',      Icon: Settings },
+  { label: 'Dashboard',   href: '/admin',              Icon: LayoutDashboard },
+  { label: 'Blog',        href: '/admin/posts',        Icon: FileText },
+  { label: 'Pages',       href: '/admin/pages',        Icon: Layout },
+  { label: 'Local Pages', href: '/admin/local-pages',  Icon: MapPin },
+  { label: 'Menus',       href: '/admin/menus',        Icon: Menu },
+  { label: 'Leads',       href: '/admin/leads',        Icon: Users },
+  { label: 'Testimonials', href: '/admin/testimonials', Icon: Star },
+  { label: 'Settings',    href: '/admin/settings',     Icon: Settings },
 ]
 
 export function Sidebar({ email }: { email: string }) {
+  const pathname = usePathname()
+
+  function isActive(href: string) {
+    if (href === '/admin') return pathname === '/admin'
+    return pathname.startsWith(href)
+  }
+
   return (
     <aside
       style={{
@@ -50,36 +60,44 @@ export function Sidebar({ email }: { email: string }) {
       </div>
 
       {/* Nav */}
-      <nav style={{ flex: 1, padding: '12px 0', overflowY: 'auto' }}>
-        {nav.map(({ label, href, Icon }) => (
-          <Link
-            key={href}
-            href={href}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '10px',
-              padding: '9px 20px',
-              fontSize: '13px',
-              fontWeight: 500,
-              color: '#4a6a7a',
-              textDecoration: 'none',
-              transition: 'color 0.15s ease, background 0.15s ease',
-              borderLeft: '2px solid transparent',
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.color = '#c0d8e8'
-              e.currentTarget.style.background = 'rgba(255,255,255,0.03)'
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.color = '#4a6a7a'
-              e.currentTarget.style.background = 'transparent'
-            }}
-          >
-            <Icon size={15} />
-            {label}
-          </Link>
-        ))}
+      <nav style={{ flex: 1, padding: '8px 0', overflowY: 'auto' }}>
+        {nav.map(({ label, href, Icon }) => {
+          const active = isActive(href)
+          return (
+            <Link
+              key={href}
+              href={href}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '10px',
+                padding: '8px 20px',
+                fontSize: '13px',
+                fontWeight: active ? 600 : 500,
+                color: active ? '#c0d8e8' : '#4a6a7a',
+                textDecoration: 'none',
+                background: active ? 'rgba(255,255,255,0.05)' : 'transparent',
+                borderLeft: `2px solid ${active ? '#1cc7c3' : 'transparent'}`,
+                transition: 'all 0.15s ease',
+              }}
+              onMouseEnter={e => {
+                if (!active) {
+                  e.currentTarget.style.color = '#c0d8e8'
+                  e.currentTarget.style.background = 'rgba(255,255,255,0.03)'
+                }
+              }}
+              onMouseLeave={e => {
+                if (!active) {
+                  e.currentTarget.style.color = '#4a6a7a'
+                  e.currentTarget.style.background = 'transparent'
+                }
+              }}
+            >
+              <Icon size={15} />
+              {label}
+            </Link>
+          )
+        })}
       </nav>
 
       {/* Bottom — user + logout */}
@@ -90,19 +108,7 @@ export function Sidebar({ email }: { email: string }) {
         <form action={logoutAction}>
           <button
             type="submit"
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-              fontSize: '12px',
-              fontWeight: 600,
-              color: '#4a5a6a',
-              background: 'none',
-              border: 'none',
-              cursor: 'pointer',
-              padding: 0,
-              transition: 'color 0.15s ease',
-            }}
+            style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12px', fontWeight: 600, color: '#4a5a6a', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
             onMouseEnter={e => (e.currentTarget.style.color = '#f06060')}
             onMouseLeave={e => (e.currentTarget.style.color = '#4a5a6a')}
           >
