@@ -2,6 +2,7 @@
 // src/components/sections/Approach.tsx
 import { useState } from 'react'
 import { Zap, Lightbulb } from 'lucide-react'
+import { t } from '@/lib/typography'
 
 interface Item {
   id: string
@@ -117,7 +118,7 @@ function ItemRow({
               marginTop: '1px',
             }}
           />
-          <p style={{ fontSize: '12px', color: isTrad ? '#6a7a8a' : '#3a5a5a', lineHeight: 1.6, margin: 0 }}>
+          <p style={{ ...t.xs, color: isTrad ? '#6a7a8a' : '#3a5a5a', margin: 0 }}>
             {item.desc}
           </p>
         </div>
@@ -160,24 +161,13 @@ export default function Approach() {
         >
           {/* ── Left column ── */}
           <div>
-            <p
-              style={{
-                fontSize: '11px',
-                fontWeight: 700,
-                letterSpacing: '0.16em',
-                textTransform: 'uppercase',
-                color: '#1cc7c3',
-                marginBottom: '20px',
-              }}
-            >
+            <p style={{ ...t.eyebrow, marginBottom: '20px' }}>
               A Different Approach
             </p>
 
             <h2
               style={{
-                fontSize: 'clamp(26px, 2.6vw, 40px)',
-                fontWeight: 800,
-                lineHeight: 1.12,
+                ...t.h2,
                 color: '#0b1520',
                 marginBottom: '28px',
               }}
@@ -193,7 +183,7 @@ export default function Approach() {
                 "That's where SC Creative is different.",
                 "We don't view websites, branding, AI, or marketing as isolated services. We see them as interconnected parts of a larger growth system.",
               ].map((p, i) => (
-                <p key={i} style={{ fontSize: '14px', color: '#5a6a7a', lineHeight: 1.72, margin: 0 }}>
+                <p key={i} style={{ ...t.body, color: '#5a6a7a', margin: 0 }}>
                   {p}
                 </p>
               ))}
@@ -223,19 +213,10 @@ export default function Approach() {
                 }}
               >
                 <div style={{ marginBottom: '20px' }}>
-                  <p
-                    style={{
-                      fontSize: '10px',
-                      fontWeight: 700,
-                      letterSpacing: '0.12em',
-                      textTransform: 'uppercase',
-                      color: '#9aabbc',
-                      marginBottom: '6px',
-                    }}
-                  >
+                  <p style={{ ...t.cardLabel, color: '#9aabbc', marginBottom: '6px' }}>
                     Traditional Agency
                   </p>
-                  <h3 style={{ fontSize: '15px', fontWeight: 700, color: '#3a4a5a', lineHeight: 1.3 }}>
+                  <h3 style={{ ...t.h4, color: '#3a4a5a' }}>
                     Individual Services Model
                   </h3>
                 </div>
@@ -309,19 +290,10 @@ export default function Approach() {
                   }}
                 />
                 <div style={{ marginBottom: '20px' }}>
-                  <p
-                    style={{
-                      fontSize: '10px',
-                      fontWeight: 700,
-                      letterSpacing: '0.12em',
-                      textTransform: 'uppercase',
-                      color: '#13a9a6',
-                      marginBottom: '6px',
-                    }}
-                  >
+                  <p style={{ ...t.cardLabel, color: '#13a9a6', marginBottom: '6px' }}>
                     SC Creative
                   </p>
-                  <h3 style={{ fontSize: '15px', fontWeight: 700, color: '#0b1520', lineHeight: 1.3 }}>
+                  <h3 style={{ ...t.h4, color: '#0b1520' }}>
                     Growth Ecosystem Model
                   </h3>
                 </div>

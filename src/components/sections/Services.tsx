@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
+import { t } from '@/lib/typography'
 
 const CARD_H = 152
 const CARD_GAP = 16
@@ -127,11 +128,8 @@ function ServiceCard({
       <div>
         <p
           style={{
-            fontSize: '10px',
-            fontWeight: 700,
+            ...t.cardLabel,
             color: service.color,
-            letterSpacing: '0.13em',
-            textTransform: 'uppercase',
             marginBottom: '4px',
             opacity: 0.85,
           }}
@@ -140,16 +138,14 @@ function ServiceCard({
         </p>
         <h3
           style={{
-            fontSize: '21px',
-            fontWeight: 800,
+            ...t.h3,
             color: '#f5f7fb',
-            lineHeight: 1.1,
             marginBottom: '6px',
           }}
         >
           {service.name}
         </h3>
-        <p style={{ fontSize: '13.5px', color: '#8a9aab', lineHeight: 1.68 }}>
+        <p style={{ ...t.small, color: '#8a9aab' }}>
           {service.desc}
         </p>
       </div>
@@ -253,25 +249,14 @@ export default function Services() {
           {/* paddingBottom matches the scroll indicator height so the content bottom
               aligns with the card window bottom, indicator sits below both */}
           <div style={{ paddingBottom: '60px' }}>
-            <p
-              style={{
-                fontSize: '11px',
-                fontWeight: 700,
-                letterSpacing: '0.14em',
-                textTransform: 'uppercase',
-                color: '#1cc7c3',
-                marginBottom: '20px',
-              }}
-            >
+            <p style={{ ...t.eyebrow, marginBottom: '20px' }}>
               Why Businesses Struggle
             </p>
 
             <h2
               style={{
-                fontSize: 'clamp(28px, 3vw, 44px)',
-                fontWeight: 800,
+                ...t.h2,
                 color: '#f5f7fb',
-                lineHeight: 1.15,
                 marginBottom: '28px',
               }}
             >
@@ -285,10 +270,10 @@ export default function Services() {
 
               {/* Body copy — fades out when a pain point is active */}
               <div style={{ transition: 'opacity 0.2s ease', opacity: activePain !== null ? 0 : 1, pointerEvents: activePain !== null ? 'none' : 'auto' }}>
-                <p style={{ fontSize: '15px', color: '#8a9aab', lineHeight: 1.75, marginBottom: '14px' }}>
+                <p style={{ ...t.body, color: '#8a9aab', marginBottom: '14px' }}>
                   A website is redesigned. Marketing campaigns launch. Software gets purchased. Ads start running.
                 </p>
-                <p style={{ fontSize: '15px', color: '#8a9aab', lineHeight: 1.75 }}>
+                <p style={{ ...t.body, color: '#8a9aab' }}>
                   Yet growth remains inconsistent — not because the business lacks potential, but because the pieces aren&apos;t working together.
                 </p>
               </div>

@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { MapPin, Settings, TrendingUp } from 'lucide-react'
 import HeroNetwork from './HeroNetwork'
 import Btn from '@/components/ui/Btn'
+import { t } from '@/lib/typography'
 
 const cards = [
   {
@@ -100,24 +101,13 @@ export default function Hero() {
         >
           {/* ── Left column ── */}
           <div className="hero-left-content">
-            <p
-              style={{
-                fontSize: '11px',
-                fontWeight: 700,
-                letterSpacing: '0.16em',
-                textTransform: 'uppercase',
-                color: '#1cc7c3',
-                marginBottom: '20px',
-              }}
-            >
+            <p style={{ ...t.eyebrow, marginBottom: '20px' }}>
               Modern Growth Solutions
             </p>
 
             <h1
               style={{
-                fontSize: 'clamp(36px, 4vw, 54px)',
-                fontWeight: 800,
-                lineHeight: 1.08,
+                ...t.h1,
                 color: '#f5f7fb',
                 marginBottom: '24px',
               }}
@@ -126,12 +116,12 @@ export default function Hero() {
               <span style={{ color: '#1cc7c3' }}>Growth.</span>
             </h1>
 
-            <p style={{ fontSize: '15px', color: '#9aaab6', lineHeight: 1.72, marginBottom: '10px', maxWidth: '620px' }}>
+            <p style={{ ...t.body, color: '#9aaab6', marginBottom: '10px', maxWidth: '620px' }}>
               SC Creative helps businesses across Jasper, Walker County, and beyond grow through
               strategic clarity, modern branding, high-performance websites, and intelligent systems.
             </p>
 
-            <p style={{ fontSize: '15px', color: '#9aaab6', lineHeight: 1.72, marginBottom: '36px', maxWidth: '620px' }}>
+            <p style={{ ...t.body, color: '#9aaab6', marginBottom: '36px', maxWidth: '620px' }}>
               Whether you&apos;re launching, modernizing, or scaling — we build the infrastructure
               behind long-term success.
             </p>
