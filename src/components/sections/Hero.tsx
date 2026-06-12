@@ -1,101 +1,141 @@
 // src/components/sections/Hero.tsx
 import Link from 'next/link'
+import { MapPin, Settings, TrendingUp } from 'lucide-react'
 
-const featureCards = [
+const cards = [
   {
-    icon: '📍',
+    Icon: MapPin,
     title: 'Local Focus',
-    sub: 'Walker County & Beyond',
+    tagline: 'Walker County & Beyond',
   },
   {
-    icon: '⚙️',
+    Icon: Settings,
     title: 'Modern Solutions',
-    sub: 'Strategy, Design & Intelligent Systems',
+    tagline: 'Strategic Design & Intelligent Systems',
   },
   {
-    icon: '📈',
+    Icon: TrendingUp,
     title: 'Growth Driven',
-    sub: 'Built to Scale. Built to Last.',
+    tagline: 'Built to Scale. Built to Last.',
   },
 ]
 
 export default function Hero() {
   return (
-    <section
-      className="relative min-h-[90vh] flex items-center"
-      style={{
-        background: `
-          radial-gradient(circle at top left, rgba(14,177,171,0.15), transparent 40%),
-          linear-gradient(135deg, #020617 0%, #06111f 45%, #0b1020 100%)
-        `,
-      }}
-    >
-      <div className="max-w-[1500px] mx-auto px-8 w-full pt-[88px] grid grid-cols-2 gap-16 items-center py-20">
+    <section className="relative w-full h-screen overflow-hidden">
+      {/* Background photo */}
+      <div
+        className="absolute inset-0"
+        style={{
+          backgroundImage: "url('/images/jasper-hero.png')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          filter: 'brightness(0.85) saturate(0.9)',
+        }}
+      />
+
+      {/* Left-to-right gradient overlay */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            'linear-gradient(90deg, rgba(8,15,22,0.96) 0%, rgba(8,15,22,0.9) 38%, rgba(8,15,22,0.45) 60%, rgba(8,15,22,0.25) 100%)',
+        }}
+      />
+
+      {/* Content grid */}
+      <div
+        className="relative z-10 h-full mx-auto px-5"
+        style={{
+          maxWidth: '1200px',
+          display: 'grid',
+          gridTemplateColumns: '1.1fr 1fr',
+          columnGap: '30px',
+        }}
+      >
         {/* Left column */}
-        <div>
-          <div className="text-[11px] font-bold tracking-[0.2em] uppercase text-[#009898] mb-5">
+        <div className="flex flex-col justify-center pt-16 pb-8">
+          <p
+            className="mb-4 font-semibold uppercase text-[#1cc7c3]"
+            style={{ fontSize: '14px', letterSpacing: '1.5px' }}
+          >
             Modern Growth Solutions
-          </div>
-          <h1 className="text-[clamp(36px,4vw,64px)] font-black leading-[1.1] tracking-tight text-white mb-6">
-            Strategy. Design.<br />
-            Systems. Growth.<br />
-            <span className="text-[#0EB1AB]">All working together.</span>
-          </h1>
-          <p className="text-[17px] text-white/60 leading-[1.75] mb-10 max-w-[520px]">
-            SC Creative helps businesses in Jasper, Walker County, and beyond build smarter
-            foundations for growth through strategy, branding, websites, AI systems, and
-            growth marketing that drive real results.
           </p>
-          <div className="flex gap-6 flex-wrap mb-10">
+
+          <h1
+            className="font-extrabold text-[#f5f7fb] mb-6"
+            style={{
+              fontSize: 'clamp(38px, 4.5vw, 54px)',
+              lineHeight: 1.1,
+              textShadow: '0 2px 10px rgba(0,0,0,0.25)',
+            }}
+          >
+            Build a smarter foundation for{' '}
+            <span className="text-[#1cc7c3]">growth.</span>
+          </h1>
+
+          <p className="text-[#cfd6dd] mb-4" style={{ fontSize: '15px', lineHeight: 1.6, maxWidth: '480px' }}>
+            SC Creative helps businesses across Jasper, Walker County, and beyond grow through
+            strategic clarity, modern branding, high-performance websites, intelligent systems,
+            and scalable growth solutions.
+          </p>
+
+          <p className="text-[#cfd6dd] mb-8" style={{ fontSize: '15px', lineHeight: 1.6, maxWidth: '480px' }}>
+            Whether you&apos;re launching something new, modernizing an established company, or
+            preparing for your next stage of growth, we help build the infrastructure behind
+            long-term success.
+          </p>
+
+          <div className="flex gap-4 mb-8 flex-wrap">
             <Link
               href="/contact"
-              className="bg-[#009898] text-white font-bold px-8 py-4 rounded-xl hover:bg-[#0EB1AB] hover:shadow-[0_0_30px_rgba(14,177,171,0.5)] transition-all duration-200 text-[15px]"
+              className="inline-flex items-center gap-2 font-semibold rounded-md px-5 py-3 text-[#07262b] bg-[#1cc7c3]"
+              style={{ fontSize: '14px', boxShadow: '0 8px 18px rgba(28,199,195,0.35)' }}
             >
-              Start Your Project →
+              Start Your Project <span>+</span>
             </Link>
             <Link
               href="/process"
-              className="border border-white/30 text-white/80 font-medium px-8 py-4 rounded-xl hover:border-white/60 hover:text-white transition-all text-[15px]"
+              className="inline-flex items-center font-semibold rounded-md px-5 py-3 text-[#dbe3ea]"
+              style={{ fontSize: '14px', border: '2px solid #5c6a78' }}
             >
               Explore Our Process
             </Link>
           </div>
-          <div className="flex items-start gap-2.5 text-sm">
-            <span className="text-[#009898] mt-0.5">📍</span>
-            <div className="text-white/40 leading-relaxed">
-              <span className="text-white/60">Proudly based in Jasper, Alabama</span>
-              <br />
-              Serving Walker County, Greater Birmingham &amp; Northwest Alabama
+
+          <div className="flex items-start gap-3 text-[#b9c2cb]" style={{ fontSize: '13px', lineHeight: 1.5 }}>
+            <MapPin className="text-[#1cc7c3] shrink-0 mt-0.5" size={20} />
+            <div>
+              <div>Proudly based in Jasper, Alabama</div>
+              <div>Serving Walker County, Greater Birmingham, Northwest Alabama, and businesses nationwide.</div>
             </div>
           </div>
         </div>
 
-        {/* Right column */}
-        <div className="relative h-[540px]">
-          <div className="relative h-full rounded-2xl overflow-hidden">
-            <img
-              src="/images/jasper-aerial.jpg"
-              alt="Jasper, Alabama — home of SC Creative"
-              className="w-full h-full object-cover"
-            />
-            {/* Fade left to blend with hero bg */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#020617]/80 via-transparent to-transparent" />
-            {/* Fade bottom */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#020617]/60 via-transparent to-transparent" />
-            {/* Teal atmospheric glow */}
-            <div className="absolute inset-0 bg-[rgba(14,177,171,0.06)]" />
-          </div>
-
-          {/* Glassmorphism feature cards */}
-          <div className="absolute bottom-4 left-4 right-4 flex gap-3">
-            {featureCards.map((card) => (
+        {/* Right column — cards pinned to bottom */}
+        <div className="flex items-end justify-end pb-10">
+          <div className="flex gap-4 w-full justify-end">
+            {cards.map(({ Icon, title, tagline }) => (
               <div
-                key={card.title}
-                className="flex-1 backdrop-blur-md bg-white/[0.08] border border-white/[0.12] rounded-xl p-3.5 shadow-[0_0_20px_rgba(14,177,171,0.15)]"
+                key={title}
+                className="flex flex-col rounded-2xl p-5"
+                style={{
+                  width: '195px',
+                  minHeight: '180px',
+                  background: 'rgba(20,31,42,0.68)',
+                  border: '1px solid rgba(31,45,58,0.62)',
+                  backdropFilter: 'blur(8px)',
+                  WebkitBackdropFilter: 'blur(8px)',
+                  boxShadow: '0 10px 20px rgba(0,0,0,0.28)',
+                }}
               >
-                <div className="text-xl mb-1.5">{card.icon}</div>
-                <div className="text-white text-xs font-bold mb-1">{card.title}</div>
-                <div className="text-white/50 text-[10px] leading-snug">{card.sub}</div>
+                <Icon className="text-[#1cc7c3] mb-3" size={28} />
+                <h4 className="font-semibold text-[#f5f7fb] mb-2" style={{ fontSize: '16px' }}>
+                  {title}
+                </h4>
+                <p className="text-[#b7c1cb]" style={{ fontSize: '13px', lineHeight: 1.5 }}>
+                  {tagline}
+                </p>
               </div>
             ))}
           </div>
