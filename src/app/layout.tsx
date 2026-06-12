@@ -1,47 +1,25 @@
 // src/app/layout.tsx
 import type { Metadata } from 'next'
 import { Poppins, Inter, Montserrat, Lato } from 'next/font/google'
-import { createClient } from '@supabase/supabase-js'
+import { getSiteConfig } from '@/lib/site-config'
 import './globals.css'
 
-const poppins    = Poppins({    subsets: ['latin'], weight: ['300', '400', '600', '700', '800'], variable: '--font-poppins' })
-const inter      = Inter({      subsets: ['latin'], weight: ['300', '400', '600', '700', '800'], variable: '--font-inter' })
-const montserrat = Montserrat({ subsets: ['latin'], weight: ['300', '400', '600', '700', '800'], variable: '--font-montserrat' })
-const lato       = Lato({       subsets: ['latin'], weight: ['300', '400', '700'],               variable: '--font-lato' })
+const poppins    = Poppins({    subsets: ['latin'], weight: ['300', '400', '500', '600', '700', '800'], variable: '--font-poppins' })
+const inter      = Inter({      subsets: ['latin'], weight: ['300', '400', '500', '600', '700', '800'], variable: '--font-inter' })
+const montserrat = Montserrat({ subsets: ['latin'], weight: ['300', '400', '500', '600', '700', '800'], variable: '--font-montserrat' })
+const lato       = Lato({       subsets: ['latin'], weight: ['300', '400', '700'],                     variable: '--font-lato' })
 
 const ALL_FONT_VARS = [poppins.variable, inter.variable, montserrat.variable, lato.variable].join(' ')
 
-const FONT_VAR_MAP: Record<string, string> = {
+const FONT_VAR: Record<string, string> = {
   poppins:    'var(--font-poppins)',
   inter:      'var(--font-inter)',
   montserrat: 'var(--font-montserrat)',
   lato:       'var(--font-lato)',
 }
 
-const THEME_DEFAULTS = {
-  color_primary:    '#1cc7c3',
-  color_background: '#070d17',
-  color_surface:    '#0b1520',
-  color_text:       '#e8eef4',
-  font_family:      'poppins',
-  font_size_base:   16,
-}
-
-async function getTheme() {
-  try {
-    const db = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.SUPABASE_SERVICE_ROLE_KEY!,
-    )
-    const { data } = await db
-      .from('site_config')
-      .select('color_primary,color_background,color_surface,color_text,font_family,font_size_base')
-      .eq('id', 1)
-      .single()
-    return { ...THEME_DEFAULTS, ...(data ?? {}) }
-  } catch {
-    return THEME_DEFAULTS
-  }
+function fontStack(name: string) {
+  return `${FONT_VAR[name] ?? FONT_VAR.poppins}, ui-sans-serif, system-ui, sans-serif`
 }
 
 export const metadata: Metadata = {
@@ -51,18 +29,32 @@ export const metadata: Metadata = {
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const theme = await getTheme()
-  const fontStack = `${FONT_VAR_MAP[theme.font_family] ?? FONT_VAR_MAP.poppins}, ui-sans-serif, system-ui, sans-serif`
+  const cfg = await getSiteConfig()
 
-  const cssVars = `
-:root {
-  --brand-primary: ${theme.color_primary};
-  --brand-bg: ${theme.color_background};
-  --brand-surface: ${theme.color_surface};
-  --brand-text: ${theme.color_text};
-  --brand-font: ${fontStack};
-  --brand-font-size: ${theme.font_size_base}px;
-}`.trim()
+  const headingFont = fontStack(cfg.font_heading)
+  const bodyFont    = fontStack(cfg.font_body)
+
+  const cssVars = [
+    `:root {`,
+    `  --brand-primary:    ${cfg.color_primary};`,
+    `  --brand-bg:         ${cfg.color_background};`,
+    `  --brand-surface:    ${cfg.color_surface};`,
+    `  --brand-text:       ${cfg.color_text};`,
+    `  --brand-font-heading: ${headingFont};`,
+    `  --brand-font-body:    ${bodyFont};`,
+    `  --brand-h1-size:    ${cfg.h1_size}px;`,
+    `  --brand-h1-weight:  ${cfg.h1_weight};`,
+    `  --brand-h2-size:    ${cfg.h2_size}px;`,
+    `  --brand-h2-weight:  ${cfg.h2_weight};`,
+    `  --brand-h3-size:    ${cfg.h3_size}px;`,
+    `  --brand-h3-weight:  ${cfg.h3_weight};`,
+    `  --brand-h4-size:    ${cfg.h4_size}px;`,
+    `  --brand-h4-weight:  ${cfg.h4_weight};`,
+    `  --brand-body-size:        ${cfg.body_size}px;`,
+    `  --brand-body-weight:      ${cfg.body_weight};`,
+    `  --brand-body-line-height: ${cfg.body_line_height};`,
+    `}`,
+  ].join('\n')
 
   return (
     <html lang="en" className={`${ALL_FONT_VARS} h-full antialiased`}>
@@ -70,7 +62,14 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <style dangerouslySetInnerHTML={{ __html: cssVars }} />
       <body
         className="min-h-full flex flex-col antialiased"
-        style={{ background: theme.color_background, color: theme.color_text, fontFamily: fontStack }}
+        style={{
+          background:  cfg.color_background,
+          color:       cfg.color_text,
+          fontFamily:  bodyFont,
+          fontSize:    `${cfg.body_size}px`,
+          fontWeight:  cfg.body_weight,
+          lineHeight:  cfg.body_line_height,
+        }}
       >
         {children}
       </body>

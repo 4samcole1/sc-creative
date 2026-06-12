@@ -1,6 +1,9 @@
 'use server'
 import { createClient } from '@supabase/supabase-js'
 import { revalidatePath } from 'next/cache'
+import type { SiteConfig } from '@/lib/site-config'
+
+export type { SiteConfig }
 
 function db() {
   return createClient(
@@ -9,32 +12,7 @@ function db() {
   )
 }
 
-export interface SiteConfig {
-  // Business
-  business_name: string
-  tagline: string
-  phone: string
-  email: string
-  address: string
-  // SEO
-  meta_title: string
-  meta_description: string
-  // Social
-  facebook_url: string
-  instagram_url: string
-  linkedin_url: string
-  twitter_url: string
-  youtube_url: string
-  // Theme
-  color_primary: string
-  color_background: string
-  color_surface: string
-  color_text: string
-  font_family: string
-  font_size_base: number
-}
-
-const HEX_RE = /^#[0-9a-fA-F]{6}$/
+const HEX_RE    = /^#[0-9a-fA-F]{6}$/
 const SAFE_FONTS = ['poppins', 'inter', 'montserrat', 'lato']
 
 export async function saveSettingsAction(
@@ -45,18 +23,52 @@ export async function saveSettingsAction(
   const color_background = (formData.get('color_background') as string).trim()
   const color_surface    = (formData.get('color_surface')    as string).trim()
   const color_text       = (formData.get('color_text')       as string).trim()
-  const font_family      = (formData.get('font_family')      as string).trim()
-  const font_size_base   = parseInt(formData.get('font_size_base') as string, 10)
+  const font_heading     = (formData.get('font_heading')     as string).trim()
+  const font_body        = (formData.get('font_body')        as string).trim()
 
-  for (const [name, val] of [['Primary color', color_primary], ['Background', color_background], ['Surface', color_surface], ['Text color', color_text]]) {
-    if (!HEX_RE.test(val)) return { error: `${name} must be a 6-digit hex (e.g. #1cc7c3)`, success: false }
+  for (const [label, val] of [
+    ['Primary color', color_primary],
+    ['Background',    color_background],
+    ['Surface',       color_surface],
+    ['Text color',    color_text],
+  ]) {
+    if (!HEX_RE.test(val)) return { error: `${label} must be a 6-digit hex (e.g. #1cc7c3)`, success: false }
   }
-  if (!SAFE_FONTS.includes(font_family)) return { error: 'Invalid font selection', success: false }
-  if (isNaN(font_size_base) || font_size_base < 12 || font_size_base > 24) {
-    return { error: 'Base font size must be between 12 and 24', success: false }
+  if (!SAFE_FONTS.includes(font_heading)) return { error: 'Invalid heading font', success: false }
+  if (!SAFE_FONTS.includes(font_body))    return { error: 'Invalid body font', success: false }
+
+  function int(name: string, min: number, max: number): number | null {
+    const v = parseInt(formData.get(name) as string, 10)
+    return isNaN(v) || v < min || v > max ? null : v
+  }
+  function float(name: string, min: number, max: number): number | null {
+    const v = parseFloat(formData.get(name) as string)
+    return isNaN(v) || v < min || v > max ? null : v
   }
 
-  const config: SiteConfig = {
+  const h1_size          = int('h1_size',          24, 128)
+  const h1_weight        = int('h1_weight',         100, 900)
+  const h2_size          = int('h2_size',          20, 100)
+  const h2_weight        = int('h2_weight',         100, 900)
+  const h3_size          = int('h3_size',          16, 80)
+  const h3_weight        = int('h3_weight',         100, 900)
+  const h4_size          = int('h4_size',          14, 60)
+  const h4_weight        = int('h4_weight',         100, 900)
+  const body_size        = int('body_size',         12, 24)
+  const body_weight      = int('body_weight',       100, 900)
+  const body_line_height = float('body_line_height', 1, 3)
+
+  const invalidField = [
+    ['H1 size', h1_size], ['H1 weight', h1_weight],
+    ['H2 size', h2_size], ['H2 weight', h2_weight],
+    ['H3 size', h3_size], ['H3 weight', h3_weight],
+    ['H4 size', h4_size], ['H4 weight', h4_weight],
+    ['Body size', body_size], ['Body weight', body_weight],
+    ['Line height', body_line_height],
+  ].find(([, v]) => v === null)
+  if (invalidField) return { error: `${invalidField[0]} is out of range`, success: false }
+
+  const config: Omit<SiteConfig, 'logo_light_url' | 'logo_dark_url'> = {
     business_name:    (formData.get('business_name')    as string).trim(),
     tagline:          (formData.get('tagline')          as string).trim(),
     phone:            (formData.get('phone')            as string).trim(),
@@ -69,12 +81,19 @@ export async function saveSettingsAction(
     linkedin_url:     (formData.get('linkedin_url')     as string).trim(),
     twitter_url:      (formData.get('twitter_url')      as string).trim(),
     youtube_url:      (formData.get('youtube_url')      as string).trim(),
-    color_primary,
-    color_background,
-    color_surface,
-    color_text,
-    font_family,
-    font_size_base,
+    color_primary, color_background, color_surface, color_text,
+    font_heading, font_body,
+    h1_size:          h1_size!,
+    h1_weight:        h1_weight!,
+    h2_size:          h2_size!,
+    h2_weight:        h2_weight!,
+    h3_size:          h3_size!,
+    h3_weight:        h3_weight!,
+    h4_size:          h4_size!,
+    h4_weight:        h4_weight!,
+    body_size:        body_size!,
+    body_weight:      body_weight!,
+    body_line_height: body_line_height!,
   }
 
   const { error } = await db()
@@ -85,6 +104,39 @@ export async function saveSettingsAction(
 
   revalidatePath('/', 'layout')
   return { error: '', success: true }
+}
+
+export async function uploadLogoAction(
+  field: 'logo_light_url' | 'logo_dark_url',
+  _prev: { error: string; url: string },
+  formData: FormData,
+): Promise<{ error: string; url: string }> {
+  const file = formData.get('file') as File
+  if (!file || file.size === 0) return { error: 'No file selected', url: _prev.url }
+
+  const allowed = ['image/png', 'image/jpeg', 'image/svg+xml', 'image/webp']
+  if (!allowed.includes(file.type)) return { error: 'Only PNG, JPG, SVG, or WebP accepted', url: _prev.url }
+  if (file.size > 2 * 1024 * 1024) return { error: 'File must be under 2 MB', url: _prev.url }
+
+  const ext      = file.name.split('.').pop()?.toLowerCase() ?? 'png'
+  const filename = `${field.replace('_url', '')}-${Date.now()}.${ext}`
+  const client   = db()
+  const bytes    = await file.arrayBuffer()
+
+  const { error: uploadErr } = await client.storage
+    .from('logos')
+    .upload(filename, bytes, { contentType: file.type, upsert: true })
+
+  if (uploadErr) return { error: uploadErr.message, url: _prev.url }
+
+  const { data: { publicUrl } } = client.storage.from('logos').getPublicUrl(filename)
+
+  await client
+    .from('site_config')
+    .upsert({ id: 1, [field]: publicUrl, updated_at: new Date().toISOString() })
+
+  revalidatePath('/', 'layout')
+  return { error: '', url: publicUrl }
 }
 
 export async function loadSettings(): Promise<SiteConfig | null> {

@@ -5,16 +5,18 @@ import Image from 'next/image'
 import Btn from '@/components/ui/Btn'
 
 const navLinks = [
-  { label: 'Work', href: '/work' },
-  { label: 'Blueprint', href: '/services/brand-blueprint' },
-  { label: 'Branding', href: '/services/visual-branding' },
-  { label: 'Website', href: '/services/website-design' },
+  { label: 'Work',        href: '/work' },
+  { label: 'Blueprint',   href: '/services/brand-blueprint' },
+  { label: 'Branding',    href: '/services/visual-branding' },
+  { label: 'Website',     href: '/services/website-design' },
   { label: 'AI Solutions', href: '/services/ai-systems' },
-  { label: 'Growth', href: '/services/growth' },
-  { label: 'About', href: '/about' },
+  { label: 'Growth',      href: '/services/growth' },
+  { label: 'About',       href: '/about' },
 ]
 
-export default function Nav() {
+export default function Nav({ logoDarkUrl }: { logoDarkUrl?: string }) {
+  const logoSrc = logoDarkUrl || '/images/logo-dark.png'
+
   return (
     <nav
       style={{
@@ -35,35 +37,24 @@ export default function Nav() {
         padding: '0 28px',
       }}
     >
-      <Link
-        href="/"
-        style={{ flexShrink: 0, marginRight: '40px', lineHeight: 0 }}
-        aria-label="SC Creative"
-      >
+      <Link href="/" style={{ flexShrink: 0, marginRight: '40px', lineHeight: 0 }} aria-label="SC Creative">
         <Image
-          src="/images/logo-dark.png"
+          src={logoSrc}
           alt="SC Creative"
           width={160}
           height={23}
           priority
           style={{ height: '23px', width: 'auto' }}
+          unoptimized={logoSrc.startsWith('http')}
         />
       </Link>
 
-      {/* Absolutely centered so links sit at the true midpoint of the pill */}
       <div style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', display: 'flex', alignItems: 'center', gap: '28px' }}>
         {navLinks.map((l) => (
           <Link
             key={l.href}
             href={l.href}
-            style={{
-              fontSize: '13px',
-              fontWeight: 500,
-              color: '#4a5568',
-              textDecoration: 'none',
-              transition: 'color 0.2s ease',
-              whiteSpace: 'nowrap',
-            }}
+            style={{ fontSize: '13px', fontWeight: 500, color: '#4a5568', textDecoration: 'none', transition: 'color 0.2s ease', whiteSpace: 'nowrap' }}
             onMouseEnter={e => (e.currentTarget.style.color = '#0b1520')}
             onMouseLeave={e => (e.currentTarget.style.color = '#4a5568')}
           >

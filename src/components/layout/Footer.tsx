@@ -4,45 +4,48 @@ import Image from 'next/image'
 import Btn from '@/components/ui/Btn'
 
 const quickLinks = [
-  { label: 'Work', href: '/work' },
-  { label: 'Blueprint', href: '/services/brand-blueprint' },
-  { label: 'Branding', href: '/services/visual-branding' },
-  { label: 'Website', href: '/services/website-design' },
+  { label: 'Work',         href: '/work' },
+  { label: 'Blueprint',    href: '/services/brand-blueprint' },
+  { label: 'Branding',     href: '/services/visual-branding' },
+  { label: 'Website',      href: '/services/website-design' },
   { label: 'AI Solutions', href: '/services/ai-systems' },
-  { label: 'Growth', href: '/services/growth' },
-  { label: 'About', href: '/about' },
+  { label: 'Growth',       href: '/services/growth' },
+  { label: 'About',        href: '/about' },
 ]
 
 const resources = [
-  { label: 'Blog', href: '/blog' },
+  { label: 'Blog',         href: '/blog' },
   { label: 'Case Studies', href: '/case-studies' },
-  { label: 'FAQs', href: '/faqs' },
-  { label: 'Process', href: '/process' },
-  { label: 'Careers', href: '/careers' },
+  { label: 'FAQs',         href: '/faqs' },
+  { label: 'Process',      href: '/process' },
+  { label: 'Careers',      href: '/careers' },
 ]
 
 const socials = [
-  { id: 'fb', label: 'Facebook', href: '#' },
+  { id: 'fb', label: 'Facebook',  href: '#' },
   { id: 'ig', label: 'Instagram', href: '#' },
-  { id: 'li', label: 'LinkedIn', href: '#' },
-  { id: 'tw', label: 'Twitter', href: '#' },
-  { id: 'yt', label: 'YouTube', href: '#' },
+  { id: 'li', label: 'LinkedIn',  href: '#' },
+  { id: 'tw', label: 'Twitter',   href: '#' },
+  { id: 'yt', label: 'YouTube',   href: '#' },
 ]
 
-export default function Footer() {
+export default function Footer({ logoLightUrl }: { logoLightUrl?: string }) {
+  const logoSrc = logoLightUrl || '/images/logo-white.png'
+
   return (
     <footer style={{ background: '#020617' }} className="text-white pt-20 pb-8">
       <div className="max-w-[1200px] mx-auto px-10">
         <div className="grid grid-cols-4 gap-12 mb-16">
-          {/* Column 1 — Brand */}
+          {/* Brand */}
           <div>
             <Link href="/" style={{ display: 'inline-block', lineHeight: 0, marginBottom: '16px' }}>
               <Image
-                src="/images/logo-white.png"
+                src={logoSrc}
                 alt="SC Creative"
                 width={160}
                 height={23}
                 style={{ height: '23px', width: 'auto' }}
+                unoptimized={logoSrc.startsWith('http')}
               />
             </Link>
             <p className="text-white/40 text-sm leading-relaxed mb-6">
@@ -62,64 +65,42 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Column 2 — Quick Links */}
+          {/* Quick Links */}
           <div>
-            <div className="text-[11px] font-bold tracking-[0.15em] uppercase text-white/30 mb-5">
-              Quick Links
-            </div>
+            <div className="text-[11px] font-bold tracking-[0.15em] uppercase text-white/30 mb-5">Quick Links</div>
             <ul className="space-y-3">
               {quickLinks.map((l) => (
                 <li key={l.href}>
-                  <Link
-                    href={l.href}
-                    className="text-white/50 hover:text-white text-sm transition-colors"
-                  >
-                    {l.label}
-                  </Link>
+                  <Link href={l.href} className="text-white/50 hover:text-white text-sm transition-colors">{l.label}</Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Column 3 — Resources */}
+          {/* Resources */}
           <div>
-            <div className="text-[11px] font-bold tracking-[0.15em] uppercase text-white/30 mb-5">
-              Resources
-            </div>
+            <div className="text-[11px] font-bold tracking-[0.15em] uppercase text-white/30 mb-5">Resources</div>
             <ul className="space-y-3">
               {resources.map((l) => (
                 <li key={l.href}>
-                  <Link
-                    href={l.href}
-                    className="text-white/50 hover:text-white text-sm transition-colors"
-                  >
-                    {l.label}
-                  </Link>
+                  <Link href={l.href} className="text-white/50 hover:text-white text-sm transition-colors">{l.label}</Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Column 4 — Contact */}
+          {/* Contact */}
           <div>
-            <div className="text-[11px] font-bold tracking-[0.15em] uppercase text-white/30 mb-5">
-              Contact
-            </div>
+            <div className="text-[11px] font-bold tracking-[0.15em] uppercase text-white/30 mb-5">Contact</div>
             <ul className="space-y-3 mb-6">
               <li className="text-white/50 text-sm">Jasper, AL</li>
               <li>
-                <a
-                  href="mailto:info@samcolecreative.com"
-                  className="text-white/50 hover:text-white text-sm transition-colors"
-                >
+                <a href="mailto:info@samcolecreative.com" className="text-white/50 hover:text-white text-sm transition-colors">
                   info@samcolecreative.com
                 </a>
               </li>
               <li>
-                <a
-                  href="tel:+16789971106"
-                  className="text-white/50 hover:text-white text-sm transition-colors"
-                >
+                <a href="tel:+16789971106" className="text-white/50 hover:text-white text-sm transition-colors">
                   (678) 997-1106
                 </a>
               </li>
@@ -131,12 +112,8 @@ export default function Footer() {
         <div className="border-t border-white/[0.06] pt-6 flex items-center justify-between text-white/20 text-xs">
           <span>© {new Date().getFullYear()} SC Creative. All rights reserved.</span>
           <div className="flex gap-6">
-            <Link href="/privacy" className="hover:text-white/40 transition-colors">
-              Privacy Policy
-            </Link>
-            <Link href="/terms" className="hover:text-white/40 transition-colors">
-              Terms of Service
-            </Link>
+            <Link href="/privacy" className="hover:text-white/40 transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="hover:text-white/40 transition-colors">Terms of Service</Link>
           </div>
         </div>
       </div>
