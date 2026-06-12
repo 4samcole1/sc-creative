@@ -10,14 +10,14 @@ import Btn from '@/components/ui/Btn'
 
 // ─── Tabs ───────────────────────────────────────────────────────────────
 const TABS = [
-  { id: 'dashboard',   Icon: LayoutDashboard },
-  { id: 'leads',       Icon: Users           },
-  { id: 'scheduling',  Icon: Calendar        },
-  { id: 'tasks',       Icon: CheckSquare     },
-  { id: 'analytics',   Icon: BarChart3       },
-  { id: 'team',        Icon: UsersRound      },
-  { id: 'automations', Icon: Zap             },
-  { id: 'settings',    Icon: SettingsIcon    },
+  { id: 'dashboard',   label: 'Dashboard',   Icon: LayoutDashboard },
+  { id: 'leads',       label: 'Leads',       Icon: Users           },
+  { id: 'scheduling',  label: 'Scheduling',  Icon: Calendar        },
+  { id: 'tasks',       label: 'Tasks',       Icon: CheckSquare     },
+  { id: 'analytics',   label: 'Analytics',   Icon: BarChart3       },
+  { id: 'team',        label: 'Team',        Icon: UsersRound      },
+  { id: 'automations', label: 'Automations', Icon: Zap             },
+  { id: 'settings',    label: 'Settings',    Icon: SettingsIcon    },
 ]
 
 // ─── Shared micro-styles ────────────────────────────────────────────────
@@ -394,6 +394,32 @@ function GrowthOS() {
           to   { opacity: 1; transform: translateY(0); }
         }
         .view-enter { animation: view-fade 0.22s ease both; }
+        .sidebar-btn { position: relative; }
+        .sidebar-btn:not(.sidebar-btn-active):hover {
+          background: rgba(255,255,255,0.05) !important;
+        }
+        .sidebar-btn:hover .sidebar-tip {
+          opacity: 1;
+          transform: translateY(-50%) translateX(0);
+        }
+        .sidebar-tip {
+          position: absolute;
+          left: calc(100% + 8px);
+          top: 50%;
+          transform: translateY(-50%) translateX(-4px);
+          background: #162030;
+          border: 1px solid rgba(255,255,255,0.1);
+          color: #a0b4c4;
+          font-size: 10px;
+          font-weight: 600;
+          padding: 3px 8px;
+          border-radius: 5px;
+          white-space: nowrap;
+          opacity: 0;
+          pointer-events: none;
+          transition: opacity 0.15s ease, transform 0.15s ease;
+          z-index: 100;
+        }
       `}</style>
 
       {/* Chrome */}
@@ -402,7 +428,7 @@ function GrowthOS() {
         <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#febc2e' }} />
         <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#28c840' }} />
         <div style={{ flex: 1 }} />
-        <span style={{ fontSize: '10px', fontWeight: 700, color: '#3a4a5a', letterSpacing: '0.06em' }}>SC GrowthOS</span>
+        <span style={{ fontSize: '10px', fontWeight: 700, color: '#3a4a5a', letterSpacing: '0.06em' }}>GrowthOS</span>
         <div style={{ flex: 1 }} />
         <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
           <div style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#30c060' }} />
@@ -414,16 +440,17 @@ function GrowthOS() {
       <div style={{ display: 'flex', height: '340px' }}>
         {/* Sidebar */}
         <div style={{ width: '52px', background: '#0d1420', borderRight: '1px solid rgba(255,255,255,0.06)', display: 'flex', flexDirection: 'column', padding: '8px 0', gap: '1px', flexShrink: 0 }}>
-          {TABS.map(({ id, Icon }) => {
+          {TABS.map(({ id, label, Icon }) => {
             const on = active === id
             return (
               <button
                 key={id}
                 onClick={() => setActive(id)}
-                title={id}
+                className={`sidebar-btn${on ? ' sidebar-btn-active' : ''}`}
                 style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '9px 0', background: on ? 'rgba(28,199,195,0.1)' : 'transparent', border: 'none', borderLeft: on ? '2px solid #1cc7c3' : '2px solid transparent', cursor: 'pointer', transition: 'all 0.15s ease' }}
               >
                 <Icon size={14} style={{ color: on ? '#1cc7c3' : '#3a4a5a', transition: 'color 0.15s ease' }} />
+                <span className="sidebar-tip">{label}</span>
               </button>
             )
           })}
