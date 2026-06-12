@@ -14,7 +14,7 @@ const logos = [
 // translateX(-50%) = -160vw = exactly one full set → seamless loop
 export default function TrustBar() {
   return (
-    <section className="bg-white py-10 border-b border-gray-100 overflow-hidden">
+    <section className="bg-white py-10 border-b border-gray-100">
       <style>{`
         @keyframes logo-marquee {
           0%   { transform: translateX(0); }
@@ -22,11 +22,13 @@ export default function TrustBar() {
         }
       `}</style>
 
-      <p className="text-center text-[11px] font-bold tracking-[0.2em] uppercase text-gray-400 mb-8">
-        Trusted by Businesses Across the Region
-      </p>
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 40px' }}>
+        <p className="text-center text-[11px] font-bold tracking-[0.2em] uppercase text-gray-400 mb-8">
+          Trusted by Businesses Across the Region
+        </p>
+      </div>
 
-      <div className="relative">
+      <div style={{ maxWidth: '1200px', margin: '0 auto', overflow: 'hidden', position: 'relative' }}>
         {/* Left fade */}
         <div
           className="pointer-events-none absolute left-0 top-0 h-full w-24 z-10"
