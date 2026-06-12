@@ -2,7 +2,13 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-primary: #009898;
+  /* Dynamic brand tokens — set from admin Settings at runtime */
+  --color-primary: var(--brand-primary, #1cc7c3);
+  --color-background: var(--brand-bg, #070d17);
+  --color-surface: var(--brand-surface, #0b1520);
+  --color-text: var(--brand-text, #e8eef4);
+
+  /* Static palette tokens */
   --color-primary-accent: #0EB1AB;
   --color-secondary: #00304B;
   --color-deep-bg: #020617;
@@ -12,7 +18,7 @@
   --color-soft-border: rgba(255, 255, 255, 0.08);
   --color-soft-glow: rgba(14, 177, 171, 0.15);
 
-  /* Legacy tokens — kept for backward compat with deferred sections */
+  /* Legacy tokens */
   --color-navy-darkest: #071829;
   --color-navy-dark: #0d1f35;
   --color-navy: #1a3557;
@@ -24,7 +30,8 @@
   --color-cream: #f5f3ef;
   --color-cream-dark: #ece8e2;
 
-  --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--brand-font, var(--font-poppins), ui-sans-serif, system-ui, sans-serif);
+  --font-size-base: var(--brand-font-size, 16px);
 }
 
 html { scroll-behavior: smooth; }
