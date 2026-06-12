@@ -1,30 +1,127 @@
+'use client'
 // src/components/sections/Approach.tsx
-import { Zap } from 'lucide-react'
+import { useState } from 'react'
+import { Zap, Lightbulb } from 'lucide-react'
 
-const traditionalItems = [
-  'Website',
-  'Logo',
-  'Ads',
-  'Monthly Reports',
-  'Short-Term Tactics',
-  'Disconnected Services',
+interface Item {
+  id: string
+  label: string
+  desc: string
+}
+
+const traditionalItems: Item[] = [
+  { id: 't1', label: 'Website', desc: 'A standalone site with no strategy behind it is just an online brochure — easy to build, hard to grow from.' },
+  { id: 't2', label: 'Logo', desc: 'A logo alone doesn\'t build a brand. Brand is the full system — voice, visuals, positioning, and consistency.' },
+  { id: 't3', label: 'Ads', desc: 'Paid ads without a strong brand and conversion system burn budget fast and rarely compound.' },
+  { id: 't4', label: 'Monthly Reports', desc: 'Reports without connected action are just numbers. Growth comes from decisions, not dashboards.' },
+  { id: 't5', label: 'Short-Term Tactics', desc: 'Tactics produce spikes. Systems produce momentum. Most agencies are built for the former.' },
+  { id: 't6', label: 'Disconnected Services', desc: 'When vendors don\'t talk to each other, your brand, messaging, and data all suffer for it.' },
 ]
 
-const ecosystemItems = [
-  'Strategy',
-  'Branding',
-  'Websites',
-  'Intelligent Systems',
-  'Growth Infrastructure',
-  'Long-Term Partnership',
+const ecosystemItems: Item[] = [
+  { id: 's1', label: 'Strategy', desc: 'Every engagement starts with clarity — who you serve, how you\'re positioned, and what success actually looks like.' },
+  { id: 's2', label: 'Branding', desc: 'A complete brand system: identity, voice, and visual language built to hold up across every channel and context.' },
+  { id: 's3', label: 'Websites', desc: 'Performance-first sites designed to convert visitors into leads — not just look good in a portfolio.' },
+  { id: 's4', label: 'Intelligent Systems', desc: 'AI and automation workflows that reduce manual work, speed up decisions, and scale with your business.' },
+  { id: 's5', label: 'Growth Infrastructure', desc: 'The foundation behind growth: analytics, SEO, CRM, and channels — all aligned and talking to each other.' },
+  { id: 's6', label: 'Long-Term Partnership', desc: 'We stay in your corner past launch. Not a one-time vendor — an ongoing partner invested in your results.' },
 ]
 
-const benefits = [
-  'Stronger strategy',
-  'Fewer disconnects',
-  'Better communication',
-  'More sustainable growth',
-]
+function ItemRow({
+  item,
+  type,
+}: {
+  item: Item
+  type: 'traditional' | 'ecosystem'
+}) {
+  const [hovered, setHovered] = useState(false)
+  const [active, setActive] = useState(false)
+
+  const isTrad = type === 'traditional'
+  const iconColor = isTrad ? '#cc4444' : '#13a9a6'
+  const iconBg = isTrad ? 'rgba(200,50,50,0.07)' : 'rgba(28,199,195,0.12)'
+  const iconBorder = isTrad ? 'rgba(200,50,50,0.16)' : 'rgba(28,199,195,0.3)'
+  const symbol = isTrad ? '✕' : '✓'
+
+  return (
+    <div>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '10px',
+          cursor: 'pointer',
+          borderRadius: '8px',
+          padding: '3px 4px',
+          margin: '-3px -4px',
+          transition: 'background 0.15s ease',
+          background: active ? (isTrad ? 'rgba(200,50,50,0.04)' : 'rgba(28,199,195,0.06)') : 'transparent',
+        }}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        onClick={() => setActive((a) => !a)}
+      >
+        <span
+          style={{
+            width: '18px',
+            height: '18px',
+            borderRadius: '50%',
+            background: hovered ? 'rgba(90,90,160,0.1)' : iconBg,
+            border: `1px solid ${hovered ? 'rgba(90,90,160,0.25)' : iconBorder}`,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexShrink: 0,
+            fontSize: '9px',
+            color: hovered ? '#7a7aaa' : iconColor,
+            fontWeight: 700,
+            transition: 'all 0.15s ease',
+          }}
+        >
+          {hovered ? '?' : symbol}
+        </span>
+        <span
+          style={{
+            fontSize: '13px',
+            color: isTrad ? '#7a8a9a' : '#2a3a4a',
+            fontWeight: 500,
+            transition: 'color 0.15s ease',
+          }}
+        >
+          {item.label}
+        </span>
+      </div>
+
+      {active && (
+        <div
+          style={{
+            marginTop: '8px',
+            marginLeft: '28px',
+            padding: '10px 12px',
+            borderRadius: '8px',
+            background: isTrad ? 'rgba(200,50,50,0.04)' : 'rgba(28,199,195,0.06)',
+            border: `1px solid ${isTrad ? 'rgba(200,50,50,0.12)' : 'rgba(28,199,195,0.16)'}`,
+            display: 'flex',
+            gap: '8px',
+            alignItems: 'flex-start',
+          }}
+        >
+          <Lightbulb
+            size={13}
+            style={{
+              color: isTrad ? '#cc4444' : '#1cc7c3',
+              flexShrink: 0,
+              marginTop: '1px',
+            }}
+          />
+          <p style={{ fontSize: '12px', color: isTrad ? '#6a7a8a' : '#3a5a5a', lineHeight: 1.6, margin: 0 }}>
+            {item.desc}
+          </p>
+        </div>
+      )}
+    </div>
+  )
+}
 
 export default function Approach() {
   return (
@@ -83,58 +180,16 @@ export default function Approach() {
               <span style={{ color: '#1cc7c3' }}>We Focus on Systems.</span>
             </h2>
 
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '14px',
-                marginBottom: '36px',
-              }}
-            >
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
               {[
                 'Many agencies can build a website. Some can run ads. Others can design a logo.',
                 'Few can connect strategy, branding, development, automation, and growth into a single ecosystem designed to support long-term success.',
                 "That's where SC Creative is different.",
                 "We don't view websites, branding, AI, or marketing as isolated services. We see them as interconnected parts of a larger growth system.",
               ].map((p, i) => (
-                <p
-                  key={i}
-                  style={{ fontSize: '14px', color: '#5a6a7a', lineHeight: 1.72, margin: 0 }}
-                >
+                <p key={i} style={{ fontSize: '14px', color: '#5a6a7a', lineHeight: 1.72, margin: 0 }}>
                   {p}
                 </p>
-              ))}
-            </div>
-
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
-                gap: '10px 20px',
-              }}
-            >
-              {benefits.map((b) => (
-                <div key={b} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <span
-                    style={{
-                      width: '18px',
-                      height: '18px',
-                      borderRadius: '50%',
-                      background: 'rgba(28,199,195,0.12)',
-                      border: '1px solid rgba(28,199,195,0.3)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      flexShrink: 0,
-                      fontSize: '10px',
-                      color: '#13a9a6',
-                      fontWeight: 700,
-                    }}
-                  >
-                    ✓
-                  </span>
-                  <span style={{ fontSize: '13px', color: '#3a4a5a', fontWeight: 500 }}>{b}</span>
-                </div>
               ))}
             </div>
           </div>
@@ -174,45 +229,18 @@ export default function Approach() {
                   >
                     Traditional Agency
                   </p>
-                  <h3
-                    style={{
-                      fontSize: '15px',
-                      fontWeight: 700,
-                      color: '#3a4a5a',
-                      lineHeight: 1.3,
-                    }}
-                  >
+                  <h3 style={{ fontSize: '15px', fontWeight: 700, color: '#3a4a5a', lineHeight: 1.3 }}>
                     Individual Services Model
                   </h3>
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '11px' }}>
                   {traditionalItems.map((item) => (
-                    <div key={item} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                      <span
-                        style={{
-                          width: '18px',
-                          height: '18px',
-                          borderRadius: '50%',
-                          background: 'rgba(200,50,50,0.07)',
-                          border: '1px solid rgba(200,50,50,0.16)',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          flexShrink: 0,
-                          fontSize: '9px',
-                          color: '#cc4444',
-                          fontWeight: 700,
-                        }}
-                      >
-                        ✕
-                      </span>
-                      <span style={{ fontSize: '13px', color: '#7a8a9a', fontWeight: 500 }}>{item}</span>
-                    </div>
+                    <ItemRow key={item.id} item={item} type="traditional" />
                   ))}
                 </div>
               </div>
 
-              {/* VS badge column */}
+              {/* VS badge */}
               <div
                 style={{
                   display: 'flex',
@@ -257,7 +285,6 @@ export default function Approach() {
                   overflow: 'hidden',
                 }}
               >
-                {/* Subtle teal top bar accent */}
                 <div
                   style={{
                     position: 'absolute',
@@ -282,40 +309,13 @@ export default function Approach() {
                   >
                     SC Creative
                   </p>
-                  <h3
-                    style={{
-                      fontSize: '15px',
-                      fontWeight: 700,
-                      color: '#0b1520',
-                      lineHeight: 1.3,
-                    }}
-                  >
+                  <h3 style={{ fontSize: '15px', fontWeight: 700, color: '#0b1520', lineHeight: 1.3 }}>
                     Growth Ecosystem Model
                   </h3>
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '11px' }}>
                   {ecosystemItems.map((item) => (
-                    <div key={item} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                      <span
-                        style={{
-                          width: '18px',
-                          height: '18px',
-                          borderRadius: '50%',
-                          background: 'rgba(28,199,195,0.12)',
-                          border: '1px solid rgba(28,199,195,0.3)',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          flexShrink: 0,
-                          fontSize: '9px',
-                          color: '#13a9a6',
-                          fontWeight: 700,
-                        }}
-                      >
-                        ✓
-                      </span>
-                      <span style={{ fontSize: '13px', color: '#2a3a4a', fontWeight: 500 }}>{item}</span>
-                    </div>
+                    <ItemRow key={item.id} item={item} type="ecosystem" />
                   ))}
                 </div>
               </div>
