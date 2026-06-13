@@ -1,6 +1,7 @@
 'use client'
 import { useActionState } from 'react'
-import { saveSettingsAction, uploadLogoAction, type SiteConfig } from './actions'
+import type { SiteConfig } from '@/lib/site-config'
+import { saveSettingsAction, uploadLogoAction } from './actions'
 
 const INITIAL = { error: '', success: false }
 

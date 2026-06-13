@@ -3,8 +3,6 @@ import { createClient } from '@supabase/supabase-js'
 import { revalidatePath } from 'next/cache'
 import type { SiteConfig } from '@/lib/site-config'
 
-export type { SiteConfig }
-
 function db() {
   return createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,

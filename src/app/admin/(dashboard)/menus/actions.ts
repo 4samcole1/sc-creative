@@ -55,6 +55,7 @@ export async function addMenuItemAction(
   const { error } = await db().from('menu_items').insert({ menu_id, label, url, sort_order, opens_new_tab })
   if (error) return { error: error.message, success: false }
   revalidatePath('/admin/menus')
+  revalidatePath('/admin/pages')
   return { error: '', success: true }
 }
 
@@ -73,12 +74,14 @@ export async function updateMenuItemAction(
   const { error } = await db().from('menu_items').update({ label, url, opens_new_tab }).eq('id', id)
   if (error) return { error: error.message, success: false }
   revalidatePath('/admin/menus')
+  revalidatePath('/admin/pages')
   return { error: '', success: true }
 }
 
 export async function deleteMenuItemAction(id: string) {
   await db().from('menu_items').delete().eq('id', id)
   revalidatePath('/admin/menus')
+  revalidatePath('/admin/pages')
 }
 
 export async function reorderMenuItemAction(id: string, direction: 'up' | 'down') {
@@ -100,4 +103,5 @@ export async function reorderMenuItemAction(id: string, direction: 'up' | 'down'
   await db().from('menu_items').update({ sort_order: siblingOrder }).eq('id', mi.id)
   await db().from('menu_items').update({ sort_order: mi.sort_order }).eq('id', sibling.id)
   revalidatePath('/admin/menus')
+  revalidatePath('/admin/pages')
 }

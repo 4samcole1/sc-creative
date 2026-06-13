@@ -11,16 +11,19 @@ export interface Page {
   id: string
   title: string
   slug: string
+  parent_id: string | null
+  sort_order: number
   content: string
   status: 'draft' | 'published'
   meta_title: string
   meta_description: string
+  og_image_url: string
   created_at: string
   updated_at: string
 }
 
 export async function getPages(): Promise<Page[]> {
-  const { data } = await db().from('pages').select('*').order('created_at', { ascending: false })
+  const { data } = await db().from('pages').select('*').order('sort_order').order('created_at')
   return (data ?? []) as Page[]
 }
 
@@ -28,6 +31,7 @@ export async function getPage(id: string): Promise<Page | null> {
   const { data } = await db().from('pages').select('*').eq('id', id).single()
   return data as Page | null
 }
+
 
 export async function upsertPageAction(
   _prev: { error: string; success: boolean },
@@ -40,14 +44,18 @@ export async function upsertPageAction(
 
   if (!title) return { error: 'Title is required', success: false }
   if (!slug)  return { error: 'Slug is required', success: false }
-  if (!/^[a-z0-9-]+$/.test(slug)) return { error: 'Slug may only contain lowercase letters, numbers, and hyphens', success: false }
+  if (!/^[a-z0-9-/]+$/.test(slug)) return { error: 'Slug may only contain lowercase letters, numbers, hyphens, and forward slashes', success: false }
 
   const now = new Date().toISOString()
+  const parentId = (formData.get('parent_id') as string)?.trim() || null
   const payload = {
     title, slug, status,
+    parent_id:       parentId,
+    sort_order:      parseInt((formData.get('sort_order') as string) || '0', 10) || 0,
     content:         (formData.get('content')         as string).trim(),
     meta_title:      (formData.get('meta_title')      as string).trim(),
     meta_description:(formData.get('meta_description') as string).trim(),
+    og_image_url:    (formData.get('og_image_url')    as string).trim(),
     updated_at: now,
   }
 
