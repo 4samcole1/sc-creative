@@ -1,7 +1,7 @@
 'use client'
 // src/components/sections/Approach.tsx
 import { useState } from 'react'
-import { Zap, Lightbulb } from 'lucide-react'
+import { Zap, Lightbulb, Play } from 'lucide-react'
 import { t } from '@/lib/typography'
 
 interface Item {
@@ -31,13 +31,11 @@ const ecosystemItems: Item[] = [
 function ItemRow({
   item,
   type,
-  isActive,
-  onToggle,
+  onHover,
 }: {
   item: Item
   type: 'traditional' | 'ecosystem'
-  isActive: boolean
-  onToggle: () => void
+  onHover: (h: { desc: string; isTrad: boolean } | null) => void
 }) {
   const [hovered, setHovered] = useState(false)
 
@@ -54,16 +52,21 @@ function ItemRow({
           display: 'flex',
           alignItems: 'center',
           gap: '10px',
-          cursor: 'pointer',
+          cursor: 'default',
           borderRadius: '8px',
           padding: '3px 4px',
           margin: '-3px -4px',
           transition: 'background 0.15s ease',
-          background: isActive ? (isTrad ? 'rgba(200,50,50,0.04)' : 'rgba(28,199,195,0.06)') : 'transparent',
+          background: hovered ? (isTrad ? 'rgba(200,50,50,0.04)' : 'rgba(28,199,195,0.06)') : 'transparent',
         }}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-        onClick={onToggle}
+        onMouseEnter={() => {
+          setHovered(true)
+          onHover({ desc: item.desc, isTrad })
+        }}
+        onMouseLeave={() => {
+          setHovered(false)
+          onHover(null)
+        }}
       >
         <span
           style={{
@@ -95,44 +98,15 @@ function ItemRow({
           {item.label}
         </span>
       </div>
-
-      {isActive && (
-        <div
-          style={{
-            marginTop: '8px',
-            marginLeft: '28px',
-            padding: '10px 12px',
-            borderRadius: '8px',
-            background: isTrad ? 'rgba(200,50,50,0.04)' : 'rgba(28,199,195,0.06)',
-            border: `1px solid ${isTrad ? 'rgba(200,50,50,0.12)' : 'rgba(28,199,195,0.16)'}`,
-            display: 'flex',
-            gap: '8px',
-            alignItems: 'flex-start',
-          }}
-        >
-          <Lightbulb
-            size={13}
-            style={{
-              color: isTrad ? '#cc4444' : '#1cc7c3',
-              flexShrink: 0,
-              marginTop: '1px',
-            }}
-          />
-          <p style={{ ...t.xs, color: isTrad ? '#6a7a8a' : '#3a5a5a', margin: 0 }}>
-            {item.desc}
-          </p>
-        </div>
-      )}
     </div>
   )
 }
 
 export default function Approach() {
-  const [activeTrad, setActiveTrad] = useState<string | null>(null)
-  const [activeSc, setActiveSc] = useState<string | null>(null)
+  const [hoveredItem, setHoveredItem] = useState<{ desc: string; isTrad: boolean } | null>(null)
 
   return (
-    <section style={{ background: '#f5f7fb', padding: '120px 0' }}>
+    <section style={{ background: '#f5f7fb', padding: '72px 0' }}>
       <style>{`
         .approach-card-trad {
           transition: transform 0.25s ease, box-shadow 0.25s ease;
@@ -154,12 +128,12 @@ export default function Approach() {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: '40fr 60fr',
+            gridTemplateColumns: '45fr 55fr',
             gap: '80px',
             alignItems: 'start',
           }}
         >
-          {/* ── Left column ── */}
+          {/* ── Left column — header + video placeholder ── */}
           <div>
             <p style={{ ...t.eyebrow, marginBottom: '20px' }}>
               A Different Approach
@@ -169,24 +143,53 @@ export default function Approach() {
               style={{
                 ...t.h2,
                 color: '#0b1520',
-                marginBottom: '28px',
+                marginBottom: '36px',
               }}
             >
               Most Agencies Focus on Tactics.{' '}
               <span style={{ color: '#1cc7c3' }}>We Focus on Systems.</span>
             </h2>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-              {[
-                'Many agencies can build a website. Some can run ads. Others can design a logo.',
-                'Few can connect strategy, branding, development, automation, and growth into a single ecosystem designed to support long-term success.',
-                "That's where SC Creative is different.",
-                "We don't view websites, branding, AI, or marketing as isolated services. We see them as interconnected parts of a larger growth system.",
-              ].map((p, i) => (
-                <p key={i} style={{ ...t.body, color: '#5a6a7a', margin: 0 }}>
-                  {p}
-                </p>
-              ))}
+            <div
+              style={{
+                position: 'relative',
+                width: '100%',
+                aspectRatio: '16 / 9',
+                borderRadius: '16px',
+                background: 'linear-gradient(135deg, #0b1520 0%, #14263a 100%)',
+                border: '1px solid rgba(28,199,195,0.18)',
+                boxShadow: '0 24px 56px rgba(0,0,0,0.12)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                overflow: 'hidden',
+              }}
+            >
+              <div
+                style={{
+                  width: '72px',
+                  height: '72px',
+                  borderRadius: '50%',
+                  background: 'rgba(28,199,195,0.14)',
+                  border: '1px solid rgba(28,199,195,0.4)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <Play size={26} style={{ color: '#1cc7c3', marginLeft: '4px' }} fill="#1cc7c3" />
+              </div>
+              <span
+                style={{
+                  ...t.cardLabel,
+                  position: 'absolute',
+                  bottom: '20px',
+                  left: '24px',
+                  color: 'rgba(255,255,255,0.55)',
+                }}
+              >
+                Video Placeholder
+              </span>
             </div>
           </div>
 
@@ -226,8 +229,7 @@ export default function Approach() {
                       key={item.id}
                       item={item}
                       type="traditional"
-                      isActive={activeTrad === item.id}
-                      onToggle={() => setActiveTrad(activeTrad === item.id ? null : item.id)}
+                      onHover={setHoveredItem}
                     />
                   ))}
                 </div>
@@ -303,25 +305,32 @@ export default function Approach() {
                       key={item.id}
                       item={item}
                       type="ecosystem"
-                      isActive={activeSc === item.id}
-                      onToggle={() => setActiveSc(activeSc === item.id ? null : item.id)}
+                      onHover={setHoveredItem}
                     />
                   ))}
                 </div>
               </div>
             </div>
 
-            {/* Callout banner */}
+            {/* Callout banner — reflects the hovered comparison item */}
             <div
               style={{
+                marginTop: '24px',
                 background: '#ffffff',
-                border: '1px solid rgba(28,199,195,0.18)',
+                border: `1px solid ${
+                  hoveredItem
+                    ? hoveredItem.isTrad
+                      ? 'rgba(200,50,50,0.2)'
+                      : 'rgba(28,199,195,0.28)'
+                    : 'rgba(28,199,195,0.18)'
+                }`,
                 borderRadius: '14px',
                 padding: '20px 24px',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '16px',
                 boxShadow: '0 2px 12px rgba(0,0,0,0.04)',
+                transition: 'border-color 0.2s ease',
               }}
             >
               <div
@@ -329,19 +338,27 @@ export default function Approach() {
                   width: '38px',
                   height: '38px',
                   borderRadius: '10px',
-                  background: 'rgba(28,199,195,0.1)',
-                  border: '1px solid rgba(28,199,195,0.22)',
+                  background: hoveredItem && hoveredItem.isTrad ? 'rgba(200,50,50,0.08)' : 'rgba(28,199,195,0.1)',
+                  border: `1px solid ${
+                    hoveredItem && hoveredItem.isTrad ? 'rgba(200,50,50,0.18)' : 'rgba(28,199,195,0.22)'
+                  }`,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   flexShrink: 0,
+                  transition: 'all 0.2s ease',
                 }}
               >
-                <Zap size={16} style={{ color: '#1cc7c3' }} />
+                {hoveredItem ? (
+                  <Lightbulb size={16} style={{ color: hoveredItem.isTrad ? '#cc4444' : '#1cc7c3' }} />
+                ) : (
+                  <Zap size={16} style={{ color: '#1cc7c3' }} />
+                )}
               </div>
               <p style={{ fontSize: '13px', color: '#5a6a7a', lineHeight: 1.65, margin: 0 }}>
-                Instead of managing multiple vendors, you gain a partner that understands how every
-                piece works together to drive growth.
+                {hoveredItem
+                  ? hoveredItem.desc
+                  : 'Instead of managing multiple vendors, you gain a partner that understands how every piece works together to drive growth.'}
               </p>
             </div>
           </div>

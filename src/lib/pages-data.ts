@@ -26,9 +26,13 @@ export interface NavLink {
 
 // Static primary nav. Edit to taste — these drive the header.
 const PRIMARY_NAV: NavLink[] = [
-  { label: 'Services', url: '#services', opens_new_tab: false },
-  { label: 'Approach', url: '#approach', opens_new_tab: false },
-  { label: 'Systems',  url: '#systems',  opens_new_tab: false },
+  { label: 'Work',         url: '/work',                     opens_new_tab: false },
+  { label: 'Blueprint',    url: '/services/brand-blueprint', opens_new_tab: false },
+  { label: 'Branding',     url: '/services/visual-branding', opens_new_tab: false },
+  { label: 'Website',      url: '/services/website-design',  opens_new_tab: false },
+  { label: 'AI Solutions', url: '/services/ai-systems',      opens_new_tab: false },
+  { label: 'Growth',       url: '/services/growth',          opens_new_tab: false },
+  { label: 'About',        url: '/about',                    opens_new_tab: false },
 ]
 
 export async function getPageBySlug(_slug: string): Promise<PageRecord | null> {

@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
 import Hero from '@/components/sections/Hero'
-import TrustBar from '@/components/sections/StatsBar'
 import Services from '@/components/sections/Services'
 import Approach from '@/components/sections/Approach'
 import Systems from '@/components/sections/Systems'
+import Ecosystem from '@/components/sections/Ecosystem'
 import { getPageBySlug } from '@/lib/pages-data'
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -34,9 +34,9 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-      <TrustBar />
-      <Services />
+      <Ecosystem />
       <Approach />
+      <Services />
       <Systems />
     </>
   )
