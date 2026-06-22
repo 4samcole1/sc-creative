@@ -1,5 +1,8 @@
 import { cache } from 'react'
-import { createClient } from '@supabase/supabase-js'
+
+// NOTE: This is a static, Supabase-free stub created during the fresh-start migration.
+// The original pulled these values from a `site_config` table. Now they're hardcoded
+// design defaults — edit them here, or wire up a real data source when you're ready.
 
 export interface SiteConfig {
   // Business
@@ -39,6 +42,8 @@ export interface SiteConfig {
   // Logos
   logo_light_url: string
   logo_dark_url: string
+  // Google
+  google_place_id: string
 }
 
 export const SITE_CONFIG_DEFAULTS: SiteConfig = {
@@ -71,27 +76,10 @@ export const SITE_CONFIG_DEFAULTS: SiteConfig = {
   body_size:        16,
   body_weight:      400,
   body_line_height: 1.6,
-  logo_light_url:   '',
-  logo_dark_url:    '',
+  logo_light_url:   '/images/logo-white.png',
+  logo_dark_url:    '/images/logo-dark.png',
+  google_place_id:  '',
 }
 
-function adminClient() {
-  return createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!,
-  )
-}
-
-// React cache() deduplicates this across all server components in the same request
-export const getSiteConfig = cache(async (): Promise<SiteConfig> => {
-  try {
-    const { data } = await adminClient()
-      .from('site_config')
-      .select('*')
-      .eq('id', 1)
-      .single()
-    return { ...SITE_CONFIG_DEFAULTS, ...(data ?? {}) }
-  } catch {
-    return SITE_CONFIG_DEFAULTS
-  }
-})
+// Static for now — kept async + cached so call sites don't need to change.
+export const getSiteConfig = cache(async (): Promise<SiteConfig> => SITE_CONFIG_DEFAULTS)

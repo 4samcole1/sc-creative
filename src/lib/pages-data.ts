@@ -1,11 +1,7 @@
-import { createClient } from '@supabase/supabase-js'
-
-function db() {
-  return createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!,
-  )
-}
+// NOTE: Static, Supabase-free stub created during the fresh-start migration.
+// The original fetched pages / posts / nav menus from Supabase. For the home-page
+// design we only need the nav links and an optional per-page meta override, so those
+// are hardcoded below. Add a real data source later if/when you need it.
 
 export interface PageRecord {
   id: string
@@ -22,7 +18,24 @@ export interface PageRecord {
   updated_at: string
 }
 
-export async function getPageBySlug(slug: string): Promise<PageRecord | null> {
-  const { data } = await db().from('pages').select('*').eq('slug', slug).single()
-  return data as PageRecord | null
+export interface NavLink {
+  label: string
+  url: string
+  opens_new_tab: boolean
+}
+
+// Static primary nav. Edit to taste — these drive the header.
+const PRIMARY_NAV: NavLink[] = [
+  { label: 'Services', url: '#services', opens_new_tab: false },
+  { label: 'Approach', url: '#approach', opens_new_tab: false },
+  { label: 'Systems',  url: '#systems',  opens_new_tab: false },
+]
+
+export async function getPageBySlug(_slug: string): Promise<PageRecord | null> {
+  // No CMS — page-level meta falls back to the defaults in the page component.
+  return null
+}
+
+export async function getNavMenuItems(): Promise<NavLink[]> {
+  return PRIMARY_NAV
 }

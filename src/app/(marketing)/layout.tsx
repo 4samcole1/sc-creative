@@ -1,14 +1,17 @@
-// src/app/(marketing)/layout.tsx
 import { getSiteConfig } from '@/lib/site-config'
+import { getNavMenuItems } from '@/lib/pages-data'
 import Nav from '@/components/layout/Nav'
 import Footer from '@/components/layout/Footer'
 
 export default async function MarketingLayout({ children }: { children: React.ReactNode }) {
-  const cfg = await getSiteConfig()
+  const [cfg, navLinks] = await Promise.all([
+    getSiteConfig(),
+    getNavMenuItems().catch(() => []),
+  ])
 
   return (
     <>
-      <Nav logoDarkUrl={cfg.logo_dark_url} />
+      <Nav logoDarkUrl={cfg.logo_dark_url} links={navLinks} />
       <main className="flex-1">{children}</main>
       <Footer logoLightUrl={cfg.logo_light_url} />
     </>

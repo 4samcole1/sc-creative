@@ -1,21 +1,22 @@
-// src/components/layout/Nav.tsx
 'use client'
 import Link from 'next/link'
 import Image from 'next/image'
 import Btn from '@/components/ui/Btn'
+import type { NavLink } from '@/lib/pages-data'
 
-const navLinks = [
-  { label: 'Work',        href: '/work' },
-  { label: 'Blueprint',   href: '/services/brand-blueprint' },
-  { label: 'Branding',    href: '/services/visual-branding' },
-  { label: 'Website',     href: '/services/website-design' },
-  { label: 'AI Solutions', href: '/services/ai-systems' },
-  { label: 'Growth',      href: '/services/growth' },
-  { label: 'About',       href: '/about' },
+const fallbackLinks: NavLink[] = [
+  { label: 'Work',         url: '/work',                      opens_new_tab: false },
+  { label: 'Blueprint',    url: '/services/brand-blueprint',  opens_new_tab: false },
+  { label: 'Branding',     url: '/services/visual-branding',  opens_new_tab: false },
+  { label: 'Website',      url: '/services/website-design',   opens_new_tab: false },
+  { label: 'AI Solutions', url: '/services/ai-systems',       opens_new_tab: false },
+  { label: 'Growth',       url: '/services/growth',           opens_new_tab: false },
+  { label: 'About',        url: '/about',                     opens_new_tab: false },
 ]
 
-export default function Nav({ logoDarkUrl }: { logoDarkUrl?: string }) {
+export default function Nav({ logoDarkUrl, links }: { logoDarkUrl?: string; links?: NavLink[] }) {
   const logoSrc = logoDarkUrl || '/images/logo-dark.png'
+  const navLinks = links && links.length > 0 ? links : fallbackLinks
 
   return (
     <nav
@@ -52,8 +53,10 @@ export default function Nav({ logoDarkUrl }: { logoDarkUrl?: string }) {
       <div style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', display: 'flex', alignItems: 'center', gap: '28px' }}>
         {navLinks.map((l) => (
           <Link
-            key={l.href}
-            href={l.href}
+            key={l.url}
+            href={l.url}
+            target={l.opens_new_tab ? '_blank' : undefined}
+            rel={l.opens_new_tab ? 'noopener noreferrer' : undefined}
             style={{ fontSize: '13px', fontWeight: 500, color: '#4a5568', textDecoration: 'none', transition: 'color 0.2s ease', whiteSpace: 'nowrap' }}
             onMouseEnter={e => (e.currentTarget.style.color = '#0b1520')}
             onMouseLeave={e => (e.currentTarget.style.color = '#4a5568')}
