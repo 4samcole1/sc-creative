@@ -3,6 +3,11 @@ import { getNavMenuItems } from '@/lib/pages-data'
 import Nav from '@/components/layout/Nav'
 import Footer from '@/components/layout/Footer'
 
+// Render per-request so admin Settings edits (colors, fonts, headings, logo,
+// nav logo, footer contact/social) reflect immediately instead of being frozen
+// into statically-prerendered HTML at build time.
+export const dynamic = 'force-dynamic'
+
 export default async function MarketingLayout({ children }: { children: React.ReactNode }) {
   const [cfg, navLinks] = await Promise.all([
     getSiteConfig(),
