@@ -1,5 +1,6 @@
 -- docs/superpowers/db/2026-06-22-admin-and-clients.sql
 -- Run in Supabase SQL editor.
+-- ⚠️ RUN ONCE. The clients table has no unique key — re-running this file duplicates every client row.
 
 -- 1. Admin users (email + bcrypt hash) ------------------------------------
 create table if not exists admin_users (
@@ -72,8 +73,7 @@ insert into clients (name, show_trust_bar) values
   ('Sanders Aviation', true), ('SHOAlign', true), ('Smith Lake Family Care', true),
   ('Soukkala', true), ('TaleGate Sports', true), ('Talladega County Sheriff', true),
   ('The Walker Leader', true), ('United Physician Group', true), ('Vote Beaty', true),
-  ('Water Extraction Tech', true)
-on conflict do nothing;
+  ('Water Extraction Tech', true);
 
 -- Map clients: set show_map + city-level coords. Update the rows that already
 -- exist from the trust-bar seed; insert Sanders Aviation's extra locations and

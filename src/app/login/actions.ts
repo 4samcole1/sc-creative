@@ -58,6 +58,6 @@ export async function loginAction(
 
 export async function logoutAction() {
   const session = await getIronSession<SessionData>(await cookies(), sessionOptions)
-  session.destroy()
+  await session.destroy()
   redirect('/login')
 }

@@ -1,10 +1,11 @@
 'use client'
 import { useActionState } from 'react'
+import type { CSSProperties } from 'react'
 import { upsertClientAction } from './actions'
 import { FormCard, FormField, SaveBar } from '../components/AdminUI'
 import type { Client } from '@/lib/clients-data'
 
-const checkboxRow: React.CSSProperties = { display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: '#c0d0e0' }
+const checkboxRow: CSSProperties = { display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: '#c0d0e0' }
 
 export function ClientForm({ client }: { client?: Client }) {
   const [state, formAction, isPending] = useActionState(upsertClientAction, { error: '', success: false })

@@ -36,7 +36,7 @@ export default function AdminError({
           Server Error
         </p>
         <h2 style={{ fontSize: '18px', fontWeight: 700, color: '#f0f4f8', marginBottom: '8px' }}>
-          Something went wrong loading the dashboard
+          Something went wrong
         </h2>
         <p style={{ fontSize: '13px', color: '#4a6a7a', marginBottom: '8px' }}>
           {error.message || 'An unexpected error occurred.'}
