@@ -10,6 +10,12 @@ function esc(str: string): string {
     .replace(/"/g, '&quot;')
 }
 
+/** Allow only http(s) URLs; everything else (javascript:, data:, etc.) returns ''. */
+function safeUrl(url: string): string {
+  const u = url.trim()
+  return /^https?:\/\//i.test(u) ? u : ''
+}
+
 /**
  * Build the HTML string used inside a Leaflet popup for a given client.
  * Every optional field degrades gracefully — no empty gaps.
@@ -17,9 +23,10 @@ function esc(str: string): string {
 export function buildPopupHtml(client: Client): string {
   const parts: string[] = []
 
-  if (client.logoUrl) {
+  const logo = safeUrl(client.logoUrl)
+  if (logo) {
     parts.push(
-      `<img src="${esc(client.logoUrl)}" alt="${esc(client.name)} logo" ` +
+      `<img src="${esc(logo)}" alt="${esc(client.name)} logo" ` +
         `style="max-width:120px;max-height:40px;object-fit:contain;margin-bottom:6px;display:block;" />`
     )
   }
@@ -43,9 +50,10 @@ export function buildPopupHtml(client: Client): string {
     )
   }
 
-  if (client.website) {
+  const href = safeUrl(client.website)
+  if (href) {
     parts.push(
-      `<a href="${esc(client.website)}" target="_blank" rel="noopener" ` +
+      `<a href="${esc(href)}" target="_blank" rel="noopener" ` +
         `style="font-size:12px;color:#1cc7c3;font-weight:600;text-decoration:none;">Visit website →</a>`
     )
   }

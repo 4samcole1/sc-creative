@@ -49,9 +49,9 @@ describe('buildPopupHtml', () => {
   })
 
   it('includes logo img tag when logoUrl is set', () => {
-    const html = buildPopupHtml(makeClient({ logoUrl: '/logos/jasper-coffee.png' }))
+    const html = buildPopupHtml(makeClient({ logoUrl: 'https://example.com/logos/jasper-coffee.png' }))
     expect(html).toContain('<img')
-    expect(html).toContain('/logos/jasper-coffee.png')
+    expect(html).toContain('https://example.com/logos/jasper-coffee.png')
   })
 
   it('omits logo img when logoUrl is empty', () => {
@@ -77,14 +77,30 @@ describe('buildPopupHtml', () => {
 
   it('omits blurb when empty', () => {
     const html = buildPopupHtml(makeClient({ blurb: '' }))
-    // name is always present, but there should be no blurb paragraph if blurb is empty
-    const withBlurb = buildPopupHtml(makeClient({ blurb: 'some text' }))
-    const withoutBlurb = buildPopupHtml(makeClient({ blurb: '' }))
-    expect(withBlurb.length).toBeGreaterThan(withoutBlurb.length)
+    // Should not contain a <p> element for blurb, nor any blurb text
+    expect(html).not.toContain('<p ')
+    expect(html).not.toContain('some text')
   })
 
   it('uses teal color for website link', () => {
     const html = buildPopupHtml(makeClient({ website: 'https://example.com' }))
     expect(html).toContain('#1cc7c3')
+  })
+
+  // Security: XSS via javascript: protocol (I-1 & I-2)
+  it('does not render a link for javascript: website URL', () => {
+    const html = buildPopupHtml(makeClient({ website: 'javascript:alert(1)' }))
+    expect(html).not.toContain('javascript:')
+    expect(html).not.toContain('Visit website')
+  })
+
+  it('renders href for a valid https website URL', () => {
+    const html = buildPopupHtml(makeClient({ website: 'https://example.com' }))
+    expect(html).toContain('href="https://example.com"')
+  })
+
+  it('does not render an img for javascript: logoUrl', () => {
+    const html = buildPopupHtml(makeClient({ logoUrl: 'javascript:alert(1)' }))
+    expect(html).not.toContain('<img')
   })
 })
