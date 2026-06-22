@@ -1,4 +1,5 @@
 import { cache } from 'react'
+import { supabase } from '@/lib/supabase'
 
 // NOTE: This is a static, Supabase-free stub created during the fresh-start migration.
 // The original pulled these values from a `site_config` table. Now they're hardcoded
@@ -81,5 +82,21 @@ export const SITE_CONFIG_DEFAULTS: SiteConfig = {
   google_place_id:  '',
 }
 
-// Static for now — kept async + cached so call sites don't need to change.
-export const getSiteConfig = cache(async (): Promise<SiteConfig> => SITE_CONFIG_DEFAULTS)
+// Map a raw DB row onto SiteConfig, defaulting any null/missing field.
+export function rowToSiteConfig(row: Record<string, unknown> | null): SiteConfig {
+  const cfg: SiteConfig = { ...SITE_CONFIG_DEFAULTS }
+  if (!row) return cfg
+  for (const key of Object.keys(cfg) as (keyof SiteConfig)[]) {
+    const v = row[key as string]
+    if (v !== null && v !== undefined) (cfg as unknown as Record<string, unknown>)[key] = v
+  }
+  return cfg
+}
+
+// Reads the singleton config row. Cached per-render; fails soft to defaults so
+// a Supabase hiccup never blanks or unstyles the site.
+export const getSiteConfig = cache(async (): Promise<SiteConfig> => {
+  const { data, error } = await supabase.from('site_config').select('*').eq('id', 1).single()
+  if (error || !data) return SITE_CONFIG_DEFAULTS
+  return rowToSiteConfig(data as Record<string, unknown>)
+})
