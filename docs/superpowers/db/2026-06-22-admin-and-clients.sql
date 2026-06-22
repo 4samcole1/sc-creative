@@ -14,6 +14,11 @@ alter table admin_users enable row level security;
 -- No public policies: admin_users is read ONLY via the service-role key
 -- (which bypasses RLS). The anon client must never see it.
 
+-- Reconcile with any pre-existing admin_users table from the prior build
+-- (older versions lacked these columns):
+alter table admin_users add column if not exists name       text        not null default '';
+alter table admin_users add column if not exists created_at timestamptz not null default now();
+
 -- 2. Clients (single source of truth) -------------------------------------
 create table if not exists clients (
   id              uuid primary key default gen_random_uuid(),
