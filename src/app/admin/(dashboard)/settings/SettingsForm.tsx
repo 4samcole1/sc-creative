@@ -281,7 +281,7 @@ export default function SettingsForm({ config }: { config: SiteConfig }) {
             <p style={{ fontSize: `${config.h1_size}px`, fontWeight: config.h1_weight, color: '#c0d0e0', lineHeight: 1.1, marginBottom: '4px' }}>H1 Heading</p>
             <p style={{ fontSize: `${config.h2_size}px`, fontWeight: config.h2_weight, color: '#a0b4c4', lineHeight: 1.15, marginBottom: '4px' }}>H2 Heading</p>
             <p style={{ fontSize: `${config.h3_size}px`, fontWeight: config.h3_weight, color: '#809aaa', lineHeight: 1.2, marginBottom: '4px' }}>H3 Heading</p>
-            <p style={{ fontSize: `${config.h4_size}px`, fontWeight: config.h4_weight, color: '#6080909', lineHeight: 1.3, marginBottom: '8px' }}>H4 Heading</p>
+            <p style={{ fontSize: `${config.h4_size}px`, fontWeight: config.h4_weight, color: '#608090', lineHeight: 1.3, marginBottom: '8px' }}>H4 Heading</p>
             <p style={{ fontSize: `${config.body_size}px`, fontWeight: config.body_weight, lineHeight: config.body_line_height, color: '#4a6a7a' }}>
               Body — The quick brown fox jumps over the lazy dog. 0123456789
             </p>

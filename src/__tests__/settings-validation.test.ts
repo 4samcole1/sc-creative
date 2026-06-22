@@ -29,4 +29,11 @@ describe('validateSettings', () => {
     expect(validateSettings({ ...ok, h1_size: '24' })).toBeNull()
     expect(validateSettings({ ...ok, h1_size: '128' })).toBeNull()
   })
+  it('rejects a social URL without an http(s) scheme', () => {
+    expect(validateSettings({ ...ok, facebook_url: 'javascript:alert(1)' })).toMatch(/Facebook URL/i)
+  })
+  it('accepts empty social URLs and valid https ones', () => {
+    expect(validateSettings({ ...ok, facebook_url: '' })).toBeNull()
+    expect(validateSettings({ ...ok, instagram_url: 'https://instagram.com/sc' })).toBeNull()
+  })
 })

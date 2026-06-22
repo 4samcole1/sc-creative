@@ -1,9 +1,9 @@
 import { cache } from 'react'
 import { supabase } from '@/lib/supabase'
 
-// NOTE: This is a static, Supabase-free stub created during the fresh-start migration.
-// The original pulled these values from a `site_config` table. Now they're hardcoded
-// design defaults — edit them here, or wire up a real data source when you're ready.
+// NOTE: Values are read from the Supabase `site_config` row at runtime.
+// SITE_CONFIG_DEFAULTS serves as the fallback when the row is missing or
+// a Supabase error occurs, so the site never renders unstyled.
 
 export interface SiteConfig {
   // Business

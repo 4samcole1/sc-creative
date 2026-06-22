@@ -9,6 +9,14 @@ const COLOR_FIELDS: [string, string][] = [
   ['Text color',    'color_text'],
 ]
 
+const SOCIAL_FIELDS: [string, string][] = [
+  ['Facebook URL',  'facebook_url'],
+  ['Instagram URL', 'instagram_url'],
+  ['LinkedIn URL',  'linkedin_url'],
+  ['Twitter URL',   'twitter_url'],
+  ['YouTube URL',   'youtube_url'],
+]
+
 // [label, formKey, min, max, kind]
 const NUMERIC_FIELDS: [string, string, number, number, 'int' | 'float'][] = [
   ['H1 size',     'h1_size',          24,  128, 'int'],
@@ -33,6 +41,11 @@ export function validateSettings(raw: Record<string, string>): string | null {
   }
   if (!SAFE_FONTS.includes((raw.font_heading ?? '').trim())) return 'Invalid heading font'
   if (!SAFE_FONTS.includes((raw.font_body ?? '').trim()))    return 'Invalid body font'
+
+  for (const [label, key] of SOCIAL_FIELDS) {
+    const v = (raw[key] ?? '').trim()
+    if (v && !/^https?:\/\//i.test(v)) return `${label} must start with http:// or https://`
+  }
 
   for (const [label, key, min, max, kind] of NUMERIC_FIELDS) {
     const v = kind === 'int' ? parseInt(raw[key], 10) : parseFloat(raw[key])

@@ -79,7 +79,8 @@ export async function uploadLogoAction(
   if (uploadErr) return { error: uploadErr.message, url: _prev.url }
 
   const { data: { publicUrl } } = client.storage.from('logos').getPublicUrl(filename)
-  await client.from('site_config').upsert({ id: 1, [field]: publicUrl, updated_at: new Date().toISOString() })
+  const { error: dbErr } = await client.from('site_config').upsert({ id: 1, [field]: publicUrl, updated_at: new Date().toISOString() })
+  if (dbErr) return { error: dbErr.message, url: _prev.url }
 
   revalidatePath('/', 'layout')
   return { error: '', url: publicUrl }
