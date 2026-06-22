@@ -8,8 +8,6 @@ import { sessionOptions, type SessionData } from '@/lib/session'
 import type { SiteConfig } from '@/lib/site-config'
 import { validateSettings } from './validation'
 
-export type { SiteConfig }
-
 async function requireSession() {
   const session = await getIronSession<SessionData>(await cookies(), sessionOptions)
   if (!session.isLoggedIn) redirect('/login')
