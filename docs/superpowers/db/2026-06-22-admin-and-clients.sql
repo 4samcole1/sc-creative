@@ -47,7 +47,7 @@ create policy "clients are publicly readable"
 -- Generate each hash locally first (Task 2 documents the command), then paste:
 insert into admin_users (email, name, password_hash) values
   ('sam@samcolecreative.com', 'Sam Cole', '<<BCRYPT_HASH_SAM>>'),
-  ('<<BRIAN_EMAIL>>',         'Brian',    '<<BCRYPT_HASH_BRIAN>>')
+  ('brian@brighttribe.com',   'Brian',    '<<BCRYPT_HASH_BRIAN>>')
 on conflict (email) do nothing;
 
 -- 4. Seed clients ---------------------------------------------------------
