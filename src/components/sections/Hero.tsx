@@ -34,7 +34,10 @@ const cards = [
 
 export default function Hero() {
   return (
-    <section className="relative w-full h-screen overflow-hidden">
+    <section
+      className="relative w-full"
+      style={{ background: '#f4f7fb', overflow: 'hidden' }}
+    >
       <style>{`
         @keyframes left-enter {
           from { opacity: 0; transform: translateY(16px); }
@@ -52,16 +55,25 @@ export default function Hero() {
           transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
         }
         .hero-feat-card:hover {
-          background: rgba(20,34,50,0.9) !important;
+          background: #ffffff !important;
           transform: translateX(5px);
-          box-shadow: 0 8px 32px rgba(0,0,0,0.28);
+          box-shadow: 0 12px 32px rgba(13,21,32,0.12);
         }
       `}</style>
 
-      {/* Base dark background */}
-      <div className="absolute inset-0" style={{ background: '#0b1520' }} />
+      {/* Grid texture — dark lines, full bleed across the light background */}
+      <div
+        aria-hidden
+        className="absolute inset-0"
+        style={{
+          backgroundImage:
+            'linear-gradient(rgba(13,21,32,0.022) 1px, transparent 1px), linear-gradient(90deg, rgba(13,21,32,0.022) 1px, transparent 1px)',
+          backgroundSize: '48px 48px',
+          pointerEvents: 'none',
+        }}
+      />
 
-      {/* Animated node network */}
+      {/* Animated node network (teal on light) */}
       <HeroNetwork />
 
       {/* Radial teal glow — upper right */}
@@ -69,23 +81,25 @@ export default function Hero() {
         className="absolute inset-0"
         style={{
           background:
-            'radial-gradient(ellipse 55% 65% at 85% 40%, rgba(28,199,195,0.07) 0%, transparent 70%)',
+            'radial-gradient(ellipse 55% 65% at 85% 40%, rgba(28,199,195,0.10) 0%, transparent 70%)',
         }}
       />
 
-      {/* Subtle left vignette so text stays crisp */}
+      {/* Soft left wash so text stays crisp on the light background */}
       <div
         className="absolute inset-0"
         style={{
           background:
-            'linear-gradient(90deg, rgba(11,21,32,0.55) 0%, rgba(11,21,32,0.15) 55%, transparent 100%)',
+            'linear-gradient(90deg, rgba(244,247,251,0.85) 0%, rgba(244,247,251,0.35) 50%, transparent 100%)',
         }}
       />
 
       {/* Content grid */}
+      {/* nav is fixed (bottom edge at 88px); paddingTop = 88 + gap so the space
+          below the nav equals the space below the hero text (gap = 72px) */}
       <div
-        className="relative z-10 h-full flex items-center"
-        style={{ paddingTop: '88px' }}
+        className="relative z-10"
+        style={{ width: '100%', paddingTop: '160px', paddingBottom: '72px' }}
       >
         <div
           style={{
@@ -108,35 +122,27 @@ export default function Hero() {
             <h1
               style={{
                 ...t.h1,
-                color: '#f5f7fb',
+                color: '#0b1520',
                 marginBottom: '24px',
               }}
             >
               Build a Smarter Foundation for{' '}
-              <span style={{ color: '#1cc7c3' }}>Growth.</span>
+              <span style={{ color: '#13a9a6' }}>Growth.</span>
             </h1>
 
-            <p style={{ ...t.body, color: '#9aaab6', marginBottom: '10px', maxWidth: '620px' }}>
+            <p style={{ ...t.body, color: '#5a6a7a', marginBottom: '10px', maxWidth: '620px' }}>
               SC Creative helps businesses across Jasper, Walker County, and beyond grow through
               strategic clarity, modern branding, high-performance websites, and intelligent systems.
             </p>
 
-            <p style={{ ...t.body, color: '#9aaab6', marginBottom: '36px', maxWidth: '620px' }}>
+            <p style={{ ...t.body, color: '#5a6a7a', marginBottom: '36px', maxWidth: '620px' }}>
               Whether you&apos;re launching, modernizing, or scaling — we build the infrastructure
               behind long-term success.
             </p>
 
-            <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '36px' }}>
+            <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
               <Btn href="/contact" variant="primary">Start Your Project +</Btn>
-              <Btn href="/process" variant="ghost">Explore Our Process</Btn>
-            </div>
-
-            <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', color: '#7a8898', fontSize: '13px', lineHeight: 1.55 }}>
-              <MapPin size={15} style={{ color: '#1cc7c3', flexShrink: 0, marginTop: '2px' }} />
-              <span>
-                Proudly based in Jasper, Alabama — serving Walker County, Greater Birmingham,
-                Northwest Alabama, and businesses nationwide.
-              </span>
+              <Btn href="/process" variant="light">Explore Our Process</Btn>
             </div>
           </div>
 
@@ -154,11 +160,12 @@ export default function Hero() {
                   gap: '16px',
                   padding: '20px 22px',
                   borderRadius: '14px',
-                  background: 'rgba(14,24,36,0.65)',
-                  border: '1px solid rgba(255,255,255,0.07)',
+                  background: 'rgba(255,255,255,0.72)',
+                  border: '1px solid rgba(13,21,32,0.08)',
                   borderLeft: '3px solid #1cc7c3',
                   backdropFilter: 'blur(12px)',
                   WebkitBackdropFilter: 'blur(12px)',
+                  boxShadow: '0 6px 22px rgba(13,21,32,0.06)',
                   textDecoration: 'none',
                 }}
               >
@@ -167,30 +174,30 @@ export default function Hero() {
                     width: '42px',
                     height: '42px',
                     borderRadius: '10px',
-                    background: 'rgba(28,199,195,0.1)',
-                    border: '1px solid rgba(28,199,195,0.15)',
+                    background: 'rgba(28,199,195,0.12)',
+                    border: '1px solid rgba(28,199,195,0.25)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     flexShrink: 0,
                   }}
                 >
-                  <Icon size={19} style={{ color: '#1cc7c3' }} />
+                  <Icon size={19} style={{ color: '#0EB1AB' }} />
                 </div>
 
                 <div style={{ flex: 1, minWidth: 0 }}>
-                  <p style={{ fontSize: '14px', fontWeight: 700, color: '#f0f4f8', lineHeight: 1.2, marginBottom: '3px' }}>
+                  <p style={{ fontSize: '14px', fontWeight: 700, color: '#0b1520', lineHeight: 1.2, marginBottom: '3px' }}>
                     {title}
                   </p>
-                  <p style={{ fontSize: '12px', color: '#5e7080', lineHeight: 1.4, marginBottom: '4px' }}>
+                  <p style={{ fontSize: '12px', color: '#8a98a6', lineHeight: 1.4, marginBottom: '4px' }}>
                     {tagline}
                   </p>
-                  <p style={{ fontSize: '12px', color: '#7a8fa0', lineHeight: 1.5 }}>
+                  <p style={{ fontSize: '12px', color: '#5a6a7a', lineHeight: 1.5 }}>
                     {desc}
                   </p>
                 </div>
 
-                <span style={{ fontSize: '14px', color: '#2a4558', flexShrink: 0 }}>→</span>
+                <span style={{ fontSize: '14px', color: '#b0bcc8', flexShrink: 0 }}>→</span>
               </Link>
             ))}
           </div>

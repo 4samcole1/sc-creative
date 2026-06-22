@@ -473,7 +473,7 @@ const MODULES = ['CRM', 'Reporting', 'Scheduling', 'Automations', 'Analytics', '
 
 export default function Systems() {
   return (
-    <section style={{ background: '#070d17', padding: '120px 0' }}>
+    <section style={{ background: '#070d17', padding: '72px 0' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 40px' }}>
         <div style={{ display: 'grid', gridTemplateColumns: '42fr 58fr', gap: '72px', alignItems: 'center' }}>
 
