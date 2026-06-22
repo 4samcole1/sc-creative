@@ -22,10 +22,16 @@ function fontStack(name: string) {
   return `${FONT_VAR[name] ?? FONT_VAR.poppins}, ui-sans-serif, system-ui, sans-serif`
 }
 
-export const metadata: Metadata = {
-  title: { default: "SC Creative — Walker County's Growth Partner", template: '%s | SC Creative' },
-  description: 'We build the digital systems that grow local businesses in Walker County, AL.',
-  metadataBase: new URL('https://samcolecreative.com'),
+export async function generateMetadata(): Promise<Metadata> {
+  const cfg = await getSiteConfig()
+  return {
+    title: {
+      default: cfg.meta_title || "SC Creative — Walker County's Growth Partner",
+      template: '%s | SC Creative',
+    },
+    description: cfg.meta_description || 'We build the digital systems that grow local businesses in Walker County, AL.',
+    metadataBase: new URL('https://samcolecreative.com'),
+  }
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {

@@ -13,7 +13,17 @@ export default async function MarketingLayout({ children }: { children: React.Re
     <>
       <Nav logoDarkUrl={cfg.logo_dark_url} links={navLinks} />
       <main className="flex-1">{children}</main>
-      <Footer logoLightUrl={cfg.logo_light_url} />
+      <Footer
+        logoLightUrl={cfg.logo_light_url}
+        phone={cfg.phone}
+        email={cfg.email}
+        address={cfg.address}
+        facebookUrl={cfg.facebook_url}
+        instagramUrl={cfg.instagram_url}
+        linkedinUrl={cfg.linkedin_url}
+        twitterUrl={cfg.twitter_url}
+        youtubeUrl={cfg.youtube_url}
+      />
     </>
   )
 }

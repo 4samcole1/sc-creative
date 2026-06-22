@@ -21,16 +21,25 @@ const resources = [
   { label: 'Careers',      href: '/careers' },
 ]
 
-const socials = [
-  { id: 'fb', label: 'Facebook',  href: '#' },
-  { id: 'ig', label: 'Instagram', href: '#' },
-  { id: 'li', label: 'LinkedIn',  href: '#' },
-  { id: 'tw', label: 'Twitter',   href: '#' },
-  { id: 'yt', label: 'YouTube',   href: '#' },
-]
-
-export default function Footer({ logoLightUrl }: { logoLightUrl?: string }) {
+export default function Footer({
+  logoLightUrl, phone, email, address,
+  facebookUrl, instagramUrl, linkedinUrl, twitterUrl, youtubeUrl,
+}: {
+  logoLightUrl?: string; phone?: string; email?: string; address?: string
+  facebookUrl?: string; instagramUrl?: string; linkedinUrl?: string
+  twitterUrl?: string; youtubeUrl?: string
+}) {
   const logoSrc = logoLightUrl || '/images/logo-white.png'
+  const displayPhone = phone || '(678) 997-1106'
+  const displayEmail = email || 'info@samcolecreative.com'
+  const displayAddress = address || 'Jasper, AL'
+  const socials = [
+    { id: 'fb', label: 'Facebook',  href: facebookUrl },
+    { id: 'ig', label: 'Instagram', href: instagramUrl },
+    { id: 'li', label: 'LinkedIn',  href: linkedinUrl },
+    { id: 'tw', label: 'Twitter',   href: twitterUrl },
+    { id: 'yt', label: 'YouTube',   href: youtubeUrl },
+  ].filter((s): s is { id: string; label: string; href: string } => Boolean(s.href))
 
   return (
     <footer style={{ background: '#020617' }} className="text-white pt-20 pb-8">
@@ -93,15 +102,15 @@ export default function Footer({ logoLightUrl }: { logoLightUrl?: string }) {
           <div>
             <div className="text-[11px] font-bold tracking-[0.15em] uppercase text-white/30 mb-5">Contact</div>
             <ul className="space-y-3 mb-6">
-              <li className="text-white/50 text-sm">Jasper, AL</li>
+              <li className="text-white/50 text-sm">{displayAddress}</li>
               <li>
-                <a href="mailto:info@samcolecreative.com" className="text-white/50 hover:text-white text-sm transition-colors">
-                  info@samcolecreative.com
+                <a href={`mailto:${displayEmail}`} className="text-white/50 hover:text-white text-sm transition-colors">
+                  {displayEmail}
                 </a>
               </li>
               <li>
-                <a href="tel:+16789971106" className="text-white/50 hover:text-white text-sm transition-colors">
-                  (678) 997-1106
+                <a href={`tel:${displayPhone.replace(/[^0-9+]/g, '')}`} className="text-white/50 hover:text-white text-sm transition-colors">
+                  {displayPhone}
                 </a>
               </li>
             </ul>
