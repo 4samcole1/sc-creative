@@ -42,7 +42,7 @@ Single row keyed by a fixed id so reads/writes always target the same record:
 
 ```sql
 create table if not exists site_config (
-  id   text primary key default 'default',
+  id   int  primary key default 1,
   -- business
   business_name text not null default '',
   tagline text not null default '',
@@ -77,13 +77,13 @@ create table if not exists site_config (
   logo_dark_url text not null default '/images/logo-dark.png',
   google_place_id text not null default '',
   updated_at timestamptz not null default now(),
-  constraint site_config_singleton check (id = 'default')
+  constraint site_config_singleton check (id = 1)
 );
 alter table site_config enable row level security;
 create policy "site_config is publicly readable"
   on site_config for select to anon, authenticated using (true);
 -- Writes only via service-role (admin), which bypasses RLS — no write policy.
-insert into site_config (id) values ('default') on conflict (id) do nothing;
+insert into site_config (id) values (1) on conflict (id) do nothing;
 ```
 
 Column names map 1:1 to the existing `SiteConfig` interface (snake_case already),
@@ -102,7 +102,7 @@ Keep the `SiteConfig` interface and `SITE_CONFIG_DEFAULTS` unchanged. Swap the
 
 ```ts
 export const getSiteConfig = cache(async (): Promise<SiteConfig> => {
-  const { data, error } = await supabase.from('site_config').select('*').eq('id', 'default').single()
+  const { data, error } = await supabase.from('site_config').select('*').eq('id', 1).single()
   if (error || !data) return SITE_CONFIG_DEFAULTS
   return rowToSiteConfig(data)   // merges row over defaults; any missing field falls back
 })
@@ -120,7 +120,7 @@ no call-site changes.
 - `actions.ts` (`'use server'`, ported): `saveSettingsAction` validates (hex
   colors `^#[0-9a-fA-F]{6}$`, fonts in the safe list, size/weight ranges:
   h1 24–128, h2 20–100, h3 16–80, h4 14–60, body 12–24, weights 100–900,
-  line-height 1–3) then **upserts** the `'default'` row via the service-role
+  line-height 1–3) then **upserts** the singleton row (`id = 1`) via the service-role
   client. `uploadLogoAction` uploads to `logos` and upserts the URL. Both call
   `requireSession()` first and `revalidatePath('/', 'layout')` after.
 - `validation.ts` (new, pure): `validateSettings(input)` extracted framework-free
@@ -143,7 +143,7 @@ no call-site changes.
 
 1. **Public render:** layouts `await getSiteConfig()` → anon read of the singleton
    → brand vars injected + Footer/metadata populated.
-2. **Admin save:** authenticated action → service-role upsert of `'default'` →
+2. **Admin save:** authenticated action → service-role upsert of the `id = 1` row →
    `revalidatePath('/', 'layout')` → next render restyles the whole site.
 
 ## Error handling
