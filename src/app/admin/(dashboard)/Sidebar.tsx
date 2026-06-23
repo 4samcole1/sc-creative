@@ -3,12 +3,13 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
-import { LayoutDashboard, Users, Settings, LogOut } from 'lucide-react'
+import { LayoutDashboard, Users, Settings, Inbox, LogOut } from 'lucide-react'
 import { logoutAction } from '@/app/login/actions'
 
 const nav = [
   { label: 'Dashboard', href: '/admin',          Icon: LayoutDashboard },
   { label: 'Clients',   href: '/admin/clients',  Icon: Users },
+  { label: 'Leads',    href: '/admin/leads',    Icon: Inbox },
   { label: 'Settings',  href: '/admin/settings', Icon: Settings },
   // Next increment (own spec):
   // { label: 'Blog', href: '/admin/posts', Icon: FileText },
