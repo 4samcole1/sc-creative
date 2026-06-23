@@ -473,24 +473,24 @@ const MODULES = ['CRM', 'Reporting', 'Scheduling', 'Automations', 'Analytics', '
 
 export default function Systems() {
   return (
-    <section style={{ background: '#070d17', padding: '72px 0' }}>
+    <section style={{ background: '#ffffff', padding: '72px 0' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 40px' }}>
         <div style={{ display: 'grid', gridTemplateColumns: '42fr 58fr', gap: '72px', alignItems: 'center' }}>
 
           {/* Left */}
           <div>
             <p style={{ ...t.eyebrow, marginBottom: '20px' }}>Modern Business Infrastructure</p>
-            <h2 style={{ ...t.h2, color: '#f0f4f8', marginBottom: '24px' }}>
+            <h2 style={{ ...t.h2, color: '#0b1520', marginBottom: '24px' }}>
               If There&apos;s a Smarter Way to Build It,{' '}
               <span style={{ color: '#1cc7c3' }}>We&apos;ll Help Create It.</span>
             </h2>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', marginBottom: '36px' }}>
-              <p style={{ ...t.body, color: '#7a8898', margin: 0 }}>
+              <p style={{ ...t.body, color: '#5a6a7a', margin: 0 }}>
                 From custom applications and client portals to intelligent automations, dashboard
                 reporting systems, and operational infrastructure — we help businesses modernize
                 the way they work.
               </p>
-              <p style={{ ...t.body, color: '#7a8898', margin: 0 }}>
+              <p style={{ ...t.body, color: '#5a6a7a', margin: 0 }}>
                 Whether it&apos;s managing leads, streamlining workflows, improving visibility, or
                 automating repetitive tasks, we build solutions designed around how your business
                 actually operates.
