@@ -106,7 +106,7 @@ export default function Approach() {
   const [hoveredItem, setHoveredItem] = useState<{ desc: string; isTrad: boolean } | null>(null)
 
   return (
-    <section style={{ background: '#f5f7fb', padding: '72px 0' }}>
+    <section style={{ background: 'var(--section-light)', padding: '72px 0' }}>
       <style>{`
         .approach-card-trad {
           transition: transform 0.25s ease, box-shadow 0.25s ease;

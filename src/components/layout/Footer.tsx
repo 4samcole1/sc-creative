@@ -42,7 +42,7 @@ export default function Footer({
   ].filter((s): s is { id: string; label: string; href: string } => Boolean(s.href))
 
   return (
-    <footer style={{ background: '#020617' }} className="text-white pt-20 pb-8">
+    <footer style={{ background: 'var(--section-dark)' }} className="text-white pt-20 pb-8">
       <div className="max-w-[1200px] mx-auto px-10">
         <div className="grid grid-cols-4 gap-12 mb-16">
           {/* Brand */}

@@ -11,7 +11,7 @@ export default async function ClientMap() {
   const cityCount = new Set(clients.map(c => `${c.city}, ${c.state}`)).size
 
   return (
-    <section style={{ background: '#070d17', padding: '120px 0' }}>
+    <section style={{ background: 'var(--section-dark)', padding: '120px 0' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 40px' }}>
         <div
           style={{

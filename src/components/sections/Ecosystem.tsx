@@ -300,7 +300,7 @@ export default function Ecosystem() {
     <section
       style={{
         position: 'relative',
-        background: '#050a12',
+        background: 'var(--section-dark)',
         padding: '72px 0',
         overflow: 'hidden',
       }}

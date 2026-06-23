@@ -195,7 +195,7 @@ export default function Services() {
   const showArrow = progress < 0.92
 
   return (
-    <div ref={sectionRef} style={{ height: '270vh', position: 'relative', background: '#0b1520' }}>
+    <div ref={sectionRef} style={{ height: '270vh', position: 'relative', background: 'var(--section-dark)' }}>
       <style>{`
         @keyframes bounce-down {
           0%, 100% { transform: translateY(0); opacity: 0.6; }

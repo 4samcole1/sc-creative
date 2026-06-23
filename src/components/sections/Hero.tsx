@@ -8,7 +8,7 @@ export default function Hero() {
   return (
     <section
       className="relative w-full"
-      style={{ background: '#f4f7fb', overflow: 'hidden' }}
+      style={{ background: 'var(--section-light)', overflow: 'hidden' }}
     >
       <style>{`
         @keyframes left-enter {

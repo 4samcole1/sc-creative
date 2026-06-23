@@ -33,6 +33,14 @@
   --font-sans: var(--brand-font-body, var(--font-poppins), ui-sans-serif, system-ui, sans-serif);
 }
 
+/* Global section backgrounds — change here, every section updates.
+   --section-dark matches the Ecosystem section; --section-light is the shared
+   off-white used by every light section. */
+:root {
+  --section-dark:  #050a12;
+  --section-light: #f4f7fb;
+}
+
 html { scroll-behavior: smooth; }
 body { overflow-x: hidden; }
 
