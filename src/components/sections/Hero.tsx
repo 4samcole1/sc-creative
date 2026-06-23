@@ -1,36 +1,8 @@
 // src/components/sections/Hero.tsx
-import Link from 'next/link'
-import { MapPin, Settings, TrendingUp } from 'lucide-react'
 import HeroNetwork from './HeroNetwork'
 import Btn from '@/components/ui/Btn'
+import OnboardingForm from './OnboardingForm'
 import { t } from '@/lib/typography'
-
-const cards = [
-  {
-    Icon: MapPin,
-    title: 'Local Focus',
-    tagline: 'Walker County & Beyond',
-    desc: 'Rooted in Jasper, built for your market.',
-    href: '/about',
-    delay: '0.5s',
-  },
-  {
-    Icon: Settings,
-    title: 'Modern Solutions',
-    tagline: 'Design & Intelligent Systems',
-    desc: 'Strategy, branding, websites, and AI — integrated.',
-    href: '/services',
-    delay: '0.65s',
-  },
-  {
-    Icon: TrendingUp,
-    title: 'Growth Driven',
-    tagline: 'Built to Scale. Built to Last.',
-    desc: 'Every system we build compounds over time.',
-    href: '/services/growth',
-    delay: '0.8s',
-  },
-]
 
 export default function Hero() {
   return (
@@ -146,61 +118,8 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* ── Right column — 3 stacked feature cards ── */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-            {cards.map(({ Icon, title, tagline, desc, href, delay }) => (
-              <Link
-                key={title}
-                href={href}
-                className="hero-feat-card"
-                style={{
-                  animationDelay: delay,
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '16px',
-                  padding: '20px 22px',
-                  borderRadius: '14px',
-                  background: 'rgba(255,255,255,0.72)',
-                  border: '1px solid rgba(13,21,32,0.08)',
-                  borderLeft: '3px solid #1cc7c3',
-                  backdropFilter: 'blur(12px)',
-                  WebkitBackdropFilter: 'blur(12px)',
-                  boxShadow: '0 6px 22px rgba(13,21,32,0.06)',
-                  textDecoration: 'none',
-                }}
-              >
-                <div
-                  style={{
-                    width: '42px',
-                    height: '42px',
-                    borderRadius: '10px',
-                    background: 'rgba(28,199,195,0.12)',
-                    border: '1px solid rgba(28,199,195,0.25)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    flexShrink: 0,
-                  }}
-                >
-                  <Icon size={19} style={{ color: '#0EB1AB' }} />
-                </div>
-
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <p style={{ fontSize: '14px', fontWeight: 700, color: '#0b1520', lineHeight: 1.2, marginBottom: '3px' }}>
-                    {title}
-                  </p>
-                  <p style={{ fontSize: '12px', color: '#8a98a6', lineHeight: 1.4, marginBottom: '4px' }}>
-                    {tagline}
-                  </p>
-                  <p style={{ fontSize: '12px', color: '#5a6a7a', lineHeight: 1.5 }}>
-                    {desc}
-                  </p>
-                </div>
-
-                <span style={{ fontSize: '14px', color: '#b0bcc8', flexShrink: 0 }}>→</span>
-              </Link>
-            ))}
-          </div>
+          {/* ── Right column — onboarding / quote form ── */}
+          <OnboardingForm />
         </div>
       </div>
     </section>
