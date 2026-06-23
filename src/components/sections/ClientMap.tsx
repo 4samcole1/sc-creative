@@ -4,6 +4,7 @@
 import { getMapClients } from '@/lib/clients-data'
 import { t } from '@/lib/typography'
 import MapCanvas from './MapCanvas'
+import SectionBackdrop from './SectionBackdrop'
 
 export default async function ClientMap() {
   const clients = await getMapClients()
@@ -11,8 +12,9 @@ export default async function ClientMap() {
   const cityCount = new Set(clients.map(c => `${c.city}, ${c.state}`)).size
 
   return (
-    <section style={{ background: 'var(--section-dark)', padding: '120px 0' }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 40px' }}>
+    <section style={{ position: 'relative', overflow: 'hidden', background: 'var(--section-dark)', padding: '120px 0' }}>
+      <SectionBackdrop glowLeft="22%" />
+      <div style={{ position: 'relative', zIndex: 1, maxWidth: '1200px', margin: '0 auto', padding: '0 40px' }}>
         <div
           style={{
             display: 'grid',

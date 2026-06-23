@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
 import { t } from '@/lib/typography'
+import SectionBackdrop from './SectionBackdrop'
 
 const CARD_H = 152
 const CARD_GAP = 16
@@ -233,8 +234,11 @@ export default function Services() {
           alignItems: 'center',
         }}
       >
+        <SectionBackdrop glowTop="14%" glowLeft="26%" />
         <div
           style={{
+            position: 'relative',
+            zIndex: 1,
             maxWidth: '1200px',
             width: '100%',
             margin: '0 auto',

@@ -2,6 +2,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import Btn from '@/components/ui/Btn'
+import SectionBackdrop from '@/components/sections/SectionBackdrop'
 
 const quickLinks = [
   { label: 'Work',         href: '/work' },
@@ -42,8 +43,9 @@ export default function Footer({
   ].filter((s): s is { id: string; label: string; href: string } => Boolean(s.href))
 
   return (
-    <footer style={{ background: 'var(--section-dark)' }} className="text-white pt-20 pb-8">
-      <div className="max-w-[1200px] mx-auto px-10">
+    <footer style={{ position: 'relative', overflow: 'hidden', background: 'var(--section-dark)' }} className="text-white pt-20 pb-8">
+      <SectionBackdrop glow={false} />
+      <div className="max-w-[1200px] mx-auto px-10 relative z-10">
         <div className="grid grid-cols-4 gap-12 mb-16">
           {/* Brand */}
           <div>
