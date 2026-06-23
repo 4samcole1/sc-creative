@@ -27,4 +27,13 @@ describe('validateLead', () => {
   it('rejects a malformed email', () => {
     expect(validateLead(input({ email: 'not-an-email' }))).toMatch(/valid email/i)
   })
+  it('rejects an over-long notes field', () => {
+    expect(validateLead(input({ notes: 'x'.repeat(5001) }))).toMatch(/too long/i)
+  })
+  it('rejects an oversized services array', () => {
+    expect(validateLead(input({ services: Array(21).fill('Website') }))).toMatch(/too many services/i)
+  })
+  it('rejects an over-long single field', () => {
+    expect(validateLead(input({ business_name: 'x'.repeat(501) }))).toMatch(/too long/i)
+  })
 })

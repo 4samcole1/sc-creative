@@ -24,5 +24,14 @@ export function validateLead(input: LeadInput): string | null {
   const email = input.email.trim()
   if (!email) return 'Email is required'
   if (!EMAIL_RE.test(email)) return 'Please enter a valid email address'
+  if (email.length > 254) return 'Email is too long'
+  if (input.notes.length > 5000) return 'Message is too long (5000 character max)'
+  if (input.services.length > 20) return 'Too many services selected'
+  if (input.services.some(s => s.length > 100)) return 'Invalid service selection'
+  const boundedFields = [
+    input.challenge, input.industry, input.stage, input.budget, input.timeline,
+    input.has_website, input.name, input.business_name, input.phone,
+  ]
+  if (boundedFields.some(v => v.length > 500)) return 'One of the fields is too long'
   return null
 }
