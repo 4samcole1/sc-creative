@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { Zap, Lightbulb, Play } from 'lucide-react'
 import { t } from '@/lib/typography'
+import SectionBackdrop from './SectionBackdrop'
 
 interface Item {
   id: string
@@ -106,7 +107,8 @@ export default function Approach() {
   const [hoveredItem, setHoveredItem] = useState<{ desc: string; isTrad: boolean } | null>(null)
 
   return (
-    <section style={{ background: 'var(--section-light)', padding: '72px 0' }}>
+    <section style={{ position: 'relative', overflow: 'hidden', background: 'var(--section-light)', padding: '72px 0' }}>
+      <SectionBackdrop variant="light" />
       <style>{`
         .approach-card-trad {
           transition: transform 0.25s ease, box-shadow 0.25s ease;
@@ -124,7 +126,7 @@ export default function Approach() {
         }
       `}</style>
 
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 40px' }}>
+      <div style={{ position: 'relative', zIndex: 1, maxWidth: '1200px', margin: '0 auto', padding: '0 40px' }}>
         <div
           style={{
             display: 'grid',

@@ -7,6 +7,7 @@ import {
 } from 'lucide-react'
 import { t } from '@/lib/typography'
 import Btn from '@/components/ui/Btn'
+import SectionBackdrop from './SectionBackdrop'
 
 // ─── Tabs ───────────────────────────────────────────────────────────────
 const TABS = [
@@ -473,8 +474,9 @@ const MODULES = ['CRM', 'Reporting', 'Scheduling', 'Automations', 'Analytics', '
 
 export default function Systems() {
   return (
-    <section style={{ background: 'var(--section-light)', padding: '72px 0' }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 40px' }}>
+    <section style={{ position: 'relative', overflow: 'hidden', background: 'var(--section-light)', padding: '72px 0' }}>
+      <SectionBackdrop variant="light" />
+      <div style={{ position: 'relative', zIndex: 1, maxWidth: '1200px', margin: '0 auto', padding: '0 40px' }}>
         <div style={{ display: 'grid', gridTemplateColumns: '42fr 58fr', gap: '72px', alignItems: 'center' }}>
 
           {/* Left */}
