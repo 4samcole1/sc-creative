@@ -328,7 +328,7 @@ export default function Services() {
               {/* Pain points list */}
               <ul
                 style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '4px' }}
-                onMouseLeave={() => { setHoveredPain(null); setActivePain(null) }}
+                onMouseLeave={() => setHoveredPain(null)}
               >
                 {painPoints.map((point, i) => {
                   const isActive = activePain === i
