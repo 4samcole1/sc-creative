@@ -1,6 +1,6 @@
 import { validateClient } from '@/app/admin/(dashboard)/clients/validation'
 
-const ok = { name: 'Acme', city: 'Jasper', state: 'AL', industry: 'Roofing', lat: '', lng: '' }
+const ok = { name: 'Acme', city: 'Jasper', state: 'AL', industry: 'Roofing' }
 
 describe('validateClient', () => {
   it('returns null when required fields are present', () => {
@@ -11,11 +11,5 @@ describe('validateClient', () => {
     expect(validateClient({ ...ok, city: '' })).toMatch(/city/i)
     expect(validateClient({ ...ok, state: '' })).toMatch(/state/i)
     expect(validateClient({ ...ok, industry: '' })).toMatch(/industry/i)
-  })
-  it('rejects a non-numeric latitude', () => {
-    expect(validateClient({ ...ok, lat: 'abc' })).toMatch(/lat/i)
-  })
-  it('allows blank coordinates', () => {
-    expect(validateClient({ ...ok, lat: '', lng: '' })).toBeNull()
   })
 })

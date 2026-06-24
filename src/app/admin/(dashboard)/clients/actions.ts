@@ -6,6 +6,7 @@ import { cookies } from 'next/headers'
 import { createAdminClient } from '@/lib/supabase-admin'
 import { sessionOptions, type SessionData } from '@/lib/session'
 import type { ClientRow } from '@/lib/clients-data'
+import { geocode } from '@/lib/geocode'
 import { validateClient, type ClientInput } from './validation'
 
 async function requireSession() {
@@ -30,21 +31,17 @@ export async function upsertClientAction(
     city:     (formData.get('city')     as string) ?? '',
     state:    (formData.get('state')    as string) ?? '',
     industry: (formData.get('industry') as string) ?? '',
-    lat:      (formData.get('lat')      as string) ?? '',
-    lng:      (formData.get('lng')      as string) ?? '',
   }
 
   const error = validateClient(input)
   if (error) return { error, success: false }
 
   const id = (formData.get('id') as string)?.trim() || null
-  const payload = {
+  const payload: Record<string, unknown> = {
     name:           input.name.trim(),
     city:           input.city.trim(),
     state:          input.state.trim(),
     industry:       input.industry.trim(),
-    lat:            input.lat.trim() ? Number(input.lat) : null,
-    lng:            input.lng.trim() ? Number(input.lng) : null,
     website:        ((formData.get('website')  as string) ?? '').trim(),
     logo_url:       ((formData.get('logo_url') as string) ?? '').trim(),
     blurb:          ((formData.get('blurb')    as string) ?? '').trim(),
@@ -53,6 +50,15 @@ export async function upsertClientAction(
     show_portfolio: formData.get('show_portfolio') === 'on',
     needs_review:   formData.get('needs_review') === 'on',
     updated_at:     new Date().toISOString(),
+  }
+
+  // Derive the map pin from City + State automatically (free OSM geocoding).
+  // On success we set the coordinates; on failure we leave them untouched
+  // (so an edit keeps any existing pin, and a new client just has no pin yet).
+  const geo = await geocode(`${input.city.trim()}, ${input.state.trim()}, USA`)
+  if (geo) {
+    payload.lat = geo.lat
+    payload.lng = geo.lng
   }
 
   const db = createAdminClient()

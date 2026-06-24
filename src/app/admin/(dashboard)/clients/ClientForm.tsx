@@ -24,10 +24,10 @@ export function ClientForm({ client }: { client?: Client }) {
         <FormField label="Blurb"    name="blurb"    value={client?.blurb}    type="textarea" hint="One line: what we did." />
       </FormCard>
 
-      <FormCard title="Map coordinates">
-        <FormField label="Latitude"  name="lat" value={client?.lat?.toString() ?? ''} hint="Blank = won't show on the map." />
-        <FormField label="Longitude" name="lng" value={client?.lng?.toString() ?? ''} hint="Blank = won't show on the map." />
-      </FormCard>
+      <p style={{ fontSize: '12px', color: '#5a7080', margin: '-4px 2px 0', lineHeight: 1.5 }}>
+        📍 The map pin is set automatically from the <strong style={{ color: '#7a90a0' }}>City + State</strong> above
+        when you save — no coordinates needed. Tick “Map” below to show this client on the map.
+      </p>
 
       <FormCard title="Placement">
         <label style={checkboxRow}>

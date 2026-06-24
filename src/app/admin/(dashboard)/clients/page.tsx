@@ -23,7 +23,7 @@ export default async function ClientsPage() {
       {clients.length === 0 ? (
         <EmptyState message="No clients yet. Add your first one." />
       ) : (
-        <AdminTable headers={['Name', 'Location', 'Industry', 'Placement', '']}>
+        <AdminTable headers={['Name', 'Location', 'Industry', 'Placement', 'Actions']}>
           {clients.map((c, i) => (
             <AdminTableRow key={c.id} last={i === clients.length - 1}>
               <AdminTableCell>
@@ -34,7 +34,12 @@ export default async function ClientsPage() {
               <AdminTableCell muted>{[c.city, c.state].filter(Boolean).join(', ') || '—'}</AdminTableCell>
               <AdminTableCell muted>{c.industry || '—'}</AdminTableCell>
               <AdminTableCell>{tag(c.show.trustBar, 'TRUST')}{tag(c.show.map, 'MAP')}{tag(c.show.portfolio, 'PORTFOLIO')}</AdminTableCell>
-              <AdminTableCell><DeleteButton action={deleteClientAction.bind(null, c.id)} noun="client" /></AdminTableCell>
+              <AdminTableCell>
+                <div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+                  <Link href={`/admin/clients/${c.id}/edit`} style={{ fontSize: '12px', fontWeight: 600, color: '#1cc7c3', textDecoration: 'none' }}>Edit</Link>
+                  <DeleteButton action={deleteClientAction.bind(null, c.id)} noun="client" />
+                </div>
+              </AdminTableCell>
             </AdminTableRow>
           ))}
         </AdminTable>
