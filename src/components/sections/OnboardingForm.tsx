@@ -1,6 +1,7 @@
 'use client'
 import { useActionState, useState } from 'react'
 import type { CSSProperties } from 'react'
+import { Lock, CheckCircle2, Clock } from 'lucide-react'
 import { submitLeadAction } from './lead-actions'
 import type { LeadInput } from './lead-validation'
 
@@ -194,9 +195,23 @@ export default function OnboardingForm() {
         )}
       </div>
 
-      <p style={{ fontSize: '11.5px', color: '#8a98a6', textAlign: 'center', marginTop: '14px', marginBottom: 0 }}>
-        🔒 No spam — just a real conversation. Takes about a minute.
-      </p>
+      <div style={{ marginTop: '16px', paddingTop: '14px', borderTop: '1px dashed rgba(13,21,32,0.12)' }}>
+        <p style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', fontSize: '12px', color: '#5a6a7a', margin: 0 }}>
+          <Lock size={12} /> No spam. Just real insights.
+        </p>
+        <div style={{ borderTop: '1px dashed rgba(13,21,32,0.12)', margin: '12px 0' }} />
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '9px 16px' }}>
+          {['Local Strategy', 'Website Insights', 'Brand Recommendations', 'AI Opportunities'].map(f => (
+            <div key={f} style={{ display: 'flex', alignItems: 'center', gap: '7px', fontSize: '12.5px', fontWeight: 700, color: '#0b1520' }}>
+              <CheckCircle2 size={15} color={TEAL} style={{ flexShrink: 0 }} /> {f}
+            </div>
+          ))}
+        </div>
+        <div style={{ borderTop: '1px dashed rgba(13,21,32,0.12)', margin: '12px 0 0' }} />
+        <p style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', fontSize: '12px', color: '#8a98a6', marginTop: '12px', marginBottom: 0 }}>
+          <Clock size={12} /> Takes less than 60 seconds
+        </p>
+      </div>
     </div>
   )
 }

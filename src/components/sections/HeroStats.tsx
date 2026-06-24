@@ -31,7 +31,7 @@ export default function HeroStats() {
       <div style={{ flex: 1, display: 'flex', alignItems: 'center', gap: '12px', padding: '2px 18px' }}>
         <Users size={26} strokeWidth={1.8} style={{ color: TEAL, flexShrink: 0 }} />
         <div>
-          <div style={{ fontSize: '20px', fontWeight: 800, color: INK, lineHeight: 1.1 }}>150+</div>
+          <div style={{ fontSize: '20px', fontWeight: 800, color: INK, lineHeight: 1.1 }}>200+</div>
           <div style={{ fontSize: '12.5px', color: MUTED }}>Businesses Helped</div>
         </div>
       </div>
