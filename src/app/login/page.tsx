@@ -1,12 +1,14 @@
 'use client'
-import { useActionState } from 'react'
+import { useActionState, useState } from 'react'
 import Image from 'next/image'
+import { Eye, EyeOff } from 'lucide-react'
 import { loginAction } from './actions'
 
 const initialState = { error: '' }
 
 export default function LoginPage() {
   const [state, formAction, isPending] = useActionState(loginAction, initialState)
+  const [showPassword, setShowPassword] = useState(false)
 
   return (
     <div
@@ -72,19 +74,36 @@ export default function LoginPage() {
               <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#7a8898', marginBottom: '6px', letterSpacing: '0.06em' }}>
                 PASSWORD
               </label>
-              <input
-                name="password"
-                type="password"
-                autoComplete="current-password"
-                required
-                style={{
-                  width: '100%', background: '#0d1a26', border: '1px solid rgba(255,255,255,0.08)',
-                  borderRadius: '8px', padding: '11px 14px', fontSize: '14px', color: '#e8eef4',
-                  outline: 'none', boxSizing: 'border-box',
-                }}
-                onFocus={e => (e.currentTarget.style.borderColor = 'rgba(28,199,195,0.4)')}
-                onBlur={e => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)')}
-              />
+              <div style={{ position: 'relative' }}>
+                <input
+                  name="password"
+                  type={showPassword ? 'text' : 'password'}
+                  autoComplete="current-password"
+                  required
+                  style={{
+                    width: '100%', background: '#0d1a26', border: '1px solid rgba(255,255,255,0.08)',
+                    borderRadius: '8px', padding: '11px 44px 11px 14px', fontSize: '14px', color: '#e8eef4',
+                    outline: 'none', boxSizing: 'border-box',
+                  }}
+                  onFocus={e => (e.currentTarget.style.borderColor = 'rgba(28,199,195,0.4)')}
+                  onBlur={e => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)')}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(v => !v)}
+                  aria-label={showPassword ? 'Hide password' : 'Show password'}
+                  title={showPassword ? 'Hide password' : 'Show password'}
+                  style={{
+                    position: 'absolute', top: '50%', right: '8px', transform: 'translateY(-50%)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    background: 'none', border: 'none', padding: '6px', cursor: 'pointer', color: '#5a7080',
+                  }}
+                  onMouseEnter={e => (e.currentTarget.style.color = '#1cc7c3')}
+                  onMouseLeave={e => (e.currentTarget.style.color = '#5a7080')}
+                >
+                  {showPassword ? <EyeOff size={17} /> : <Eye size={17} />}
+                </button>
+              </div>
             </div>
 
             {state.error && (
