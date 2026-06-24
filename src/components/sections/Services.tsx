@@ -326,7 +326,10 @@ export default function Services() {
               )}
 
               {/* Pain points list */}
-              <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '4px' }}>
+              <ul
+                style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '4px' }}
+                onMouseLeave={() => { setHoveredPain(null); setActivePain(null) }}
+              >
                 {painPoints.map((point, i) => {
                   const isActive = activePain === i
                   const isHov = hoveredPain === i
@@ -335,9 +338,8 @@ export default function Services() {
                       key={point.label}
                       className="pain-item"
                       style={{ color: isActive ? '#1cc7c3' : undefined }}
-                      onMouseEnter={() => setHoveredPain(i)}
-                      onMouseLeave={() => setHoveredPain(null)}
-                      onClick={() => setActivePain(isActive ? null : i)}
+                      onMouseEnter={() => { setHoveredPain(i); setActivePain(i) }}
+                      onClick={() => setActivePain(i)}
                     >
                       <span
                         className="pain-icon"
