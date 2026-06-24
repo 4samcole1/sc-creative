@@ -1,5 +1,6 @@
 // src/components/sections/Hero.tsx
 import HeroNetwork from './HeroNetwork'
+import HeroStats from './HeroStats'
 import Btn from '@/components/ui/Btn'
 import OnboardingForm from './OnboardingForm'
 import { t } from '@/lib/typography'
@@ -116,6 +117,8 @@ export default function Hero() {
               <Btn href="/contact" variant="primary">Start Your Project +</Btn>
               <Btn href="/process" variant="light">Explore Our Process</Btn>
             </div>
+
+            <HeroStats />
           </div>
 
           {/* ── Right column — onboarding / quote form ── */}
