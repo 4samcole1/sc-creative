@@ -80,7 +80,7 @@ export default function Hero() {
             margin: '0 auto',
             padding: '0 40px',
             display: 'grid',
-            gridTemplateColumns: '65fr 35fr',
+            gridTemplateColumns: '57fr 43fr',
             gap: '48px',
             alignItems: 'center',
           }}
